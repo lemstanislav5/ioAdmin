@@ -1,18 +1,26 @@
-import TextControlsExample from './components/pages/authorization/Authorization'
+import React from 'react';
+import Signin from './components/pages/authorization/Signin'
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import TopMenu from './components/top/TopMenu'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+const router = createBrowserRouter([
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+]);
 
 
 
 function App() {
   return (
     <Container fluid>
-      <Row>
-      <Col xs={3}>1 of 3</Col>
-        <Col xs={9}><TextControlsExample/></Col>
-      </Row>
+      <TopMenu/>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
     </Container>  
   );
 }

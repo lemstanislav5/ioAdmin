@@ -17,7 +17,7 @@ export default function Signin() {
             <Form.Label>Пароль</Form.Label>
             <Form.Control type="password" placeholder="*********" />
           </Form.Group>
-          <Button variant="primary">Вйти</Button>{' '}
+          <Button variant="primary">Войти</Button>{' '}
         </Form>
       </Col>
     </Row>

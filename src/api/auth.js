@@ -1,4 +1,4 @@
-import { instance } from "./api.config.js";
+import { instance } from "./config.js";
 
 const AuthService = {
     login (email, password) {

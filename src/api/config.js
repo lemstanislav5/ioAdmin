@@ -3,7 +3,7 @@ import axios from "axios";
 export const instance = axios.create({
   // к запросу будет приуепляться cookies
   withCredentials: true,
-  baseURL: "http://127.0.0.1:7000/",
+  baseURL: "http://localhost:7000/",
 });
 
 

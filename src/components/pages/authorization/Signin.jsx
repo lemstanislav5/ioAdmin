@@ -3,12 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import AuthStore from "./store/store.js";
+import AuthStore from "../../../store/store";
 
 export default function Signin() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const sendLogAndPass = () => {
+  const sendLogAndPass = (login, password) => {
     AuthStore.login(login, password)
   }
 
@@ -26,7 +26,7 @@ export default function Signin() {
             <Form.Label>Пароль</Form.Label>
             <Form.Control type="password" autoComplete="on" placeholder="*********" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           </Form.Group>
-          <Button variant="primary" onClick={() => console.log(login)}>Войти</Button>{' '}
+          <Button variant="primary" onClick={() => sendLogAndPass(login, password)}>Войти</Button>{' '}
         </Form>
       </Col>
     </Row>

@@ -9,10 +9,10 @@ class AuthStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  async login(email, password) {
+  async login(login, password) {
     this.isAuthInProgress = true;
     try {
-      const resp = await AuthService.login(email, password);
+      const resp = await AuthService.login(login, password);
       localStorage.setItem("token", resp.data.accessToken);
       this.isAuth = true;
 

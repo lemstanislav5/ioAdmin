@@ -10,6 +10,11 @@ export default function Signin() {
   const [password, setPassword] = useState('');
   const sendLogAndPass = (login, password) => {
     AuthStore.login(login, password)
+    .then(value => {
+        console.log(value);
+      }, reason => {
+        console.log(reason);
+    });
   }
 
 

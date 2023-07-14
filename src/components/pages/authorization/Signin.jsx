@@ -17,7 +17,6 @@ export default function Signin() {
     });
   }
 
-
   return (
     <Row className="justify-content-md-center" >
       <Col xs={3}>

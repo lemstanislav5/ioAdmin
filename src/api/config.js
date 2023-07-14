@@ -27,12 +27,12 @@ instance.interceptors.response.use(
   },
   // в случае просроченного accessToken пытаемся его обновить:
   async (error) => {
-   // предотвращаем зацикленный запрос, добавляя свойство _isRetry 
+   // предотвращаем зацикленный запрос, добавляя свойство _isRetry
    const originalRequest = {...error.config};
-   originalRequest._isRetry = true; 
+   originalRequest._isRetry = true;
     if (
       // проверим, что ошибка именно из-за невалидного accessToken
-      error.response.status === 401 && 
+      error.response.status === 401 &&
       // проверим, что запрос не повторный
       error.config &&
       !error.config._isRetry
@@ -49,7 +49,7 @@ instance.interceptors.response.use(
       }
     }
     // на случай, если возникла другая ошибка (не связанная с авторизацией)
-    // пробросим эту ошибку 
+    // пробросим эту ошибку
     throw error;
   }
 );

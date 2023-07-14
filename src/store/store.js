@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import AuthService from "../api/auth";
 
-class AuthStore {   
+class AuthStore {
   isAuth = false;
   isAuthInProgress = false;
-  
+
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
@@ -13,28 +13,29 @@ class AuthStore {
     this.isAuthInProgress = true;
     try {
       const resp = await AuthService.login(login, password);
-      localStorage.setItem("token", resp.data.accessToken);
+      console.log(resp)
+      localStorage.setItem("token", resp.data.token);
       this.isAuth = true;
-
+      console.log(this.isAuth)
      } catch (err) {
       console.log("login error");
      } finally {
       this.isAuthInProgress = false;
-    } 
+    }
   }
 
   async checkAuth() {
     this.isAuthInProgress = true;
     try {
       const resp = await AuthService.refresh();
-      localStorage.setItem("token", resp.data.accessToken);
+      localStorage.setItem("token", resp.data.token);
       this.isAuth = true;
 
      } catch (err) {
       console.log("login error");
      } finally {
       this.isAuthInProgress = false;
-    } 
+    }
   }
 
   async logout() {
@@ -47,9 +48,9 @@ class AuthStore {
       console.log("logout error");
     } finally {
       this.isAuthInProgress = false;
-    } 
+    }
   }
-  
+
 }
 
 export default new AuthStore();

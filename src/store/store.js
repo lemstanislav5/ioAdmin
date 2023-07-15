@@ -27,12 +27,13 @@ class AuthStore {
   async checkAuth() {
     this.isAuthInProgress = true;
     try {
-      const resp = await AuthService.refresh();
+      const resp = await AuthService.refreshToken();
+      console.log(resp)
       localStorage.setItem("token", resp.data.token);
       this.isAuth = true;
 
      } catch (err) {
-      console.log("login error");
+      console.log("login error", err);
      } finally {
       this.isAuthInProgress = false;
     }

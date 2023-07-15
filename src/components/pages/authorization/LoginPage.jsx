@@ -5,16 +5,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AuthStore from "../../../store/store";
 
-export default function Signin() {
+export default function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const sendLogAndPass = (login, password) => {
-    AuthStore.login(login, password)
-    .then(value => {
-        console.log(value);
-      }, reason => {
-        console.log(reason);
-    });
+    AuthStore.login(login, password);
   }
 
   return (

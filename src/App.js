@@ -10,12 +10,12 @@ return instance.get("/api/refresh");
 */
 
 import React, { useEffect } from 'react';
-import Signin from './components/pages/authorization/Signin';
+import LoginPage from './components/pages/authorization/LoginPage';
 import Messages from './components/pages/messages/Messages';
 import Container from 'react-bootstrap/Container';
 import TopMenu from './components/top/TopMenu';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PrivateRoute from './hoc/PrivateRoute';
+import PrivateRoute from './hoc/privateRoute';
 
 import { observer } from "mobx-react-lite";
 import AuthStore from "./store/store.js";
@@ -25,11 +25,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Signin />,
+    element: <LoginPage />,
   },
   {
     path: "/signin",
-    element: <Signin />,
+    element: <LoginPage />,
   },
   {
     path: "/messages",

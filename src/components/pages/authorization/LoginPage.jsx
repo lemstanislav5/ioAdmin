@@ -3,19 +3,40 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import AuthStore from "../../../store/store";
+import AuthService from "../../../api/auth";
+import { Navigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [isAuth, setIsAuth] = useState(null);
+  const [isAuthInProgress, setIsAuthInProgress] = useState(null);
+
   const sendLogAndPass = (login, password) => {
-    AuthStore.login(login, password);
+    setIsAuthInProgress(true);
+    AuthService.login(login, password)
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+        setIsAuth(true);
+      })
+      .catch((err) => {
+        console.log("login error", err);
+      })
+      .finally (() => {
+        setIsAuthInProgress(false);
+      });
   }
 
+  if (isAuth) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >
       <Col xs={3}>
         <Form>
+          {
+            isAuthInProgress === false
+            ? <h3>Неверный пароль или логин</h3>
+            : null
+          }
           <br/>
           <Form.Group className="mb-3" controlId="login">
             <Form.Label>Логин</Form.Label>

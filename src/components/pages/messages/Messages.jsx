@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function Messages() {
+export default function Messages(props) {
+  console.log(props)
   return (
     
     <Row>

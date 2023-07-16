@@ -9,39 +9,55 @@ return instance.get("/api/refresh");
   6. Структура данных (сообщения, прочтитано, статус)
 */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginPage from './components/pages/authorization/LoginPage';
 import Messages from './components/pages/messages/Messages';
 import Container from 'react-bootstrap/Container';
 import TopMenu from './components/top/TopMenu';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from './hoc/privateRoute';
+import AuthService from "./api/auth";
 
-import { observer } from "mobx-react-lite";
-import AuthStore from "./store/store.js";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginPage />,
-  },
-  {
-    path: "/signin",
-    element: <LoginPage />,
-  },
-  {
-    path: "/messages",
-    element: <PrivateRoute  Component={ Messages }/> ,
-  },
-]);
 
+const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+  const [isAuthInProgress, setIsAuthInProgress] = useState(false);
 
-const App = observer(() => {
   useEffect(() => {
-    AuthStore.checkAuth();
+    console.log(isAuth, isAuthInProgress)
+    if (isAuth || isAuthInProgress) return null;
+    setIsAuthInProgress(true);
+    AuthService.refreshToken()
+      .then(res => {
+        console.log(res)
+        localStorage.setItem("token", res.data.token);
+        setIsAuth(true);
+      })
+      .catch((err) => {
+        console.log("login error", err);
+      })
+      .finally (() => {
+        setIsAuthInProgress(false);
+      })
   }, []);
+  console.log(isAuth, isAuthInProgress)
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <LoginPage />,
+    },
+    {
+      path: "/signin",
+      element: <LoginPage />,
+    },
+    {
+      path: "/messages",
+      element: <PrivateRoute  Component={ Messages } test={{isAuth, isAuthInProgress}}/> ,
+    },
+  ]);
 
   return (
     <Container fluid>
@@ -51,6 +67,6 @@ const App = observer(() => {
       </React.StrictMode>
     </Container>
   );
-});
+};
 
 export default App;

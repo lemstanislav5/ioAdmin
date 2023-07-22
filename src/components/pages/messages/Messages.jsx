@@ -5,11 +5,14 @@ import Col from 'react-bootstrap/Col';
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
+import  setings from '../../../setings';
+
+
 export default function Messages(props) {
   console.log(props)
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const socket = io.connect('http://localhost:4000', {
+    const socket = io.connect(`http://${setings.HOST}:${setings.SOCKET_PORT}/`, {
       query: {token}
     });
   })

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
 import AuthService from "../api/auth";
-
+import Preloader from '../components/preloader/Preloader';
 
 const PrivateRoute = (props) => {
   const { Component } = props;
@@ -14,22 +14,23 @@ const PrivateRoute = (props) => {
       AuthService.refreshToken()
         .then(res => {
           localStorage.setItem("token", res.data.token);
-          setIsAuth(true);
+          setTimeout(() => setIsAuth(true), 1000);
         })
         .catch((err) => {
           console.log("login error", err);
         })
         .finally (() => {
-          setIsAuthInProgress(false);
+          setTimeout(() => setIsAuthInProgress(false), 1000);
         });
     }
     
   }, []);
 
+
   if (isAuth === null && isAuthInProgress === null) {
-    return <div>Checking auth...</div>;
+    return <Preloader/>
   } else if (isAuth === null && isAuthInProgress === true) {
-    return <div>Checking auth...</div>;
+    return <Preloader/>
   } else if (isAuth === null && isAuthInProgress === false) {
     return <Navigate to="/signin" />;
   } else if (isAuth === true) {

@@ -1,9 +1,10 @@
 import axios from "axios";
+import  setings from '../setings';
 
 export const instance = axios.create({
   // к запросу будет приуепляться cookies
   withCredentials: true,
-  baseURL: "http://localhost:7000/",
+  baseURL: `http://${setings.HOST}:${setings.PORT}/`,
 });
 
 

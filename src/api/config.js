@@ -1,5 +1,5 @@
 import axios from "axios";
-import  setings from '../setings';
+import  {setings} from '../setings';
 
 export const instance = axios.create({
   // к запросу будет приуепляться cookies

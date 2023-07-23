@@ -1,7 +1,7 @@
 import imgPreloader from './preloader.gif'
 import styles from "./Preloader.module.css";
 
-export default () => {
+export const Preloader = () => {
   return (
     <div className={styles.div}>
       <img src={imgPreloader} className={styles.preloader} alt="preloader" />

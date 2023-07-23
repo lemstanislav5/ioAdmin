@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
 import AuthService from "../api/auth";
-import Preloader from '../components/preloader/Preloader';
+import { Preloader } from '../components/preloader/Preloader';
 
 const PrivateRoute = (props) => {
   const { Component } = props;
@@ -24,6 +24,7 @@ const PrivateRoute = (props) => {
         });
     }
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

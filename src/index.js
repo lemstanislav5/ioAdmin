@@ -18,7 +18,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import LoginPage from './components/pages/authorization/LoginPage';
-import Messages from './components/pages/messages/Messages';
+import { Messages } from './components/pages/messages/Messages';
 import Container from 'react-bootstrap/Container';
 import TopMenu from './components/top/TopMenu';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

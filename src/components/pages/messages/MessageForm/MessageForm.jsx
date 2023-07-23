@@ -17,15 +17,15 @@ export function MessageForm({ socket }) {
   }
 
   return (
-         <Col xs={9}>
-        <div>Тестовое сообщение</div>
+    <Col xs={9}>
+      <div>Тестовое сообщение</div>
         <Form onSubmit={ onSubmit }>
           <br/>
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
             <Form.Control as="textarea" placeholder="Введите Ваше сообщение" onChange={ e => setValue(e.target.value) }/>
           </Form.Group>
           <Button variant="primary" disabled={ isLoading }>Отправить</Button>{' '}
-        </Form>
-      </Col>
+      </Form>
+    </Col>
   );
 }

@@ -17,6 +17,7 @@ const PrivateRoute = (props) => {
           setTimeout(() => setIsAuth(true), 1000);
         })
         .catch((err) => {
+          setIsAuth(false);
           console.log("login error", err);
         })
         .finally (() => {
@@ -37,8 +38,7 @@ const PrivateRoute = (props) => {
   } else if (isAuth === true) {
     return <Component isAuth={isAuth}/>;
   } else {
-    console.log(test);
-    return <h1>ERR</h1>
+    return <Navigate to="/signin" />;
   }
 
 };

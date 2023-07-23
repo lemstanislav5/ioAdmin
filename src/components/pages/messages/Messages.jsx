@@ -2,52 +2,43 @@ import Row from 'react-bootstrap/Row';
 import { useEffect, useState } from 'react';
 
 import { ConnectionState } from './ConnectionState';
-import { MessageForm } from './MessageForm';
+import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
+import { messengesController } from '../../../controllers/messengesController'
 
-import { io } from 'socket.io-client';
-import  { setings } from '../../../setings';
-
-const token = localStorage.getItem("token"),
-      socket = io.connect(`http://${setings.HOST}:${setings.SOCKET_PORT}/`, {
-          query: {token},
-          autoConnect: false
-          //autoConnect автоматическое соединение запрещено
-      });
 
 export const  Messages = (props) => {
   console.log(props);
   //isConnected состояние соединения
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [isConnected, setConnected] = useState(false);
   const [messages, setMessages] = useState([]);
 
 
   useEffect(() => {
     //connect() соединяемся с сервером, закрытие соединения socket.disconnect();
-    socket.connect();
-    function onConnect() {
-      setIsConnected(true);
-    }
+    messengesController.connect(setConnected);
+    // socket.connect();
 
-    function onDisconnect() {
-      setIsConnected(false);
-    }
+    // function onMessages(value) {
+    //   setMessages(messages => [...messages, value]);
+    // }
 
-    function onMessages(value) {
-      setMessages(messages => [...messages, value]);
-    }
 
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-    socket.on('messages', onMessages);
+    // socket.on('messages', onMessages);
+    // socket.on('getChats', onMessages);
 
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.off('messages', onMessages);
-    };
+    // return () => {
+    //   socket.off('messages', onMessages);
+    //   socket.off('getChats', onMessages);
+    // };
 
   }, []);
+
+  useEffect(() => {
+    if (isConnected) {
+      console.log(isConnected)
+    }
+  }, [isConnected]);
 
   return (
     <>
@@ -56,7 +47,7 @@ export const  Messages = (props) => {
         <ConnectionState isConnected={ isConnected } />
       </Row>
       <Row>
-        <MessageForm socket={socket}/>
+        {/* <MessageForm socket={socket}/> */}
       </Row>
     </>
 

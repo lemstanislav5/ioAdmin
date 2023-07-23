@@ -5,7 +5,7 @@ export const socketСreator = (host, ws, port) => {
   let manager = new Manager(ws + "://" + host + ":" + port, { 
     transports: ['websocket', 'polling', 'flashsocket'],
     query: {token},
-    autoConnect: false
+    // autoConnect: false
   });
   return manager.socket("/");
 }

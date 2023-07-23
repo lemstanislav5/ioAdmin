@@ -5,32 +5,45 @@ import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
 import { messengesController } from '../../../controllers/messengesController'
+import { socketСreator } from '../../../connectors';
+import { setings} from '../../../setings';
 
+let socket = socketСreator(setings.HOST, setings.WS, setings.SOCKET_PORT);
 
 export const  Messages = (props) => {
   console.log(props);
   //isConnected состояние соединения
-  const [isConnected, setConnected] = useState(false);
+  const [isConnected, setConnected] = useState(socket.connected);
   const [messages, setMessages] = useState([]);
 
 
   useEffect(() => {
     //connect() соединяемся с сервером, закрытие соединения socket.disconnect();
-    messengesController.connect(setConnected);
-    // socket.connect();
+    // messengesController.connect(setConnected);
+    console.log(socket)
+    socket.connect();
 
-    // function onMessages(value) {
-    //   setMessages(messages => [...messages, value]);
-    // }
+    function onConnect() {
+      setConnected(true);
+    }
 
+    function onDisconnect() {
+      setConnected(false);
+    }
 
-    // socket.on('messages', onMessages);
-    // socket.on('getChats', onMessages);
+    function addMessage(value) {
+      setMessages(messages => [...messages, value]);
+    }
 
-    // return () => {
-    //   socket.off('messages', onMessages);
-    //   socket.off('getChats', onMessages);
-    // };
+    socket.on('connect', setConnected);
+    socket.on('disconnect', onDisconnect);
+    socket.on('message', addMessage);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('message', addMessage);
+    };
 
   }, []);
 
@@ -40,6 +53,7 @@ export const  Messages = (props) => {
     }
   }, [isConnected]);
 
+  if(isConnected === false ) return <></>;
   return (
     <>
       <Row>

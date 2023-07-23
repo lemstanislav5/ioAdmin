@@ -11,7 +11,10 @@ const chatId = (idController.get() === null || idController.get() === undefined)
 
 export const messengesController = {
   connect: (setConnected) => {
-    socket.on('connect', () => setConnected(true));
+    socket.on('connect', () => {
+      console.log('connect')
+      setConnected(true)
+    });
     socket.on('disconnect', () => setConnected(false));
   },
   newMessage: (messeges, setMessage) => {

@@ -5,19 +5,19 @@ import { Preloader } from '../components/preloader/Preloader';
 
 const PrivateRoute = (props) => {
   const { Component } = props;
-  const [isAuth, setIsAuth] = useState(null);
   const [isAuthInProgress, setIsAuthInProgress] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    if (isAuth === null && isAuthInProgress === null) {
+    if (token === null && isAuthInProgress === null) {
       setIsAuthInProgress(true);
       AuthService.refreshToken()
         .then(res => {
           localStorage.setItem("token", res.data.token);
-          setTimeout(() => setIsAuth(true), 1000);
+          setTimeout(() => setToken(res.data.token), 1000);
         })
         .catch((err) => {
-          setIsAuth(false);
+          setIsAuthInProgress(false);
           console.log("login error", err);
         })
         .finally (() => {
@@ -29,14 +29,14 @@ const PrivateRoute = (props) => {
   }, []);
 
 
-  if (isAuth === null && isAuthInProgress === null) {
+  if (token === null && isAuthInProgress === null) {
     return <Preloader/>
-  } else if (isAuth === null && isAuthInProgress === true) {
+  } else if (token === null && isAuthInProgress === true) {
     return <Preloader/>
-  } else if (isAuth === null && isAuthInProgress === false) {
+  } else if (token === null && isAuthInProgress === false) {
     return <Navigate to="/signin" />;
-  } else if (isAuth === true) {
-    return <Component isAuth={isAuth}/>;
+  } else if (token) {
+    return <Component token={token}/>;
   } else {
     return <Navigate to="/signin" />;
   }

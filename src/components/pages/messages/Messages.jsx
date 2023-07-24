@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
-import { messengesController } from '../../../controllers/messengesController'
+
 import { socketСreator } from '../../../connectors';
 import { setings} from '../../../setings';
-
-let socket = socketСreator(setings.HOST, setings.WS, setings.SOCKET_PORT);
+const token = localStorage.getItem("token");
+let socket = socketСreator(setings.HOST, setings.WS, setings.SOCKET_PORT, token);
 
 export const  Messages = (props) => {
   console.log(props);

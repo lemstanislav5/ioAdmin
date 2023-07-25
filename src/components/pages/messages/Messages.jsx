@@ -1,14 +1,18 @@
 import Row from 'react-bootstrap/Row';
 import { useEffect, useState } from 'react';
-
+import { Navigate } from "react-router-dom";
 import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
 
-import { socketСreator } from '../../../connectors';
-import { setings} from '../../../setings';
-const token = localStorage.getItem("token");
-let socket = socketСreator(setings.HOST, setings.WS, setings.SOCKET_PORT, token);
+
+import { io } from 'socket.io-client';
+//! При первой загрузке токен не передается, хотя должен быть сохранен из HOC, ввиду чего оставлены костыли ниже
+const token = localStorage.getItem('token');
+console.timeLog(token)
+const socket = io('http://localhost:4000',{
+  query: {token},
+});
 
 export const  Messages = (props) => {
   console.log(props);
@@ -52,8 +56,8 @@ export const  Messages = (props) => {
       console.log(isConnected)
     }
   }, [isConnected]);
-
-  if(isConnected === false ) return <></>;
+//! Вот собственно и костыли, ввиде перезагрузки
+  if(isConnected === false )  <Navigate to="/messages" />;
   return (
     <>
       <Row>

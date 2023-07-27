@@ -4,69 +4,48 @@ import { Navigate } from "react-router-dom";
 import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
-
-
 import { io } from 'socket.io-client';
-//! При первой загрузке токен не передается, хотя должен быть сохранен из HOC, ввиду чего оставлены костыли ниже
-const token = localStorage.getItem('token');
-console.timeLog(token)
-const socket = io('http://localhost:4000',{
-  query: {token},
-});
 
-export const  Messages = (props) => {
-  console.log(props);
-  //isConnected состояние соединения
-  const [isConnected, setConnected] = useState(socket.connected);
-  const [messages, setMessages] = useState([]);
-
+//! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
+export const  Messages = ({token}) => {
+  const [socket, setSocket] = useState(null);
+  const [isConnected, setIsConnected] = useState(null);
+  const [messages, setMessages] = useState(null);
 
   useEffect(() => {
-    //connect() соединяемся с сервером, закрытие соединения socket.disconnect();
-    // messengesController.connect(setConnected);
-    console.log(socket)
-    socket.connect();
-
+    console.log(token);
+    const socketInstance = io('http://localhost:4000',{
+      query: {token},
+    });
+    
+    setSocket(socketInstance);
+  
     function onConnect() {
-      setConnected(true);
+      setIsConnected(true);
     }
 
     function onDisconnect() {
-      setConnected(false);
+      setIsConnected(false);
     }
 
-    function addMessage(value) {
+    function onMessage(value) {
       setMessages(messages => [...messages, value]);
     }
 
-    socket.on('connect', setConnected);
-    socket.on('disconnect', onDisconnect);
-    socket.on('message', addMessage);
+    socketInstance.on('connect', onConnect);
+    socketInstance.on('disconnect', onDisconnect);
+    socketInstance.on('message', onMessage);
 
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.off('message', addMessage);
+      socketInstance.off('connect', onConnect);
+      socketInstance.off('disconnect', onDisconnect);
+      socketInstance.off('message', onMessage);
     };
-
   }, []);
 
-  useEffect(() => {
-    if (isConnected) {
-      console.log(isConnected)
-    }
-  }, [isConnected]);
-//! Вот собственно и костыли, ввиде перезагрузки
-  if(isConnected === false )  <Navigate to="/messages" />;
   return (
     <>
-      <Row>
-        <Events events={ messages } />
-        <ConnectionState isConnected={ isConnected } />
-      </Row>
-      <Row>
-        {/* <MessageForm socket={socket}/> */}
-      </Row>
+      <p>Подключен: { '' + isConnected }</p>;
     </>
 
 

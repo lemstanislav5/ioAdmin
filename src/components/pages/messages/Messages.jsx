@@ -1,6 +1,8 @@
-import Row from 'react-bootstrap/Row';
 import { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
@@ -11,6 +13,7 @@ export const  Messages = ({token}) => {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
   const [messages, setMessages] = useState(null);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     console.log(token);
@@ -43,30 +46,36 @@ export const  Messages = ({token}) => {
     };
   }, []);
 
+  const sendText = () => {
+    socket.emit("newMessage", {message }, () => {});
+    // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
+    //   if(error) {
+    //     console.log(error, notification);
+    //     return onMessage([...messeges, { id, chatId, type: 'from', text: 'Извините сервис временно недоступен!', date: dateMessage()}]);
+    //   }
+    //   onMessage([...messeges, { id, chatId, type: 'to', text: text, date: dateMessage(), serverAccepted: notification.add, botAccepted: notification.send }]);
+    // });
+  }
+
   return (
-    <>
-      <p>Подключен: { '' + isConnected }</p>;
-    </>
-
-
-    // <Row>
-    //   <Col xs={3}>
-    //     <div>
-    //       <div>Тест</div>
-    //       <div>Онлайн</div>
-    //     </div>
-    //   </Col>
+    <Row>
+      <Col xs={3}>
+        <div>
+          <div>Тест</div>
+          <div>Онлайн</div>
+        </div>
+      </Col>
       
-    //   <Col xs={9}>
-    //     <div>Тестовое сообщение</div>
-    //     <Form>
-    //       <br/>
-    //       <Form.Group className="mb-3" controlId="exampleForm.Messages">
-    //         <Form.Control as="textarea" placeholder="Введите Ваше сообщение" />
-    //       </Form.Group>
-    //       <Button variant="primary">Отправить</Button>{' '}
-    //     </Form>
-    //   </Col>
-    // </Row>
+      <Col xs={9}>
+        <div>Тестовое сообщение</div>
+        <Form>
+          <br/>
+          <Form.Group className="mb-3" controlId="exampleForm.Messages">
+            <Form.Control as="textarea" placeholder="Введите Ваше сообщение" value={message} onChange={(e) => {setMessage(console.log(e.target.value))}}/>
+          </Form.Group>
+          <Button variant="primary" onClick={sendText}>Отправить</Button>{' '}
+        </Form>
+      </Col>
+    </Row>
   );
 }

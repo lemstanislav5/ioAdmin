@@ -37,17 +37,18 @@ export const  Messages = ({token}) => {
 
     socketInstance.on('connect', onConnect);
     socketInstance.on('disconnect', onDisconnect);
-    socketInstance.on('message', onMessage);
+    socketInstance.on('newMessage', onMessage);
 
     return () => {
       socketInstance.off('connect', onConnect);
       socketInstance.off('disconnect', onDisconnect);
-      socketInstance.off('message', onMessage);
+      socketInstance.off('newMessage', onMessage);
     };
   }, []);
 
   const sendText = () => {
-    socket.emit("newMessage", {message }, () => {});
+    console.log('sendText')
+    socket.emit("newMessage", {message}, () => {});
     // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
     //   if(error) {
     //     console.log(error, notification);
@@ -71,7 +72,7 @@ export const  Messages = ({token}) => {
         <Form>
           <br/>
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea" placeholder="Введите Ваше сообщение" value={message} onChange={(e) => {setMessage(console.log(e.target.value))}}/>
+            <Form.Control as="textarea" placeholder="Введите Ваше сообщение" value={message} onChange={(e) => {setMessage(e.target.value)}}/>
           </Form.Group>
           <Button variant="primary" onClick={sendText}>Отправить</Button>{' '}
         </Form>

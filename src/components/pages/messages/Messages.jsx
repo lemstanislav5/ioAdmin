@@ -34,17 +34,31 @@ export const  Messages = ({token}) => {
     function onMessage(value) {
       setMessages(messages => [...messages, value]);
     }
+    function getAllUsers(users) {
+      console.log(users);
+    }
 
     socketInstance.on('connect', onConnect);
     socketInstance.on('disconnect', onDisconnect);
     socketInstance.on('newMessage', onMessage);
+    socketInstance.on('getAllUsers', getAllUsers);
 
     return () => {
       socketInstance.off('connect', onConnect);
       socketInstance.off('disconnect', onDisconnect);
       socketInstance.off('newMessage', onMessage);
+      socketInstance.off('getAllUsers', getAllUsers);
     };
   }, []);
+
+  useEffect(() => {
+    if (socket !== null) {
+      socket.emit("getAllUsers", (res) => {
+        console.log(res);
+      });
+    }
+
+  }, [socket])
 
   const sendText = () => {
     console.log('sendText')

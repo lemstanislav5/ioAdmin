@@ -29,23 +29,18 @@ export const  Messages = ({token}) => {
     socketInstance.on('connect', (setIsConnected) => handlers.onConnect);
     socketInstance.on('disconnect', (setIsConnected) => handlers.onDisconnect);
     socketInstance.on('newMessage', (setMessages) =>  handlers.onMessage);
-    socketInstance.on('getAllUsers', handlers.getAllUsers);
+    socketInstance.on('getAllUsers', (users) => setUsers(users));
 
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
       socketInstance.off('newMessage', handlers.onMessage);
-      socketInstance.off('getAllUsers', handlers.getAllUsers);
+      socketInstance.off('getAllUsers', (users) => setUsers(users));
     };
   }, []);
 
   useEffect(() => {
-    if (socket !== null) {
-      socket.emit("getAllUsers", (res) => {
-        console.log(res);
-      });
-    }
-
+    if (socket !== null) socket.emit("getAllUsers", (users) => setUsers(users));
   }, [socket])
 
   const sendText = () => {

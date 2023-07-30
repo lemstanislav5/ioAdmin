@@ -1,16 +1,16 @@
-export default (calback) => {
-  function onConnect() {
+export default () => {
+  function onConnect(calback) {
     calback(true);
   }
 
-  function onDisconnect() {
+  function onDisconnect(calback) {
     calback(false);
   }
 
-  function onMessage(value) {
+  function onMessage(calback, value) {
     calback(messages => [...messages, value]);
   }
-  function getAllUsers(users) {
-    console.log(users);
+  function getAllUsers(calback, data) {
+    calback(data);
   }
 }

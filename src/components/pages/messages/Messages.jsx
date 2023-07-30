@@ -7,6 +7,8 @@ import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
 import { io } from 'socket.io-client';
+import handlers from '../../../handlers';
+import Users from '../../users/Users';
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const  Messages = ({token}) => {
@@ -14,6 +16,7 @@ export const  Messages = ({token}) => {
   const [isConnected, setIsConnected] = useState(null);
   const [messages, setMessages] = useState(null);
   const [message, setMessage] = useState('');
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     console.log(token);
@@ -22,32 +25,17 @@ export const  Messages = ({token}) => {
     });
     
     setSocket(socketInstance);
-  
-    function onConnect() {
-      setIsConnected(true);
-    }
 
-    function onDisconnect() {
-      setIsConnected(false);
-    }
-
-    function onMessage(value) {
-      setMessages(messages => [...messages, value]);
-    }
-    function getAllUsers(users) {
-      console.log(users);
-    }
-
-    socketInstance.on('connect', onConnect);
-    socketInstance.on('disconnect', onDisconnect);
-    socketInstance.on('newMessage', onMessage);
-    socketInstance.on('getAllUsers', getAllUsers);
+    socketInstance.on('connect', (setIsConnected) => handlers.onConnect);
+    socketInstance.on('disconnect', (setIsConnected) => handlers.onDisconnect);
+    socketInstance.on('newMessage', (setMessages) =>  handlers.onMessage);
+    socketInstance.on('getAllUsers', handlers.getAllUsers);
 
     return () => {
-      socketInstance.off('connect', onConnect);
-      socketInstance.off('disconnect', onDisconnect);
-      socketInstance.off('newMessage', onMessage);
-      socketInstance.off('getAllUsers', getAllUsers);
+      socketInstance.off('connect', handlers.onConnect);
+      socketInstance.off('disconnect', handlers.onDisconnect);
+      socketInstance.off('newMessage', handlers.onMessage);
+      socketInstance.off('getAllUsers', handlers.getAllUsers);
     };
   }, []);
 
@@ -75,10 +63,7 @@ export const  Messages = ({token}) => {
   return (
     <Row>
       <Col xs={3}>
-        <div>
-          <div>Тест</div>
-          <div>Онлайн</div>
-        </div>
+        <Users users={users}/>
       </Col>
       
       <Col xs={9}>

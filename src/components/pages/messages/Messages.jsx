@@ -57,11 +57,11 @@ export const  Messages = ({token}) => {
 
   return (
     <Row>
-      <Col xs={3}>
+      <Col xs={4}>
         <Users users={users}/>
       </Col>
       
-      <Col xs={9}>
+      <Col xs={8}>
         <div>Тестовое сообщение</div>
         <Form>
           <br/>

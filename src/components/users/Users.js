@@ -9,7 +9,7 @@ export default (props) => {
     <ListGroup>
       {
         users.map(item=>{
-          return <ListGroup.Item key={item.socketId}> {item.id + ' - ' +  item.socketId + ' - ' + item.name + ' - ' + item.online} </ListGroup.Item>
+          return <ListGroup.Item key={item.socketId}> {'id: ' + item.id} <br/> {'name: ' + item.name} <br/> {'online: ' + item.online} </ListGroup.Item>
         })
       }
     </ListGroup>

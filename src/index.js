@@ -23,12 +23,13 @@ import Container from 'react-bootstrap/Container';
 import TopMenu from './components/top/TopMenu';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from './hoc/privateRoute';
+import RegisterPage from './components/pages/register/RegisterPage';
 
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+//initiation
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -36,13 +37,17 @@ const App = () => {
       element: <LoginPage />,
     },
     {
-      path: "/signin",
+      path: "/login",
       element: <LoginPage />,
     },
     {
       path: "/messages",
       element: <PrivateRoute  Component={ Messages } /> ,
     },
+    {
+      path: "/register", 
+      element: <RegisterPage /> ,
+    }
   ]);
 
   return (

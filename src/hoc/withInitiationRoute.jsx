@@ -12,7 +12,9 @@ const InitiationRoute = (props) => {
     setIsAuthInProgress(true);
       AuthService.initiation()
         .then(res => {
-          console.log(res)
+          if (res.data && res.data.initiation === false) {
+            
+          }
         })
         .catch((err) => {
           console.log(err)

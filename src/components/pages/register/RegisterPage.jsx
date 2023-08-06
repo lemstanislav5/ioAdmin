@@ -42,7 +42,7 @@ export default function LoginPage() {
             : null
           }
           <br/>
-          <Form.Group className="mb-3" controlId="login">
+          <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder="" value={login} onChange={(e) => {setEmail(e.target.value)}}/>
           </Form.Group>
@@ -54,7 +54,7 @@ export default function LoginPage() {
             <Form.Label>Пароль</Form.Label>
             <Form.Control type="password" autoComplete="on" placeholder="*********" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="password">
+          <Form.Group className="mb-3" controlId="confirmPassword">
             <Form.Label>Повторите пароль</Form.Label>
             <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="*********" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}}/>
           </Form.Group>

@@ -14,9 +14,13 @@ export default function LoginPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isAuth, setIsAuth] = useState(null);
   const [isAuthInProgress, setIsAuthInProgress] = useState(null);
+  const [errorEmail, setErrorEmail] = useState(null);
   //registration
 
+  const isValidEmail = email => (/\S+@\S+\.\S+/.test(email))
   const sendLogAndPass = (login, password) => {
+    if (!isValidEmail(email)) return setErrorEmail('Неверный адрес почты!'); 
+
     setIsAuthInProgress(true);
     AuthService.login(login, password)
       .then(res => {
@@ -31,6 +35,8 @@ export default function LoginPage() {
       });
   }
 
+
+  
   if (isAuth) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >
@@ -44,19 +50,22 @@ export default function LoginPage() {
           <h1>Создание менеджера</h1>
           <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
+            {
+              errorEmail !== null ? <p className={style.error}>{errorEmail}</p> : <p></p>
+            }
+            <Form.Control type="email" placeholder="" value={email} onChange={e => setEmail(e.target.value)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="login">
             <Form.Label>Логин</Form.Label>
-            <Form.Control type="text" placeholder="" value={login} onChange={(e) => {setLogin(e.target.value)}}/>
+            <Form.Control type="text" placeholder="" value={login} onChange={e => {setLogin(e.target.value)}}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Пароль</Form.Label>
-            <Form.Control type="password" autoComplete="on" placeholder="" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+            <Form.Control type="password" autoComplete="on" placeholder="" value={password} onChange={e => {setPassword(e.target.value)}}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="confirmPassword">
             <Form.Label>Повторите пароль</Form.Label>
-            <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}}/>
+            <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="" value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value)}}/>
           </Form.Group>
           <Button variant="primary" onClick={() => sendLogAndPass(login, password)}>Войти</Button>{' '}
         </Form>

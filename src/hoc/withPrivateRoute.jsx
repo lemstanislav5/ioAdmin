@@ -34,11 +34,11 @@ const PrivateRoute = (props) => {
   } else if (token === null && isAuthInProgress === true) {
     return <Preloader/>
   } else if (token === null && isAuthInProgress === false) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/login" />;
   } else if (token) {
     return <Component token={token}/>;
   } else {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/login" />;
   }
 
 };

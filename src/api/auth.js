@@ -1,6 +1,10 @@
 import { instance } from "./config.js";
 
 const AuthService = {
+    initiation () {
+        return instance.post("/api/initiation")
+    },
+    
     login (login, password) {
         return instance.post("/api/auth", {login, password})
     },

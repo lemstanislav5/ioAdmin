@@ -16,14 +16,16 @@ return instance.get("/api/refresh");
 
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginPage from './components/pages/authorization/LoginPage';
 import { Messages } from './components/pages/messages/Messages';
 import Container from 'react-bootstrap/Container';
 import TopMenu from './components/top/TopMenu';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PrivateRoute from './hoc/privateRoute';
+import PrivateRoute from './hoc/withPrivateRoute';
 import RegisterPage from './components/pages/register/RegisterPage';
+import Error404 from './components/pages/error404/Error404';
+import InitiationRoute from './hoc/withInitiationRoute';
 
 
 
@@ -34,7 +36,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LoginPage />,
+      element: <InitiationRoute  Component={ Messages } />,
     },
     {
       path: "/login",
@@ -47,9 +49,12 @@ const App = () => {
     {
       path: "/register", 
       element: <RegisterPage /> ,
+    },
+    {
+      path: "*", 
+      element: <Error404 /> ,
     }
   ]);
-
   return (
     <Container fluid>
       <TopMenu/>

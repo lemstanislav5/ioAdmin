@@ -14,6 +14,7 @@ export default function LoginPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isAuth, setIsAuth] = useState(null);
   const [isAuthInProgress, setIsAuthInProgress] = useState(null);
+  //registration
 
   const sendLogAndPass = (login, password) => {
     setIsAuthInProgress(true);

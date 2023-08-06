@@ -34,29 +34,29 @@ export default function LoginPage() {
   if (isAuth) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >
-      <Col xs={3}>
+      <Col xs={7}>
         <Form>
           {
             isAuthInProgress === false
             ? <h3>Неверный пароль или логин</h3>
             : null
           }
-          <br/>
+          <h1>Создание менеджера</h1>
           <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="" value={login} onChange={(e) => {setEmail(e.target.value)}}/>
+            <Form.Control type="email" placeholder="" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="login">
             <Form.Label>Логин</Form.Label>
-            <Form.Control type="text" placeholder="*********" value={login} onChange={(e) => {setLogin(e.target.value)}}/>
+            <Form.Control type="text" placeholder="" value={login} onChange={(e) => {setLogin(e.target.value)}}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Пароль</Form.Label>
-            <Form.Control type="password" autoComplete="on" placeholder="*********" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+            <Form.Control type="password" autoComplete="on" placeholder="" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="confirmPassword">
             <Form.Label>Повторите пароль</Form.Label>
-            <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="*********" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}}/>
+            <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}}/>
           </Form.Group>
           <Button variant="primary" onClick={() => sendLogAndPass(login, password)}>Войти</Button>{' '}
         </Form>

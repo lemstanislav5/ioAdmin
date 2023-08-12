@@ -26,29 +26,18 @@ import PrivateRoute from './hoc/withPrivateRoute';
 import RegisterPage from './components/pages/register/RegisterPage';
 import Error404 from './components/pages/error404/Error404';
 import InitiationRoute from './hoc/withInitiationRoute';
-
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-//initiation
+
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <InitiationRoute  Component={ Messages } />,
+      element: <PrivateRoute  Component={ Messages } />,
     },
     {
       path: "/login",
       element: <LoginPage />,
-    },
-    {
-      path: "/messages",
-      element: <PrivateRoute  Component={ Messages } /> ,
-    },
-    {
-      path: "/register", 
-      element: <RegisterPage /> ,
     },
     {
       path: "*", 
@@ -64,6 +53,6 @@ const App = () => {
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(<InitiationRoute Component={ App } />);
 
 reportWebVitals();

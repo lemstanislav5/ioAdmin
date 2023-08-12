@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
 import AuthService from "../api/auth";
 import { Preloader } from '../components/preloader/Preloader';
+import RegisterPage from '../components/pages/register/RegisterPage';
 
 const InitiationRoute = (props) => {
   const { Component } = props;
@@ -10,6 +10,7 @@ const InitiationRoute = (props) => {
   useEffect(() => {
       AuthService.initiation()
         .then(res => {
+          console.log('res.data.initiation: ', res.data.initiation)
           if (res.data && res.data.initiation === false) 
             return setTimeout(() => setInitiation(false), 2000);
           return setTimeout(() => setInitiation(true), 2000);
@@ -31,7 +32,7 @@ const InitiationRoute = (props) => {
   } else if (initiation === true) {
     return <Component/>;
   } else if (initiation === false) {
-    return <Navigate to="/register" />;
+    return  <RegisterPage />
   }
 };
 

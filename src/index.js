@@ -1,8 +1,14 @@
 
 /*
+Первое, что проверяет приложение - это иницилизация, которая заключается в создании менеждера. 
+Если менеджер не существует, приложение отображает форму для его создания.
+Если менеджер существует приложение предлагает проводит аутентификацию по токену, после чего либо предлагает авторизоваться, либо пропускает к сообщениям. 
+
+
 Логика: каждый энд поинт имеет свой соответствует своему компаненту, имеющему собственный локальный стейт,   
 HOC "PrivateRoute" служит для проверки валидного токена, в случае успеха запскает компонент подключающися к сервису 
 через сокет
+
 
 return instance.get("/api/refresh");
 нет ответа с сервера
@@ -16,14 +22,12 @@ return instance.get("/api/refresh");
 
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import React, {useEffect, useState} from 'react';
 import LoginPage from './components/pages/authorization/LoginPage';
 import { Messages } from './components/pages/messages/Messages';
 import Container from 'react-bootstrap/Container';
 import TopMenu from './components/top/TopMenu';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from './hoc/withPrivateRoute';
-import RegisterPage from './components/pages/register/RegisterPage';
 import Error404 from './components/pages/error404/Error404';
 import InitiationRoute from './hoc/withInitiationRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';

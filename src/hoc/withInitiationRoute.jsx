@@ -8,23 +8,24 @@ const InitiationRoute = (props) => {
   const [initiation, setInitiation] = useState(null);
 
   useEffect(() => {
+    if (!initiation) {
       AuthService.initiation()
         .then(res => {
           console.log('res.data.initiation: ', res.data.initiation)
           if (res.data && res.data.initiation === false) 
-            return setTimeout(() => setInitiation(false), 2000);
-          return setTimeout(() => setInitiation(true), 2000);
+            return setTimeout(() => setInitiation(false), 1000);
+          return setTimeout(() => setInitiation(true), 1000);
         })
         .catch((err) => {
-          setTimeout(() => setInitiation(false), 2000);
+          setTimeout(() => setInitiation(false), 1000);
           console.log(err)
         })
         .finally (() => {
-          setTimeout(() => setInitiation(false), 2000);
+          setTimeout(() => setInitiation(false), 1000);
         });
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    }
+
+  }, [initiation]);
 
 
   if (initiation === null ) {

@@ -11,13 +11,12 @@ import style from './RegisterPage.module.css';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState(null);
-  const [login, setLogin] = useState('');
-  const [errorLogin, setErrorLogin] = useState(null);
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
   const [isAuth, setIsAuth] = useState(null);
+  const [registrationProgress, setIsRegistrationProgress] = useState(false);
   //registration
 
   const isValidEmail = email => (/\S+@\S+\.\S+/.test(email));
@@ -25,46 +24,45 @@ export default function LoginPage() {
   const isValidPassword = password => (/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g.test(password));
 
   const sendRegisterData = () => {
-    console.log(isValidEmail(email), isValidLogin(login), isValidPassword(password))
     if (!isValidEmail(email)) {
       setErrorEmail('Неверный адрес почты!');
     } else {
       setErrorEmail(null);
-    }; 
-    if (!isValidLogin(login)) {
-      setErrorLogin('Используйте латинские символы!');
-    } else {
-      setErrorLogin(null);
-    }; 
+    };
     if (!isValidPassword(password)){
-      setErrorPassword('Пароль должен содержать не менее 6 знаков: 0-9, a-z, A-Z, !@#$%^&*!'); 
+      setErrorPassword('Пароль должен содержать не менее 6 знаков: 0-9, a-z, A-Z, !@#$%^&*!');
     } else {
       setErrorPassword(null);
-    };  
+    };
     if (confirmPassword !== password){
-      setErrorConfirmPassword('Пароль пароли не соответствуют!'); 
+      setErrorConfirmPassword('Пароль пароли не соответствуют!');
     } else {
       setErrorConfirmPassword(null);
-    };  
-    // setIsAuthInProgress(true);
-    // AuthService.login(login, password)
-    //   .then(res => {
-    //     localStorage.setItem("token", res.data.token);
-    //     setIsAuth(true);
-    //   })
-    //   .catch((err) => {
-    //     console.log("login error", err);
-    //   })
-    //   .finally (() => {
-    //     setIsAuthInProgress(false);
-    //   });
+    };
+    if (!errorEmail && !errorPassword && !errorConfirmPassword) {
+      setIsRegistrationProgress(true);
+      AuthService.registration(email, password)
+        .then(res => {
+
+        })
+        .catch((err) => {
+          console.log("login error", err);
+        })
+        .finally (() => {
+          setIsRegistrationProgress(false);
+        });
+    }
   }
+  const setDisabled = () => {
+    //! ОШИБКИ УЧЕСТЬ
+    if (email !== '' && password !== '' && confirmPassword !== '' && !registrationProgress) return false;
+    return true;
+  };
+  console.log(email !== '' && password !== '' && confirmPassword !== '' && !registrationProgress)
 
-
-  
   if (isAuth) return <Navigate to="/messages" />;
   return (
-    <Container fluid> 
+    <Container fluid>
       <Row className="justify-content-md-center" >
         <Col xs={7}>
           <Form>
@@ -75,13 +73,6 @@ export default function LoginPage() {
                 errorEmail !== null ? <p className={style.error}>{errorEmail}</p> : <p></p>
               }
               <Form.Control type="email" placeholder="" value={email} onChange={e => setEmail(e.target.value)}/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="login">
-              <Form.Label>Логин</Form.Label>
-              {
-                errorLogin !== null ? <p className={style.error}>{errorLogin}</p> : <p></p>
-              }
-              <Form.Control type="text" placeholder="" value={login} onChange={e => {setLogin(e.target.value)}}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>Пароль</Form.Label>
@@ -97,7 +88,7 @@ export default function LoginPage() {
               }
               <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="" value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value)}}/>
             </Form.Group>
-            <Button variant="primary" onClick={() => sendRegisterData()}>Войти</Button>{' '}
+            <Button variant="primary" disabled={setDisabled()} onClick={() => sendRegisterData()}>Войти</Button>{' '}
           </Form>
         </Col>
       </Row>

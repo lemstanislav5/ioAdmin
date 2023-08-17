@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AuthService from "../../../api/auth";
-import { Navigate } from "react-router-dom";
 import style from './RegisterPage.module.css';
 
 export default function LoginPage() {
@@ -15,12 +14,9 @@ export default function LoginPage() {
   const [errorPassword, setErrorPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
-  const [isAuth, setIsAuth] = useState(null);
   const [registrationProgress, setIsRegistrationProgress] = useState(false);
-  //registration
 
   const isValidEmail = email => (/\S+@\S+\.\S+/.test(email));
-  const isValidLogin = login => (/^.*[a-zA-Z]+.*$/.test(login));
   const isValidPassword = password => (/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g.test(password));
 
   const sendRegisterData = () => {
@@ -54,13 +50,10 @@ export default function LoginPage() {
     }
   }
   const setDisabled = () => {
-    //! ОШИБКИ УЧЕСТЬ
-    if (email !== '' && password !== '' && confirmPassword !== '' && !registrationProgress) return false;
+    if (email !== '' && password !== '' && confirmPassword === password && !registrationProgress) return false;
     return true;
   };
-  console.log(email !== '' && password !== '' && confirmPassword !== '' && !registrationProgress)
 
-  if (isAuth) return <Navigate to="/messages" />;
   return (
     <Container fluid>
       <Row className="justify-content-md-center" >

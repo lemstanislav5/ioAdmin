@@ -4,17 +4,17 @@ const AuthService = {
     initiation () {
         return instance.post("/api/initiation")
     },
-    registration () {
+    registration (login, password) {
         return instance.post("/api/registration", {login, password})
     },
     login (login, password) {
         return instance.post("/api/auth", {login, password})
     },
-    
+
     refreshToken() {
         return instance.get("/api/refresh");
     },
-    
+
     logout() {
         return instance.post("/api/logout")
     }

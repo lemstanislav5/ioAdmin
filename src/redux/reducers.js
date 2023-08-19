@@ -2,7 +2,7 @@ import {AUTHORIZATION} from './actions';
 
 
 const initialState = {
-  initiation: false,
+  initiation: null,
 }
 
 const counterReducer = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const counterReducer = (state = initialState, action) => {
     case AUTHORIZATION:
       return {
         ...state,
-        authorization: action.value
+        initiation: action.value
       };
 
     default:

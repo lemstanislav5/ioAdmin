@@ -8,11 +8,8 @@ import RegisterPage from '../components/pages/register/RegisterPage';
 
 const InitiationRoute = (props) => {
   const { Component } = props;
-  // const [initiation, setInitiation] = useState(null);
   const initiation = useSelector((state) => state.counter.initiation);
-  console.log(initiation)
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     AuthService.initiation()

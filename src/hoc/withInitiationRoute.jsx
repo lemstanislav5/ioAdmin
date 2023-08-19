@@ -12,15 +12,15 @@ const InitiationRoute = (props) => {
       .then(res => {
         console.log('res.data.initiation: ', res)
         if (res.data && res.data.initiation === false) 
-          return setTimeout(() => setInitiation(false), 1000);
-        return setTimeout(() => setInitiation(true), 1000);
+          return setTimeout(() => setInitiation(false), 500);
+        return setTimeout(() => setInitiation(true), 500);
       })
       .catch((err) => {
-        setTimeout(() => setInitiation(false), 1000);
+        setTimeout(() => setInitiation(false), 500);
         console.log(err)
       })
       .finally (() => {
-        setTimeout(() => setInitiation(false), 1000);
+        setTimeout(() => setInitiation(false), 500);
       });
   }, []);
 

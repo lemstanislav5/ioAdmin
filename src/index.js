@@ -22,6 +22,11 @@ return instance.get("/api/refresh");
 
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
+
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
+
 import LoginPage from './components/pages/authorization/LoginPage';
 import { Messages } from './components/pages/messages/Messages';
 import Container from 'react-bootstrap/Container';
@@ -57,6 +62,10 @@ const App = () => {
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<InitiationRoute Component={ App } />);
+root.render(
+  <Provider store={store}>
+    <InitiationRoute Component={ App } />
+  </Provider>
+);
 
 reportWebVitals();

@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {initiationActionCreator} from '../redux/actions';
+
 import AuthService from "../api/auth";
 import { Preloader } from '../components/preloader/Preloader';
 import RegisterPage from '../components/pages/register/RegisterPage';
 
 const InitiationRoute = (props) => {
   const { Component } = props;
-  const [initiation, setInitiation] = useState(null);
+  // const [initiation, setInitiation] = useState(null);
+  const initiation = useSelector((state) => state.counter.initiation);
+  console.log(initiation)
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     AuthService.initiation()
       .then(res => {
         console.log('res.data.initiation: ', res)
-        if (res.data && res.data.initiation === false) 
-          return setTimeout(() => setInitiation(false), 500);
-        return setTimeout(() => setInitiation(true), 500);
+        return setTimeout(() => dispatch(initiationActionCreator(res.data.initiation)), 500);
       })
       .catch((err) => {
-        setTimeout(() => setInitiation(false), 500);
         console.log(err)
       })
       .finally (() => {
-        setTimeout(() => setInitiation(false), 500);
+        // setTimeout(() => setInitiation(false), 500);
       });
   }, []);
 

@@ -9,19 +9,17 @@ import RegisterPage from '../components/pages/register/RegisterPage';
 const InitiationRoute = (props) => {
   const { Component } = props;
   const initiation = useSelector((state) => state.counter.initiation);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const setInitiation = value => dispatch(initiationActionCreator(value));
 
   useEffect(() => {
     AuthService.initiation()
       .then(res => {
-        console.log('res.data.initiation: ', res)
-        return setTimeout(() => dispatch(initiationActionCreator(res.data.initiation)), 500);
+        return setTimeout(() => setInitiation(res.data.initiation), 500);
       })
       .catch((err) => {
         console.log(err)
-      })
-      .finally (() => {
-        // setTimeout(() => setInitiation(false), 500);
       });
   }, []);
 
@@ -31,7 +29,7 @@ const InitiationRoute = (props) => {
   } else if (initiation === true) {
     return <Component/>;
   } else if (initiation === false) {
-    return  <RegisterPage />
+    return  <RegisterPage setInitiation={setInitiation}/>
   }
 };
 

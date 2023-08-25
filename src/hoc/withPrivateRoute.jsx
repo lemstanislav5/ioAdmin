@@ -18,13 +18,12 @@ const PrivateRoute = (props) => {
         })
         .catch((err) => {
           setIsAuthInProgress(false);
-          console.log("login error", err);
+          console.error("Ошибка авторизации: ", err);
         })
         .finally (() => {
           setTimeout(() => setIsAuthInProgress(false), 1000);
         });
     }
-    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

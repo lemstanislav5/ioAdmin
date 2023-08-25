@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import AuthService from "../../../api/auth";
 import style from './RegisterPage.module.css';
 
-export default function LoginPage() {
+export default function RegisterPage({setInitiation}) {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState(null);
   const [password, setPassword] = useState('');
@@ -39,7 +39,8 @@ export default function LoginPage() {
       setIsRegistrationProgress(true);
       AuthService.registration(email, password)
         .then(res => {
-
+          console.log(res);
+          setInitiation(data.success)
         })
         .catch((err) => {
           console.log("login error", err);
@@ -81,7 +82,7 @@ export default function LoginPage() {
               }
               <Form.Control className={password !== confirmPassword? style.err : null} type="password" autoComplete="on" placeholder="" value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value)}}/>
             </Form.Group>
-            <Button variant="primary" disabled={setDisabled()} onClick={() => sendRegisterData()}>Войти</Button>{' '}
+            <Button variant="primary" disabled={setDisabled()} onClick={() => sendRegisterData()}>Отправить</Button>{' '}
           </Form>
         </Col>
       </Row>

@@ -4,8 +4,8 @@ const AuthService = {
     initiation () {
         return instance.post("/api/initiation")
     },
-    registration (login, password) {
-        return instance.post("/api/registration", {login, password})
+    registration (email, password) {
+        return instance.post("/api/registration", {email, password})
     },
     login (login, password) {
         return instance.post("/api/auth", {login, password})

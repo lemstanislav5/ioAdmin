@@ -46,6 +46,10 @@ const App = () => {
       element: <PrivateRoute  Component={ Messages } />,
     },
     {
+      path: "/messages",
+      element: <PrivateRoute  Component={ Messages } />,
+    },
+    {
       path: "/login",
       element: <LoginPage />,
     },

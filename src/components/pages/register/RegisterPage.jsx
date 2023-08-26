@@ -40,7 +40,7 @@ export default function RegisterPage({setInitiation}) {
       AuthService.registration(email, password)
         .then(res => {
           console.log(res);
-          setInitiation(data.success)
+          setInitiation(res.data.success)
         })
         .catch((err) => {
           console.log("login error", err);

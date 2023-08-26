@@ -1,4 +1,3 @@
-
 /*
 Первое, что проверяет приложение - это иницилизация, которая заключается в создании менеждера.
 Если менеджер не существует, приложение отображает форму для его создания.
@@ -20,34 +19,32 @@ return instance.get("/api/refresh");
   6. Структура данных (сообщения, прочтитано, статус)
 */
 
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
 
-import { Provider } from 'react-redux'
-import store from './redux/store'
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
-
-import LoginPage from './components/pages/authorization/LoginPage';
-import { Messages } from './components/pages/messages/Messages';
-import Container from 'react-bootstrap/Container';
-import TopMenu from './components/top/TopMenu';
+import LoginPage from "./components/pages/authorization/LoginPage";
+import { Messages } from "./components/pages/messages/Messages";
+import Container from "react-bootstrap/Container";
+import TopMenu from "./components/top/TopMenu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PrivateRoute from './hoc/withPrivateRoute';
-import Error404 from './components/pages/error404/Error404';
-import InitiationRoute from './hoc/withInitiationRoute';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import PrivateRoute from "./hoc/withPrivateRoute";
+import Error404 from "./components/pages/error404/Error404";
+import InitiationRoute from "./hoc/withInitiationRoute";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   //! 2-ой выполняется PrivateRoute
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <PrivateRoute  Component={ Messages } />,
+      element: <PrivateRoute Component={Messages} />,
     },
     {
       path: "/messages",
-      element: <PrivateRoute  Component={ Messages } />,
+      element: <PrivateRoute Component={Messages} />,
     },
     {
       path: "/login",
@@ -55,21 +52,21 @@ const App = () => {
     },
     {
       path: "*",
-      element: <Error404 /> ,
-    }
+      element: <Error404 />,
+    },
   ]);
   return (
     <Container fluid>
-      <TopMenu/>
+      <TopMenu />
       <RouterProvider router={router} />
     </Container>
   );
 };
 //! 1-ой выполняется InitiationRoute
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <InitiationRoute Component={ App } />
+    <InitiationRoute Component={App} />
   </Provider>
 );
 

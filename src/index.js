@@ -32,11 +32,9 @@ import TopMenu from "./components/top/TopMenu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./hoc/withPrivateRoute";
 import Error404 from "./components/pages/error404/Error404";
-import InitiationRoute from "./hoc/withInitiationRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
-  //! 2-ой выполняется PrivateRoute
   const router = createBrowserRouter([
     {
       path: "/",
@@ -62,11 +60,10 @@ const App = () => {
     </Container>
   );
 };
-//! 1-ой выполняется InitiationRoute
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <InitiationRoute Component={App} />
+    <App />
   </Provider>
 );
 

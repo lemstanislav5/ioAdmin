@@ -1,16 +1,19 @@
-import {AUTHORIZATION} from './actions';
-
+import { AUTHORIZATION } from "./actions";
 
 const initialState = {
-  initiation: null,
-}
+  authentication: null,
+  login: null,
+  token: null,
+};
 
 const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTHORIZATION:
       return {
         ...state,
-        initiation: action.value
+        authentication: action.authentication,
+        login: action.login,
+        token: action.token
       };
 
     default:

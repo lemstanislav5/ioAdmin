@@ -37,6 +37,7 @@ export const  Messages = ({token}) => {
       socketInstance.off('newMessage', handlers.onMessage);
       socketInstance.off('getAllUsers', (users) => setUsers(users));
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -58,6 +59,7 @@ export const  Messages = ({token}) => {
   return (
     <Row>
       <Col xs={4}>
+        <div>Пользователи</div>
         <Users users={users}/>
       </Col>
       

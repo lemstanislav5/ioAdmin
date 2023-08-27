@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AuthService from "../../../api/auth";
 import { Navigate } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
+
 
 export default function LoginPage() {
   const [login, setLogin] = useState('');
@@ -30,14 +32,13 @@ export default function LoginPage() {
   if (isAuth) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >
-      <Col xs={3}>
+      <Col xs={4}>
         <Form>
           {
             isAuthInProgress === false
-            ? <h3>Неверный пароль или логин</h3>
+            ? <><br/> <Alert variant="danger">Неправильный логин или пароль!</Alert></>
             : null
           }
-          <br/>
           <Form.Group className="mb-3" controlId="login">
             <Form.Label>Логин</Form.Label>
             <Form.Control type="text" placeholder="*********" value={login} onChange={(e) => {setLogin(e.target.value)}}/>

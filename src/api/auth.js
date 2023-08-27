@@ -8,7 +8,7 @@ const AuthService = {
         return instance.post("/api/registration", {login, password})
     },
     login (login, password) {
-        return instance.post("/api/auth", {login, password})
+        return instance.post("/api/authorization", {login, password})
     },
 
     refreshToken() {

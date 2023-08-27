@@ -7,6 +7,7 @@ const initialState = {
 };
 
 const counterReducer = (state = initialState, action) => {
+  debugger
   switch (action.type) {
     case AUTHORIZATION:
       return {

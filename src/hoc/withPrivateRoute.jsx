@@ -13,11 +13,12 @@ const PrivateRoute = (props) => {
   console.log('PrivateRoute', token, isAuthInProgress)
   useEffect(() => {
     setIsAuthInProgress(true);
-    AuthService.checkAccessToken()
+    AuthService.access()
       .then(res => {
+        console.log('AuthService.access', res.data.access)
         //! Остановился здесь
         if (res.data.access) {
-
+          // console.log(res.data.access)
         } else {
 
         }

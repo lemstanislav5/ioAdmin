@@ -1,8 +1,8 @@
 import { instance } from "./config.js";
 
 const AuthService = {
-    checkAccessToken () {
-        return instance.post("/api/checkAccessToken")
+    access () {
+        return instance.post("/api/access")
     },
     registration (login, password) {
         return instance.post("/api/registration", {login, password})

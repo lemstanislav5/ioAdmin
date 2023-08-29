@@ -9,46 +9,44 @@ const PrivateRoute = (props) => {
   const { Component } = props;
   const token = useSelector((state) => state.counter.token);
   const [isAuthInProgress, setIsAuthInProgress] = useState(null);
+  const [access, setAccess] = useState(false);
   const dispatch = useDispatch();
-  console.log('PrivateRoute', token, isAuthInProgress)
   useEffect(() => {
     setIsAuthInProgress(true);
     AuthService.access()
+      .then(res => (res.data.access))
       .then(res => {
-        console.log('AuthService.access', res.data.access)
-        //! Остановился здесь
-        if (res.data.access) {
-          // console.log(res.data.access)
+        console.log(res)
+        if (res) {
+          setIsAuthInProgress(res);
+          setAccess(res);
         } else {
-
+          AuthService.refreshToken()
+            .then(res => {
+              console.log('AuthService.refreshToken', res);
+            })
+            .catch((err) => {
+              setIsAuthInProgress(null);
+              console.error("AuthService.refreshToken Ошибка авторизации: ", err);
+            })
+    // }
         }
+
       })
       .catch((err) => {
         setIsAuthInProgress(null);
         console.error("Ошибка авторизации: ", err);
       })
-    //   AuthService.refreshToken()
-    //     .then(res => {
-    //       localStorage.setItem("token", res.data.token);
-    //       setIsAuthInProgress(false);
-    //       setTimeout(() => dispatch(authenticationActionCreator(res.data.token, res.data.login)), 300);
-    //     })
-    //     .catch((err) => {
-    //       setIsAuthInProgress(null);
-    //       console.error("Ошибка авторизации: ", err);
-    //     })
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (token === null && isAuthInProgress === null) {
-    return <Navigate to="/login" />;
-  } else if (token && isAuthInProgress === true) {
+  if (isAuthInProgress && !access) {
     return <Preloader />
-  } else if (token && isAuthInProgress === false) {
+  } else if (!isAuthInProgress && access) {
     return <Component token={token} />;
+  } else if (!isAuthInProgress && !access) {
+    return <Navigate to="/login" />;
   }
-
 };
 
 export default PrivateRoute;

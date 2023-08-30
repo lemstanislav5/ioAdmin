@@ -40,13 +40,21 @@ const PrivateRoute = (props) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isAuthInProgress && !access) {
-    return <Preloader />
-  } else if (!isAuthInProgress && access) {
+  if (isAuthInProgress === true && access === false) {
+    return <Preloader/>
+  } else if (isAuthInProgress === false && access === true) {
     return <Component token={token} />;
-  } else if (!isAuthInProgress && !access) {
+  } else if (isAuthInProgress === false && access === false) {
     return <Navigate to="/login" />;
   }
-};
+
+
+  if (access === null) {
+    return <Preloader/>
+  } else if (access === true) {
+    return <Component token={token} />;
+  } else if (access === false) {
+    return <Navigate to="/login" />;
+  }};
 
 export default PrivateRoute;

@@ -7,12 +7,10 @@ import { authenticationActionCreator } from '../redux/actions';
 
 const PrivateRoute = (props) => {
   const { Component } = props;
-  const token = useSelector((state) => state.counter.token);
-  const [isAuthInProgress, setIsAuthInProgress] = useState(null);
-  const [access, setAccess] = useState(false);
+  const token = useSelector((state) => state.counter.token);
+  const [access, setAccess] = useState(null);
   const dispatch = useDispatch();
-  useEffect(() => {
-    setIsAuthInProgress(true);
+  useEffect(() => {
     AuthService.access()
       .then(res => (res.data.access))
       .then(res => {
@@ -40,13 +38,7 @@ const PrivateRoute = (props) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isAuthInProgress === true && access === false) {
-    return <Preloader/>
-  } else if (isAuthInProgress === false && access === true) {
-    return <Component token={token} />;
-  } else if (isAuthInProgress === false && access === false) {
-    return <Navigate to="/login" />;
-  }
+
 
 
   if (access === null) {

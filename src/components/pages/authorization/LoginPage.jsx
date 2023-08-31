@@ -12,35 +12,30 @@ import {authenticationActionCreator} from '../../../redux/actions';
 export default function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuth, setIsAuth] = useState(null);
-  const [isAuthInProgress, setIsAuthInProgress] = useState(null);
+  const [access, setAccess] = useState(null);
   const dispatch = useDispatch();
 
 
   const sendLogAndPass = (login, password) => {
-    setIsAuthInProgress(true);
     AuthService.login(login, password)
       .then(res => {
         console.log(res)
         dispatch(authenticationActionCreator(res.data.token, res.data.login));
-        localStorage.setItem("token", res.data.token);
-        setIsAuth(true);
+        setAccess(true);
       })
       .catch((err) => {
+        setAccess(false);
         console.log("login error", err);
-      })
-      .finally (() => {
-        setIsAuthInProgress(false);
       });
   }
 
-  if (isAuth) return <Navigate to="/messages" />;
+  if (access) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >
       <Col xs={4}>
         <Form>
           {
-            isAuthInProgress === false
+            access === false
             ? <><br/> <Alert variant="danger">Неправильный логин или пароль!</Alert></>
             : null
           }
@@ -52,7 +47,7 @@ export default function LoginPage() {
             <Form.Label>Пароль</Form.Label>
             <Form.Control type="password" autoComplete="on" placeholder="*********" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           </Form.Group>
-          <Button variant="primary" onClick={() => sendLogAndPass(login, password)}>Войти</Button>{' '}
+          <Button variant="primary" disabled={access} onClick={() => sendLogAndPass(login, password)}>Войти</Button>{' '}
         </Form>
       </Col>
     </Row>

@@ -8,7 +8,7 @@ import RegisterPage from '../components/pages/register/RegisterPage';
 
 const InitiationRoute = (props) => {
   const { Component } = props;
-  const initiation = useSelector((state) => state.counter.initiation);
+  const initiation = useSelector((state) => state.auth.initiation);
   const dispatch = useDispatch();
 
   const setInitiation = value => dispatch(initiationActionCreator(value));

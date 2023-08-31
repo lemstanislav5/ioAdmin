@@ -6,8 +6,7 @@ const initialState = {
   token: null,
 };
 
-const counterReducer = (state = initialState, action) => {
-  console.log(action)
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTHORIZATION:
       return {
@@ -22,4 +21,4 @@ const counterReducer = (state = initialState, action) => {
   }
 };
 
-export default counterReducer;
+export default authReducer;

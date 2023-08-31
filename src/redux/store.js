@@ -3,6 +3,6 @@ import reducer from './reducers'
 
 export default configureStore({
   reducer: {
-    counter: reducer,
+    auth: reducer,
   },
 })

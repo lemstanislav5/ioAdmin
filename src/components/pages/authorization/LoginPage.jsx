@@ -19,8 +19,9 @@ export default function LoginPage() {
   const sendLogAndPass = (login, password) => {
     AuthService.login(login, password)
       .then(res => {
-        console.log(res)
-        dispatch(authenticationActionCreator(res.data.token, res.data.login));
+        console.log(res.data.token)
+        localStorage.setItem("token", res.data.token);
+        dispatch(authenticationActionCreator(res.data.login));
         setAccess(true);
       })
       .catch((err) => {

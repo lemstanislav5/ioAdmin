@@ -17,7 +17,6 @@ instance.interceptors.request.use(
   }
 )
 
-
 // создаем перехватчик ответов
 // который в случае невалидного accessToken попытается его обновить
 // и переотправить запрос с обновленным accessToken
@@ -42,7 +41,8 @@ instance.interceptors.response.use(
         // запрос на обновление токенов
         const resp = await instance.get("/api/refresh");
         // сохраняем новый accessToken в localStorage
-        localStorage.setItem("token", resp.data.accessToken);
+        console.log("/api/refresh", resp.data)
+        localStorage.setItem("token", resp.data.token);
         // переотправляем запрос с обновленным accessToken
         return instance.request(originalRequest);
       } catch (error) {
@@ -50,7 +50,6 @@ instance.interceptors.response.use(
       }
     }
     // на случай, если возникла другая ошибка (не связанная с авторизацией)
-    // пробросим эту ошибку
     throw error;
   }
 );

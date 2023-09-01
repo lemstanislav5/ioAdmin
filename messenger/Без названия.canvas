@@ -1,0 +1,11 @@
+{
+	"nodes":[
+		{"id":"3c4ab06deed33500","type":"text","text":"server","x":537,"y":-60,"width":250,"height":60},
+		{"id":"567caf6c4fe4e411","type":"text","text":"/masseges","x":-480,"y":-320,"width":250,"height":60},
+		{"id":"71452c27b70e7bfb","type":"text","text":"HOC withPrivateRoute","x":-40,"y":-200,"width":250,"height":60}
+	],
+	"edges":[
+		{"id":"a244fc5f0dfc2af2","fromNode":"567caf6c4fe4e411","fromSide":"right","toNode":"71452c27b70e7bfb","toSide":"left"},
+		{"id":"71691c0e3c630d81","fromNode":"71452c27b70e7bfb","fromSide":"right","toNode":"3c4ab06deed33500","toSide":"left","label":"api/messages"}
+	]
+}

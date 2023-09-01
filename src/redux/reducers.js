@@ -3,7 +3,6 @@ import { AUTHORIZATION } from "./actions";
 const initialState = {
   authentication: null,
   login: null,
-  token: null,
 };
 
 const authReducer = (state = initialState, action) => {

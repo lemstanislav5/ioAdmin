@@ -11,8 +11,6 @@ function TopMenu() {
           <Navbar.Brand href="/">Messenger</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/login">Вход</Nav.Link>
-            <Nav.Link href="/register">Регистрация</Nav.Link>
-            <Nav.Link href="/info">Информация</Nav.Link>
             <Nav.Link href="/messages">Сообщения</Nav.Link>
           </Nav>
           <Nav className="justify-content-end">

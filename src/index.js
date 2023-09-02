@@ -54,7 +54,7 @@ const App = () => {
     },
   ]);
   return (
-    <Container fluid>
+    <Container>
       <TopMenu />
       <RouterProvider router={router} />
     </Container>

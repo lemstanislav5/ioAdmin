@@ -9,6 +9,7 @@ import { Events } from './Events';
 import { io } from 'socket.io-client';
 import handlers from '../../../handlers';
 import Users from '../../users/Users';
+import style from './Messages.module.css'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const  Messages = ({token}) => {
@@ -64,7 +65,7 @@ export const  Messages = ({token}) => {
       </Col>
       
       <Col xs={8}>
-        <div>Тестовое сообщение</div>
+        <div className={style.massagesBox}>Тестовое сообщение</div>
         <Form>
           <br/>
           <Form.Group className="mb-3" controlId="exampleForm.Messages">

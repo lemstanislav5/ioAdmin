@@ -19,7 +19,7 @@ export default function LoginPage() {
   const sendLogAndPass = (login, password) => {
     AuthService.login(login, password)
       .then(res => {
-        console.log(res.data.token)
+        console.log('AuthService.login', res.data.token)
         localStorage.setItem("token", res.data.token);
         dispatch(authenticationActionCreator(res.data.login));
         setAccess(true);
@@ -29,7 +29,7 @@ export default function LoginPage() {
         console.log("login error", err);
       });
   }
-
+  console.log('login', access)
   if (access) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >

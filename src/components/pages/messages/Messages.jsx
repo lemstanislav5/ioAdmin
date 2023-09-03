@@ -30,24 +30,24 @@ export const  Messages = () => {
     socketInstance.on('connect', (setIsConnected) => handlers.onConnect);
     socketInstance.on('disconnect', (setIsConnected) => handlers.onDisconnect);
     socketInstance.on('newMessage', (setMessages) =>  handlers.onMessage);
-    socketInstance.on('getAllUsers', (users) => setUsers(users));
+    socketInstance.on('getUsers', (users) => setUsers(users));
 
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
       socketInstance.off('newMessage', handlers.onMessage);
-      socketInstance.off('getAllUsers', (users) => setUsers(users));
+      socketInstance.off('getUsers', (users) => setUsers(users));
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (socket !== null) socket.emit("getAllUsers", (users) => setUsers(users));
+    if (socket !== null) socket.emit('getUsers', (users) => setUsers(users));
   }, [socket])
 
   const sendText = () => {
     console.log('sendText')
-    socket.emit("newMessage", {message}, () => {});
+    socket.emit('newMessage', {message}, () => {});
     // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
     //   if(error) {
     //     console.log(error, notification);

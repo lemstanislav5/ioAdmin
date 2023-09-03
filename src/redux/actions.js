@@ -1,9 +1,8 @@
 export const AUTHORIZATION = 'AUTHORIZATION';
 
-export const authenticationActionCreator = (token, login) => {
+export const authenticationActionCreator = (login) => {
   return {
     type: AUTHORIZATION,
-    token,
     login,
   };
 };

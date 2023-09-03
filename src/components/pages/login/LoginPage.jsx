@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -7,21 +6,16 @@ import Col from 'react-bootstrap/Col';
 import AuthService from "../../../api/auth";
 import { Navigate } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert';
-import {authenticationActionCreator} from '../../../redux/actions';
 
 export default function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [access, setAccess] = useState(null);
-  const dispatch = useDispatch();
-
 
   const sendLogAndPass = (login, password) => {
     AuthService.login(login, password)
       .then(res => {
-        console.log('AuthService.login', res.data.token)
         localStorage.setItem("token", res.data.token);
-        dispatch(authenticationActionCreator(res.data.login));
         setAccess(true);
       })
       .catch((err) => {

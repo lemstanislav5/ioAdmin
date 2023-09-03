@@ -2,8 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useSelector } from 'react-redux';
+
 
 function TopMenu() {
+  const { login } = useSelector((store) => store.auth);
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -16,9 +19,9 @@ function TopMenu() {
           <Nav className="justify-content-end">
           <Navbar.Toggle />
             <Navbar.Collapse>
-              <Navbar.Text>
-                Пользователь: <a href="#login">Mark Otto</a>
-              </Navbar.Text>
+             { login && <Navbar.Text>
+                Login: <a href="#login">{login}</a>
+              </Navbar.Text>}
               <NavDropdown title="Настройки" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">

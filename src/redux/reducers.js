@@ -1,18 +1,17 @@
 import { AUTHORIZATION } from "./actions";
 
 const initialState = {
-  authentication: null,
   login: null,
 };
 
 const authReducer = (state = initialState, action) => {
+  console.log('action', action)
   switch (action.type) {
     case AUTHORIZATION:
       return {
         ...state,
         authentication: action.authentication,
         login: action.login,
-        token: action.token
       };
 
     default:

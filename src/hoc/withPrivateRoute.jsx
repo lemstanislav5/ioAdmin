@@ -11,7 +11,7 @@ const PrivateRoute = (props) => {
       AuthService.messages()
         .then(res => {
           setTimeout(() => setAuth(true), 500);
-          console.log('login: ', res.data.login);
+          console.log('login: ', res);
         })
         .catch((err) => {
           console.error("Ошибка авторизации: ", err);

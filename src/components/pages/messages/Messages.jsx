@@ -12,7 +12,7 @@ import Users from '../../users/Users';
 import style from './Messages.module.css'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
-export const  Messages = ({token}) => {
+export const  Messages = () => {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
   const [messages, setMessages] = useState(null);
@@ -20,7 +20,7 @@ export const  Messages = ({token}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    console.log(token);
+    const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000',{
       query: {token},
     });

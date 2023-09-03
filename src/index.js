@@ -25,7 +25,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-import LoginPage from "./components/pages/authorization/LoginPage";
+import LoginPage from "./components/pages/login/LoginPage";
 import { Messages } from "./components/pages/messages/Messages";
 import Container from "react-bootstrap/Container";
 import TopMenu from "./components/top/TopMenu";

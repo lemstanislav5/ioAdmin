@@ -1,4 +1,5 @@
 import Container from 'react-bootstrap/Container';
+import { Navigate } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -7,6 +8,13 @@ import { BsGear } from "react-icons/bs";
 
 function Menu() {
   const { login } = useSelector((store) => store.auth);
+  const logout = () => {
+    console.log(1)
+    document.cookie = 'refreshToken=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    localStorage.clear();
+    return <Navigate to="/login" />
+  }
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -18,7 +26,7 @@ function Menu() {
           <Nav className="justify-content-end">
             <Navbar.Toggle />
             <Navbar.Collapse>
-            <Nav.Link href="/logout">logout</Nav.Link>
+            <Nav.Link href="#" onClick={logout}>logout</Nav.Link>
               {
                 login
                   ? <Navbar.Text> Login: <a href="#login">{login}</a></Navbar.Text>

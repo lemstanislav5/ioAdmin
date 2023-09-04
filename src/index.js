@@ -28,7 +28,7 @@ import store from "./redux/store";
 import LoginPage from "./components/pages/login/LoginPage";
 import { Messages } from "./components/pages/messages/Messages";
 import Container from "react-bootstrap/Container";
-import TopMenu from "./components/top/TopMenu";
+import Menu from "./components/menu/Menu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./hoc/withPrivateRoute";
 import Error404 from "./components/pages/error404/Error404";
@@ -55,7 +55,7 @@ const App = () => {
   ]);
   return (
     <Container>
-      <TopMenu />
+      <Menu />
       <RouterProvider router={router} />
     </Container>
   );

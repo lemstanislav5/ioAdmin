@@ -1,0 +1,9 @@
+.box{
+  cursor: pointer;
+}
+.offline{
+  background-color: green;
+}
+.online{
+  background-color:darkgray;
+}

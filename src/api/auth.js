@@ -12,7 +12,7 @@ const AuthService = {
     },
 
     logout() {
-        return instance.post("/api/logout")
+        return instance.post("/api/logout", {})
     }
 }
 export default AuthService;

@@ -26,6 +26,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 import LoginPage from "./components/pages/login/LoginPage";
+import LogoutPage from "./components/pages/logout/LogoutPage";
 import { Messages } from "./components/pages/messages/Messages";
 import Container from "react-bootstrap/Container";
 import Menu from "./components/menu/Menu";
@@ -49,10 +50,15 @@ const App = () => {
       element: <LoginPage />,
     },
     {
+      path: "/logout",
+      element: <LogoutPage />,
+    },
+    {
       path: "*",
       element: <Error404 />,
     },
   ]);
+
   return (
     <Container>
       <Menu />

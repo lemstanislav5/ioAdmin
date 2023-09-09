@@ -5,14 +5,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSelector } from 'react-redux';
 import { BsGear } from "react-icons/bs";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {authenticationActionCreator} from '../../redux/actions';
 
 function Menu() {
   const { login } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   const logout = () => {
-    console.log(1)
-    document.cookie = 'refreshToken=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    localStorage.clear();
-    return <Navigate to="/login" />
+    dispatch(authenticationActionCreator(null));
   }
 
   return (
@@ -26,7 +27,7 @@ function Menu() {
           <Nav className="justify-content-end">
             <Navbar.Toggle />
             <Navbar.Collapse>
-            <Nav.Link href="#" onClick={logout}>logout</Nav.Link>
+            <Nav.Link href="/logout">logout</Nav.Link>
               {
                 login
                   ? <Navbar.Text> Login: <a href="#login">{login}</a></Navbar.Text>

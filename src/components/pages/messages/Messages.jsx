@@ -9,13 +9,15 @@ import { Events } from './Events';
 import { io } from 'socket.io-client';
 import handlers from '../../../handlers';
 import Users from './users/Users';
-import style from './Messages.module.css'
+import style from './Messages.module.css';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const  Messages = () => {
+  //! ОСТАНОВИЛСЯ ЗДЕСЬ const messagesArr = useSelector((store) => store.messages);
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
-  const [messages, setMessages] = useState(null);
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState([]);
 
@@ -27,9 +29,9 @@ export const  Messages = () => {
     
     setSocket(socketInstance);
 
-    socketInstance.on('connect', (setIsConnected) => handlers.onConnect);
-    socketInstance.on('disconnect', (setIsConnected) => handlers.onDisconnect);
-    socketInstance.on('newMessage', (setMessages) =>  handlers.onMessage);
+    socketInstance.on('connect', () => handlers.onConnect);
+    socketInstance.on('disconnect', () => handlers.onDisconnect);
+    socketInstance.on('newMessage', () =>  handlers.onMessage);
     socketInstance.on('getUsers', (users) => setUsers(users));
 
     return () => {

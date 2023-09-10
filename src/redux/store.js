@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import reducer from './reducers'
+import authReducer from './authReducer'
+import massagesReducer from './messagesReducer'
 
 export default configureStore({
   reducer: {
-    auth: reducer,
+    auth: authReducer,
+    massages: massagesReducer,
   },
 })

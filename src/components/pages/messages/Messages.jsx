@@ -15,7 +15,9 @@ import { useSelector } from 'react-redux';
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const  Messages = () => {
-  //! ОСТАНОВИЛСЯ ЗДЕСЬ const messagesArr = useSelector((store) => store.messages);
+  //! ОСТАНОВИЛСЯ ЗДЕСЬ 
+  // const {messages} = useSelector((store) => store.messages);
+  console.log(useSelector((store) => store.messages))
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
   const [message, setMessage] = useState('');

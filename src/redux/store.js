@@ -1,10 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
-import authReducer from './authReducer'
-import massagesReducer from './messagesReducer'
+import { configureStore } from "@reduxjs/toolkit";
+import { rootReducer } from "./reducers";
 
-export default configureStore({
-  reducer: {
-    auth: authReducer,
-    massages: massagesReducer,
-  },
-})
+const store = configureStore({
+  reducer: rootReducer,
+});
+
+export default store;

@@ -14,10 +14,10 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
-export const  Messages = () => {
+export const Messages = () => {
   //! ОСТАНОВИЛСЯ ЗДЕСЬ 
-  // const {messages} = useSelector((store) => store.messages);
-  console.log(useSelector((store) => store.messages))
+  const { messages } = useSelector((store) => store.messages);
+  console.log(messages);
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
   const [message, setMessage] = useState('');
@@ -25,15 +25,15 @@ export const  Messages = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const socketInstance = io('http://localhost:4000',{
-      query: {token},
+    const socketInstance = io('http://localhost:4000', {
+      query: { token },
     });
-    
+
     setSocket(socketInstance);
 
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
-    socketInstance.on('newMessage', () =>  handlers.onMessage);
+    socketInstance.on('newMessage', () => handlers.onMessage);
     socketInstance.on('getUsers', (users) => setUsers(users));
 
     return () => {
@@ -42,7 +42,7 @@ export const  Messages = () => {
       socketInstance.off('newMessage', handlers.onMessage);
       socketInstance.off('getUsers', (users) => setUsers(users));
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const  Messages = () => {
 
   const sendText = () => {
     console.log('sendText')
-    socket.emit('newMessage', {message}, () => {});
+    socket.emit('newMessage', { message }, () => { });
     // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
     //   if(error) {
     //     console.log(error, notification);
@@ -65,15 +65,20 @@ export const  Messages = () => {
     <Row>
       <Col xs={4}>
         <div>Пользователи</div>
-        <Users users={users}/>
+        <Users users={users} />
       </Col>
-      
+
       <Col xs={8}>
-        <div className={style.massagesBox}>Тестовое сообщение</div>
+        <div className={style.massagesBox}>
+          {messages.length === 0
+            ? "Сообщений нет!"
+            : "messages.map"
+          }
+        </div>
         <Form>
-          <br/>
+          <br />
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea" placeholder="Введите Ваше сообщение" value={message} onChange={(e) => {setMessage(e.target.value)}}/>
+            <Form.Control as="textarea" placeholder="Введите Ваше сообщение" value={message} onChange={(e) => { setMessage(e.target.value) }} />
           </Form.Group>
           <Button variant="primary" onClick={sendText}>Отправить</Button>{' '}
         </Form>

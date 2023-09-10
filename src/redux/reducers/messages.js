@@ -1,17 +1,17 @@
 import { ADD_MESSAGES } from "../actions";
 
 const initialState = {
-  massages: [],
+  messages: [],
 };
 
-const massages = (state = initialState, action) => {
+const messages = (state = initialState, action) => {
   console.log(state)
   switch (action.type) {
     case ADD_MESSAGES:
-      return {...state, massage: action.massage};
+      return {...state, message: action.message};
     default:
       return state;
   }
 };
 
-export default massages;
+export default messages;

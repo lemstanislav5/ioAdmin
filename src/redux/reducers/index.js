@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import auth from './auth'
-import massages from './messages'
+import messages from './messages'
 
 export const rootReducer = combineReducers({
   auth,
-  massages,
+  messages,
 });

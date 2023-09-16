@@ -7,8 +7,9 @@ export default () => {
     calback(false);
   }
 
-  function onMessage(calback, value) {
-    calback(messages => [...messages, value]);
+  function onMessage(message) {
+    console.log(message)
+    // calback(messages => [...messages, value]);
   }
   function getAllUsers(calback, data) {
     calback(data);

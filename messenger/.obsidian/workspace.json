@@ -4,20 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "6a0a1f3700a74937",
+        "id": "2b8951d15abf7d72",
         "type": "tabs",
         "children": [
           {
-            "id": "0615d83dc45109de",
+            "id": "212d96016a2df61d",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
                 "file": "Без названия.canvas",
                 "viewState": {
-                  "x": 343.77737995764187,
-                  "y": -557.1625182246486,
-                  "zoom": -0.5188974483807882
+                  "x": -1064.996655440633,
+                  "y": -2544.4277425621026,
+                  "zoom": -1.1340225602108283
                 }
               }
             }
@@ -149,8 +149,9 @@
       "command-palette:Открыть палитру команд": false
     }
   },
-  "active": "0615d83dc45109de",
+  "active": "212d96016a2df61d",
   "lastOpenFiles": [
-    "Без названия.canvas"
+    "Без названия.canvas",
+    "Без названия 1.canvas"
   ]
 }

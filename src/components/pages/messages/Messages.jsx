@@ -56,7 +56,9 @@ export const Messages = () => {
 
   const sendText = () => {
     console.log('sendText')
-    socket.emit('newMessage', { message }, () => { });
+    socket.emit('newMessage', { message }, () => { 
+      console.log(message);
+    });
     // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
     //   if(error) {
     //     console.log(error, notification);

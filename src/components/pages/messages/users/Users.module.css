@@ -2,8 +2,8 @@
   cursor: pointer;
 }
 .offline{
-  background-color: green;
+  color:darkgray;
 }
 .online{
-  background-color:darkgray;
+  color: green;
 }

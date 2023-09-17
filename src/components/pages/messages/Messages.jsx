@@ -7,6 +7,7 @@ import { ConnectionState } from './ConnectionState';
 import { MessageForm } from './MessageForm/MessageForm';
 import { Events } from './Events';
 import { io } from 'socket.io-client';
+import Dialogue from './dialogue/Dialogue';
 import handlers from '../../../handlers';
 import Users from './users/Users';
 import style from './Messages.module.css';
@@ -46,7 +47,7 @@ export const Messages = () => {
   useEffect(() => {
     if (socket !== null && users.length === 0) {
       socket.emit('getUsers', (users) => dispatch(usersActionCreator(users)));
-      socket.emit('getMessages', (messages) => dispatch(massagesActionCreator(messages)));
+      socket.emit('getMesseges', (messages) => dispatch(massagesActionCreator(messages)));
       //!ОСТАНОВИЛСЯ ЗДЕСЬ
     }
   }, [socket])
@@ -74,10 +75,7 @@ export const Messages = () => {
 
       <Col xs={8}>
         <div className={style.massagesBox}>
-          {messages.length === 0
-            ? "Сообщений нет!"
-            : "messages.map"
-          }
+          <Dialogue messages={messages}/>
         </div>
         <Form>
           <br />

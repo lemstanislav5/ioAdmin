@@ -1,14 +1,14 @@
-import { ADD_MESSAGES } from "../actions";
+import { GET_MESSAGES } from "../actions";
 
 const initialState = {
-  messages: [],
+  messages: [1],
 };
 
 const messages = (state = initialState, action) => {
-  console.log(state)
+  console.log(action)
   switch (action.type) {
-    case ADD_MESSAGES:
-      return {...state, message: action.message};
+    case GET_MESSAGES:
+      return {...state, messages: action.messages};
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 export const AUTHORIZATION = 'AUTHORIZATION';
-export const ADD_MESSAGES = 'ADD_MESSAGES';
+export const GET_MESSAGES = 'GET_MESSAGES';
 export const GET_USERS = 'GET_USERS';
 
 export const authenticationActionCreator = (login) => {
@@ -9,10 +9,10 @@ export const authenticationActionCreator = (login) => {
   };
 };
 
-export const massagesActionCreator = (massage) => {
+export const massagesActionCreator = (messages) => {
   return {
-    type: ADD_MESSAGES,
-    massage,
+    type: GET_MESSAGES,
+    messages,
   };
 };
 

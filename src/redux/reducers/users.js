@@ -5,9 +5,8 @@ const initialState = {
 };
 
 const users = (state = initialState, action) => {
-  console.log(state)
   switch (action.type) {
-    case ADD_MESSAGES:
+    case GET_USERS:
       return {...state, users: action.users};
     default:
       return state;

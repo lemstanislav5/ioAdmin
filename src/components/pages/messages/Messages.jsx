@@ -12,14 +12,13 @@ import Users from './users/Users';
 import style from './Messages.module.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { usersActionCreator } from '../../../redux/actions'
+import { usersActionCreator, massagesActionCreator } from '../../../redux/actions'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const Messages = () => {
   const dispatch = useDispatch()
   const { messages } = useSelector((store) => store.messages);
   const { users } = useSelector((store) => store.users);
-  console.log(messages);
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
   const [message, setMessage] = useState('');
@@ -35,22 +34,20 @@ export const Messages = () => {
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
     socketInstance.on('newMessage', () => handlers.onMessage);
-    socketInstance.on('getUsers', (users) => {
-      console.log(users)
-    });
 
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
       socketInstance.off('newMessage', handlers.onMessage);
-      socketInstance.off('getUsers', (users) => setUsers(users));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (socket !== null) {
-      socket.emit('getUsers', (users) => setUsers(users));
+    if (socket !== null && users.length === 0) {
+      socket.emit('getUsers', (users) => dispatch(usersActionCreator(users)));
+      socket.emit('getMessages', (messages) => dispatch(massagesActionCreator(messages)));
+      //!ОСТАНОВИЛСЯ ЗДЕСЬ
     }
   }, [socket])
 

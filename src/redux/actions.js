@@ -18,7 +18,7 @@ export const massagesActionCreator = (massage) => {
 
 export const usersActionCreator = (users) => {
   return {
-    type: ADD_MESSAGES,
+    type: GET_USERS,
     users,
   };
 };

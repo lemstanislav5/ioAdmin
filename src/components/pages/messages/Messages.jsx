@@ -12,16 +12,17 @@ import Users from './users/Users';
 import style from './Messages.module.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { usersActionCreator } from '../../../redux/actions'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const Messages = () => {
-  //! ОСТАНОВИЛСЯ ЗДЕСЬ 
+  const dispatch = useDispatch()
   const { messages } = useSelector((store) => store.messages);
+  const { users } = useSelector((store) => store.users);
   console.log(messages);
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(null);
   const [message, setMessage] = useState('');
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,7 +35,9 @@ export const Messages = () => {
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
     socketInstance.on('newMessage', () => handlers.onMessage);
-    socketInstance.on('getUsers', (users) => setUsers(users));
+    socketInstance.on('getUsers', (users) => {
+      console.log(users)
+    });
 
     return () => {
       socketInstance.off('connect', handlers.onConnect);
@@ -46,7 +49,9 @@ export const Messages = () => {
   }, []);
 
   useEffect(() => {
-    if (socket !== null) socket.emit('getUsers', (users) => setUsers(users));
+    if (socket !== null) {
+      socket.emit('getUsers', (users) => setUsers(users));
+    }
   }, [socket])
 
   const sendText = () => {

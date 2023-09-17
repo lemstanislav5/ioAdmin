@@ -5,4 +5,5 @@ import messages from './messages'
 export const rootReducer = combineReducers({
   auth,
   messages,
+  users,
 });

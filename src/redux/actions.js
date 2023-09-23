@@ -2,6 +2,14 @@ export const AUTHORIZATION = 'AUTHORIZATION';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const GET_USERS = 'GET_USERS';
 export const SET_CURRENT_UESR = 'SET_CURRENT_UESR';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
+
+export const addMessageCreator = message => {
+  return {
+    type: ADD_MESSAGE, 
+    message,
+  }
+}
 
 export const currentUserCreator = chatId => {
   return {
@@ -9,7 +17,6 @@ export const currentUserCreator = chatId => {
     currentUser: chatId,
   }
 }
-
 
 export const authenticationActionCreator = (login) => {
   return {

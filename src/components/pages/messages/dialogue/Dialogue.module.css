@@ -189,3 +189,9 @@
   padding: 4px;
   color: #fff;
 }
+.massagesBox{
+  height: 400px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  overflow-y: scroll;
+}

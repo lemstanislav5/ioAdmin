@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -13,7 +13,7 @@ import Users from './users/Users';
 import style from './Messages.module.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { usersActionCreator, massagesActionCreator, currentUserCreator } from '../../../redux/actions'
+import { usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator } from '../../../redux/actions'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const Messages = () => {
@@ -31,15 +31,15 @@ export const Messages = () => {
     });
 
     setSocket(socketInstance);
-
+       
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
-    socketInstance.on('newMessage', (message) => dispatch(massagesActionCreator(message)));
+    socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
     //socketInstance.on('newUser', () => handlers.onMessage);
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
-      socketInstance.off('newMessage', (message) => dispatch(massagesActionCreator(message)));
+      socketInstance.off('newMessage', (message) => dispatch(addMessageCreator(message)));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -74,9 +74,7 @@ export const Messages = () => {
       </Col>
 
       <Col xs={8}>
-        <div className={style.massagesBox}>
-          <Dialogue messages={messages} currentUser={currentUser}/>
-        </div>
+        <Dialogue messages={messages} currentUser={currentUser} />
         <Form>
           <br />
           <Form.Group className="mb-3" controlId="exampleForm.Messages">

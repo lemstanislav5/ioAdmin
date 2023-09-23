@@ -4,22 +4,20 @@ import style from './Dialogue.module.css'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const { messages } = props;
-  console.log(messages)
+  const { messages, currentUser } = props;
+  if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
+  if (currentUser === null) return <h3>Выберете пользователя!</h3>
   return messages.map((item, i)=> {
     const {chatId, messageId, type, text, time, socketId, read} = item;
-    let date = new Date(time),
-    hours = date.getHours(),
-    min = date.getMinutes(),
-    month = date.getMonth() + 1,
-    year = date.getFullYear();
-    return (
-      <div chatId={chatId} socketId={socketId} key={messageId} className={style[type]}>
-        <div>{text}</div>
-        <div>{dateMessage(time)}</div>
-        <div>{read}</div>
-      </div>
-    )
+    if (currentUser === chatId) {
+      return (
+        <div chatid={chatId} socketid={socketId} key={messageId} className={style[type]}>
+          <div>{text}</div>
+          <div>{dateMessage(time)}</div>
+          <div>{read}</div>
+        </div>
+      )
+    }
   })
 }
 

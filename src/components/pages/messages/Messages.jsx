@@ -13,16 +13,16 @@ import Users from './users/Users';
 import style from './Messages.module.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { usersActionCreator, massagesActionCreator } from '../../../redux/actions'
+import { usersActionCreator, massagesActionCreator, currentUserCreator } from '../../../redux/actions'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const Messages = () => {
   const dispatch = useDispatch()
   const { messages } = useSelector((store) => store.messages);
-  const { users } = useSelector((store) => store.users);
+  const { users, currentUser } = useSelector((store) => store.users);
   const [socket, setSocket] = useState(null);
-  const [isConnected, setIsConnected] = useState(null);
   const [message, setMessage] = useState('');
+  const setCurrentUser = chatId => dispatch(currentUserCreator(chatId));
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -35,7 +35,7 @@ export const Messages = () => {
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
     socketInstance.on('newMessage', () => handlers.onMessage);
-
+    //socketInstance.on('newUser', () => handlers.onMessage);
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
@@ -45,9 +45,9 @@ export const Messages = () => {
   }, []);
 
   useEffect(() => {
-    if (socket !== null && users.length === 0) {
+    if (socket !== null) {
       socket.emit('getUsers', (users) => dispatch(usersActionCreator(users)));
-      socket.emit('getMesseges', (messages) => dispatch(massagesActionCreator(messages)));
+      socket.emit('getMesseges', (messages) => {dispatch(massagesActionCreator(messages))});
       //!ОСТАНОВИЛСЯ ЗДЕСЬ
     }
   }, [socket])
@@ -70,19 +70,19 @@ export const Messages = () => {
     <Row>
       <Col xs={4}>
         <div>Пользователи</div>
-        <Users users={users} />
+        <Users users={users} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </Col>
 
       <Col xs={8}>
         <div className={style.massagesBox}>
-          <Dialogue messages={messages}/>
+          <Dialogue messages={messages} currentUser={currentUser}/>
         </div>
         <Form>
           <br />
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea" placeholder="Введите Ваше сообщение" value={message} onChange={(e) => { setMessage(e.target.value) }} />
+            <Form.Control as="textarea" disabled={(currentUser === null)? true: false} placeholder="Введите Ваше сообщение" value={message} onChange={(e) => { setMessage(e.target.value) }} />
           </Form.Group>
-          <Button variant="primary" onClick={sendText}>Отправить</Button>{' '}
+          <Button variant="primary" onClick={sendText} disabled={(currentUser === null)? true: false}>Отправить</Button>{' '}
         </Form>
       </Col>
     </Row>

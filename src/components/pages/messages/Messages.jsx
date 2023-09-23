@@ -34,12 +34,12 @@ export const Messages = () => {
 
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
-    socketInstance.on('newMessage', () => handlers.onMessage);
+    socketInstance.on('newMessage', (message) => dispatch(massagesActionCreator(message)));
     //socketInstance.on('newUser', () => handlers.onMessage);
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
-      socketInstance.off('newMessage', handlers.onMessage);
+      socketInstance.off('newMessage', (message) => dispatch(massagesActionCreator(message)));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,7 +47,7 @@ export const Messages = () => {
   useEffect(() => {
     if (socket !== null) {
       socket.emit('getUsers', (users) => dispatch(usersActionCreator(users)));
-      socket.emit('getMesseges', (messages) => {dispatch(massagesActionCreator(messages))});
+      socket.emit('getMesseges', (messages) => dispatch(massagesActionCreator(messages)));
       //!ОСТАНОВИЛСЯ ЗДЕСЬ
     }
   }, [socket])

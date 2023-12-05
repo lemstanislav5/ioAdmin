@@ -1,4 +1,4 @@
-import { GET_USERS, SET_CURRENT_UESR } from "../actions";
+import { GET_USERS, SET_CURRENT_UESR, USER_ONLINE, USER_OFFLINE } from "../actions";
 
 const initialState = {
   users: [],
@@ -11,6 +11,22 @@ const users = (state = initialState, action) => {
       return {...state, users: action.users};
     case SET_CURRENT_UESR:
       return {...state, currentUser: action.currentUser};
+    case USER_ONLINE:
+      return {...state, users: state.users.map(item => {
+        if(item.chatId === action.chatId) {
+          return {...item, online: 1};
+        } else {
+          return item;
+        }
+      })};
+    case USER_OFFLINE:
+      return {...state, users: state.users.map(item => {
+        if(item.chatId === action.chatId) {
+          return {...item, online: 0};
+        } else {
+          return item;
+        }
+      })};
     default:
       return state;
   }

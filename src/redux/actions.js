@@ -3,6 +3,22 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 export const GET_USERS = 'GET_USERS';
 export const SET_CURRENT_UESR = 'SET_CURRENT_UESR';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const USER_ONLINE = 'USER_ONLINE';
+export const USER_OFFLINE = 'USER_OFFLINE';
+
+export const addUserOffline = chatId => {
+  return {
+    type: USER_OFFLINE, 
+    chatId,
+  }
+}
+
+export const addUserOnline = chatId => {
+  return {
+    type: USER_ONLINE, 
+    chatId,
+  }
+}
 
 export const addMessageCreator = message => {
   return {

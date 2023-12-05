@@ -13,7 +13,7 @@ import Users from './users/Users';
 import style from './Messages.module.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator } from '../../../redux/actions'
+import { usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline} from '../../../redux/actions'
 
 //! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const Messages = () => {
@@ -35,11 +35,23 @@ export const Messages = () => {
     socketInstance.on('connect', () => handlers.onConnect);
     socketInstance.on('disconnect', () => handlers.onDisconnect);
     socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
+    //!dispatch
+    socketInstance.on('online', (chatId) => {
+      dispatch(addUserOnline(chatId));
+      console.log('online: ', chatId);
+    });
+    socketInstance.on('offline', (chatId) => {
+      dispatch(addUserOffline(chatId));
+      console.log('offline: ', chatId);
+    });
     //socketInstance.on('newUser', () => handlers.onMessage);
     return () => {
       socketInstance.off('connect', handlers.onConnect);
       socketInstance.off('disconnect', handlers.onDisconnect);
       socketInstance.off('newMessage', (message) => dispatch(addMessageCreator(message)));
+      //!dispatch
+      socketInstance.off('online', (chatId) => {});
+      socketInstance.on('offline', (chatId) => {});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

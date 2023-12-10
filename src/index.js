@@ -33,6 +33,7 @@ import Menu from "./components/menu/Menu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./hoc/withPrivateRoute";
 import Error404 from "./components/pages/error404/Error404";
+import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {

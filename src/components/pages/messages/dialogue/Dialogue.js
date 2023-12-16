@@ -12,7 +12,16 @@ export default (props) => {
     console.log(messegesBox)
   })
   if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
-  if (currentUser === null) return <h3>Выберете пользователя!</h3>
+  if (currentUser === null) {
+    return (
+      <div className={style.massagesBox} ref={messegesBox} >
+        <div className='alert alert-warning text-center'>
+          <h4>Выберете пользователя!</h4>
+          <p>Для отображения сообщений.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={style.massagesBox} ref={messegesBox} >

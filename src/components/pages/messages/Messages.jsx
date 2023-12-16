@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ConnectionState } from './ConnectionState';
-import { MessageForm } from './MessageForm/MessageForm';
+import { MessageForm } from './messageForm/MessageForm';
 import { Events } from './Events';
 import { io } from 'socket.io-client';
 import Dialogue from './dialogue/Dialogue';

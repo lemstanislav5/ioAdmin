@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -18,22 +18,21 @@ export const Messages = () => {
   const [message, setMessage] = useState('');
   const setCurrentUser = chatId => dispatch(currentUserCreator(chatId));
 
-
-  //! const unreadMessages = useSelector(store => {
-  //   const {messages} = store;
-  //   const {usersList} = store.users;
-  //   if (messages.length === 0) return [];
-  //   return usersList.map(user => {
-  //     const {chatId} = user;
-  //     const count = messages.reduce((acc, el) => {
-  //       console.log(acc)
-  //       if (el.chatId === chatId && el.read === 0) return acc + 1;
-  //     }, 0);
-  //     return {chatId, count}
-  //   })
-  // });
-  // console.log(unreadMessages)
-
+//! ГДЕ РАСПОЛОЖИТЬ ЭТУ ФУНКЦИЮ
+  const unreadMessages = useSelector(store => {
+    const {messages} = store;
+    const {usersList} = store.users;
+    if (messages.length === 0) return null;
+    return usersList.map(user => {
+      const {chatId} = user;
+      const count = messages.reduce((acc, el) => {
+        if (el.chatId === chatId && el.read === 0) return acc + 1;
+        return acc;
+      }, 0);
+      return {chatId, count}
+    })
+  });
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000', {

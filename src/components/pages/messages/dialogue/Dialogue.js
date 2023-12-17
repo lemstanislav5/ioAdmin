@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef} from 'react';
 import {dateMessage} from '../../../../utilities/dataMeseges';
 import style from './Dialogue.module.css'
 // import style from './Dialogue.module.css'
@@ -9,8 +9,7 @@ export default (props) => {
   const { messages, currentUser } = props;
   useEffect(() => {
     setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 1)
-    console.log(messegesBox)
-  })
+  });
   if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
   if (currentUser === null) {
     return (
@@ -26,7 +25,7 @@ export default (props) => {
   return (
     <div className={style.massagesBox} ref={messegesBox} >
       {
-        messages.map((item, i)=> {
+        messages.map(item => {
           const {chatId, messageId, type, text, time, socketId, read} = item;
           if (currentUser === chatId) {
             return (
@@ -37,6 +36,7 @@ export default (props) => {
               </div>
             )
           }
+          return null;
         })
       }
     </div>

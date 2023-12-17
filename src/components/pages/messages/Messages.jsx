@@ -1,25 +1,19 @@
-import { useEffect, useState, useRef } from 'react';
+import {useEffect, useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { ConnectionState } from './ConnectionState';
-import { MessageForm } from './messageForm/MessageForm';
-import { Events } from './Events';
-import { io } from 'socket.io-client';
+import {io} from 'socket.io-client';
 import Dialogue from './dialogue/Dialogue';
-import handlers from '../../../handlers';
 import Users from './users/Users';
-import style from './Messages.module.css';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline} from '../../../redux/actions'
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline} from '../../../redux/actions'
 
-//! https://www.oneclickitsolution.com/blog/socket-io-in-reactjs/
 export const Messages = () => {
   const dispatch = useDispatch()
-  const { messages } = useSelector((store) => store.messages);
-  const { users, currentUser } = useSelector((store) => store.users);
+  const {messages} = useSelector((store) => store.messages);
+  const {users, currentUser} = useSelector((store) => store.users);
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState('');
   const setCurrentUser = chatId => dispatch(currentUserCreator(chatId));
@@ -27,15 +21,14 @@ export const Messages = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000', {
-      query: { token },
+      query: {token},
     });
 
     setSocket(socketInstance);
        
-    socketInstance.on('connect', () => handlers.onConnect);
-    socketInstance.on('disconnect', () => handlers.onDisconnect);
+    socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
+    socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
-    //!dispatch
     socketInstance.on('online', (chatId) => {
       dispatch(addUserOnline(chatId));
       console.log('online: ', chatId);
@@ -44,10 +37,9 @@ export const Messages = () => {
       dispatch(addUserOffline(chatId));
       console.log('offline: ', chatId);
     });
-    //socketInstance.on('newUser', () => handlers.onMessage);
     return () => {
-      socketInstance.off('connect', handlers.onConnect);
-      socketInstance.off('disconnect', handlers.onDisconnect);
+      socketInstance.off('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
+      socketInstance.off('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('newMessage', (message) => dispatch(addMessageCreator(message)));
       //!dispatch
       socketInstance.off('online', (chatId) => {});

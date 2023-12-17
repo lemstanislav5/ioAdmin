@@ -12,11 +12,27 @@ import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessag
 
 export const Messages = () => {
   const dispatch = useDispatch()
-  const {messages} = useSelector((store) => store.messages);
-  const {users, currentUser} = useSelector((store) => store.users);
+  const {messages} = useSelector(store => store);
+  const {usersList, currentUser} = useSelector(store => store.users);
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState('');
   const setCurrentUser = chatId => dispatch(currentUserCreator(chatId));
+
+
+  //! const unreadMessages = useSelector(store => {
+  //   const {messages} = store;
+  //   const {usersList} = store.users;
+  //   if (messages.length === 0) return [];
+  //   return usersList.map(user => {
+  //     const {chatId} = user;
+  //     const count = messages.reduce((acc, el) => {
+  //       console.log(acc)
+  //       if (el.chatId === chatId && el.read === 0) return acc + 1;
+  //     }, 0);
+  //     return {chatId, count}
+  //   })
+  // });
+  // console.log(unreadMessages)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -40,7 +56,7 @@ export const Messages = () => {
     return () => {
       socketInstance.off('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
-      socketInstance.off('newMessage', (message) => dispatch(addMessageCreator(message)));
+      socketInstance.off('newMessage', message => dispatch(addMessageCreator(message)));
       //!dispatch
       socketInstance.off('online', (chatId) => {});
       socketInstance.on('offline', (chatId) => {});
@@ -50,11 +66,11 @@ export const Messages = () => {
 
   useEffect(() => {
     if (socket !== null) {
-      socket.emit('getUsers', (users) => dispatch(usersActionCreator(users)));
-      socket.emit('getMesseges', (messages) => dispatch(massagesActionCreator(messages)));
+      socket.emit('getUsers', users => dispatch(usersActionCreator(users)));
+      socket.emit('getMesseges', messages => dispatch(massagesActionCreator(messages)));
       //!ОСТАНОВИЛСЯ ЗДЕСЬ
     }
-  }, [socket])
+  }, [socket, dispatch])
 
   const sendText = () => {
     console.log('sendText')
@@ -74,7 +90,7 @@ export const Messages = () => {
     <Row>
       <Col xs={4}>
         <div>Пользователи</div>
-        <Users users={users} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <Users usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </Col>
 
       <Col xs={8}>

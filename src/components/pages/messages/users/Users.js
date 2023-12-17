@@ -2,11 +2,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import style from './Users.module.css'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const { users, currentUser, setCurrentUser } = props;
+  const { usersList, currentUser, setCurrentUser } = props;
+  
   return (
     <ListGroup>
       {
-        users.map((item, i) => {
+        usersList.map((item, i) => {
           const { id, name, online, socketId, chatId } = item;
           let currentName = name === null ? 'гость' : name;
           let status = (online === 0 || online === null)? 'offline' : 'online';

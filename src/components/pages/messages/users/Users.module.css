@@ -11,3 +11,10 @@
 .online{
   color: green;
 }
+.count{
+  border-radius: 30px;
+  padding: 4px;
+  float: right;
+  color: #075dff;
+  font-weight: 500;
+}

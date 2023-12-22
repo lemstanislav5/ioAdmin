@@ -23,7 +23,7 @@ export default function LoginPage() {
         console.log("login error", err);
       });
   }
-  console.log('login', access)
+  
   if (access) return <Navigate to="/messages" />;
   return (
     <Row className="justify-content-md-center" >

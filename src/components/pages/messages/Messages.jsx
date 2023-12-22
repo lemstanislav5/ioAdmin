@@ -18,21 +18,6 @@ export const Messages = () => {
   const [message, setMessage] = useState('');
   const setCurrentUser = chatId => dispatch(currentUserCreator(chatId));
 
-//! ГДЕ РАСПОЛОЖИТЬ ЭТУ ФУНКЦИЮ
-  const unreadMessages = useSelector(store => {
-    const {messages} = store;
-    const {usersList} = store.users;
-    if (messages.length === 0) return null;
-    return usersList.map(user => {
-      const {chatId} = user;
-      const count = messages.reduce((acc, el) => {
-        if (el.chatId === chatId && el.read === 0) return acc + 1;
-        return acc;
-      }, 0);
-      return {chatId, count}
-    })
-  });
-  
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000', {
@@ -40,7 +25,7 @@ export const Messages = () => {
     });
 
     setSocket(socketInstance);
-       
+
     socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
@@ -73,7 +58,7 @@ export const Messages = () => {
 
   const sendText = () => {
     console.log('sendText')
-    socket.emit('newMessage', { message }, () => { 
+    socket.emit('newMessage', { message }, () => {
       console.log(message);
     });
     // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
@@ -89,7 +74,7 @@ export const Messages = () => {
     <Row>
       <Col xs={4}>
         <div>Пользователи</div>
-        <Users usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <Users messages={messages} usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </Col>
 
       <Col xs={8}>

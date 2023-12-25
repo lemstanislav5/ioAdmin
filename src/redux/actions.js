@@ -5,31 +5,39 @@ export const SET_CURRENT_UESR = 'SET_CURRENT_UESR';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const USER_ONLINE = 'USER_ONLINE';
 export const USER_OFFLINE = 'USER_OFFLINE';
+export const READ_MESSAGES = 'READ_MESSAGES';
+
+export const readMessages = chatId => {
+  return {
+    type: READ_MESSAGES,
+    chatId,
+  }
+}
 
 export const addUserOffline = chatId => {
   return {
-    type: USER_OFFLINE, 
+    type: USER_OFFLINE,
     chatId,
   }
 }
 
 export const addUserOnline = chatId => {
   return {
-    type: USER_ONLINE, 
+    type: USER_ONLINE,
     chatId,
   }
 }
 
 export const addMessageCreator = message => {
   return {
-    type: ADD_MESSAGE, 
+    type: ADD_MESSAGE,
     message,
   }
 }
 
 export const currentUserCreator = chatId => {
   return {
-    type: SET_CURRENT_UESR, 
+    type: SET_CURRENT_UESR,
     currentUser: chatId,
   }
 }

@@ -2,7 +2,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import style from './Users.module.css'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  console.log('User')
   const {messages, usersList, currentUser, setCurrentUser} = props;
   if (usersList === undefined && messages === undefined) return null;
 
@@ -15,7 +14,7 @@ export default (props) => {
             if (el.chatId === chatId && el.read === 0) return acc + 1;
             return acc;
           }, 0);
-          let currentName = name === null ? 'гость' : name;
+          let currentName = name === null ? 'гость ' : name + ' ';
           let status = (online === 0 || online === null)? 'offline' : 'online';
           let active = currentUser !== chatId ? style.inactive : style.active;
           return (

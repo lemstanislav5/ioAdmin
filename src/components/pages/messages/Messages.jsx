@@ -8,7 +8,7 @@ import Dialogue from './dialogue/Dialogue';
 import Users from './users/Users';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
-import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline} from '../../../redux/actions'
+import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline, readMessages} from '../../../redux/actions'
 
 export const Messages = () => {
   const dispatch = useDispatch()
@@ -47,6 +47,11 @@ export const Messages = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (currentUser !== null) {
+      socket.emit('read', { currentUser }, () => dispatch(readMessages(currentUser)));
+    }
+  }, [currentUser, socket])
 
   useEffect(() => {
     if (socket !== null) {
@@ -73,11 +78,12 @@ export const Messages = () => {
   return (
     <Row>
       <Col xs={4}>
-        <div>Пользователи</div>
+        <div className='text-center'>Пользователи</div>
         <Users messages={messages} usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </Col>
 
       <Col xs={8}>
+        <div className='text-center'>Диалог</div>
         <Dialogue messages={messages} currentUser={currentUser} />
         <Form>
           <br />

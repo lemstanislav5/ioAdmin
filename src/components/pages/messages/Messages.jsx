@@ -1,4 +1,4 @@
-import {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -37,13 +37,18 @@ export const Messages = () => {
       dispatch(addUserOffline(chatId));
       console.log('offline: ', chatId);
     });
+    socketInstance.on('upload', ({type, pathFile}) => {
+      console.log('upload: ', type, pathFile);
+    });
+
     return () => {
       socketInstance.off('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('newMessage', message => dispatch(addMessageCreator(message)));
       //!dispatch
       socketInstance.off('online', (chatId) => {});
-      socketInstance.on('offline', (chatId) => {});
+      socketInstance.off('offline', (chatId) => {});
+      socketInstance.off('upload', () => {});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -51,7 +56,7 @@ export const Messages = () => {
     if (currentUser !== null) {
       socket.emit('read', { currentUser }, () => dispatch(readMessages(currentUser)));
     }
-  }, [currentUser, socket])
+  }, [currentUser, socket, dispatch])
 
   useEffect(() => {
     if (socket !== null) {

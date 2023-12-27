@@ -41,7 +41,6 @@ instance.interceptors.response.use(
         // запрос на обновление токенов
         const resp = await instance.get("/api/refresh");
         // сохраняем новый accessToken в localStorage
-        console.log("/api/refresh", resp.data)
         localStorage.setItem("token", resp.data.token);
         // переотправляем запрос с обновленным accessToken
         return instance.request(originalRequest);

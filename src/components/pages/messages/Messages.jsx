@@ -6,8 +6,10 @@ import Col from 'react-bootstrap/Col';
 import {io} from 'socket.io-client';
 import Dialogue from './dialogue/Dialogue';
 import Users from './users/Users';
+import {dateMessage} from '../../../services/dataMeseges';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
+import {nanoid} from 'nanoid';
 import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline, readMessages} from '../../../redux/actions'
 
 export const Messages = () => {
@@ -15,7 +17,8 @@ export const Messages = () => {
   const {messages} = useSelector(store => store);
   const {usersList, currentUser} = useSelector(store => store.users);
   const [socket, setSocket] = useState(null);
-  const [message, setMessage] = useState('');
+  const [textMessage, setTextMessage] = useState('');
+  const [isSend, setIsSend] = useState(false);
   const setCurrentUser = chatId => dispatch(currentUserCreator(chatId));
 
   useEffect(() => {
@@ -28,7 +31,11 @@ export const Messages = () => {
 
     socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
-    socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
+    socketInstance.on('newMessage', (message) => {
+      //! id: 32, chatId: 'GPZgbscoEc', socketId: 'OjM9YiZBCtApF_bYAAAL', messageId: 'rCsN54k4EO', text: 'qweqwe', time: 1703670181996 type: "from"
+      console.log(message)
+      dispatch(addMessageCreator(message))
+    });
     socketInstance.on('online', (chatId) => {
       dispatch(addUserOnline(chatId));
       console.log('online: ', chatId);
@@ -45,13 +52,13 @@ export const Messages = () => {
       socketInstance.off('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('newMessage', message => dispatch(addMessageCreator(message)));
-      //!dispatch
       socketInstance.off('online', (chatId) => {});
       socketInstance.off('offline', (chatId) => {});
       socketInstance.off('upload', () => {});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
+
   useEffect(() => {
     if (currentUser !== null) {
       socket.emit('read', { currentUser }, () => dispatch(readMessages(currentUser)));
@@ -67,17 +74,15 @@ export const Messages = () => {
   }, [socket, dispatch])
 
   const sendText = () => {
-    console.log('sendText')
-    socket.emit('newMessage', { message }, () => {
-      console.log(message);
+    setIsSend(true);
+    setTextMessage('');
+    const messageId = nanoid(10);
+    //'Извините сервис временно недоступен!'
+    socket.emit('newMessage', {messageId, textMessage, currentUser, type: 'to'}, () => {
+      const message = {messageId, chatId: currentUser, type: 'to', text: textMessage, time: dateMessage(), get: true, send: true, read: true};
+      setIsSend(false);
+      dispatch(addMessageCreator(message));
     });
-    // socket.emit("newMessage", { id, text, chatId }, (error, notification) => {
-    //   if(error) {
-    //     console.log(error, notification);
-    //     return onMessage([...messeges, { id, chatId, type: 'from', text: 'Извините сервис временно недоступен!', date: dateMessage()}]);
-    //   }
-    //   onMessage([...messeges, { id, chatId, type: 'to', text: text, date: dateMessage(), serverAccepted: notification.add, botAccepted: notification.send }]);
-    // });
   }
 
   return (
@@ -93,9 +98,9 @@ export const Messages = () => {
         <Form>
           <br />
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea" disabled={(currentUser === null)? true: false} placeholder="Введите Ваше сообщение" value={message} onChange={(e) => { setMessage(e.target.value) }} />
+            <Form.Control as="textarea" disabled={(currentUser === null)? true: false} placeholder="Введите Ваше сообщение" value={textMessage} onChange={e => {setTextMessage(e.target.value)}}/>
           </Form.Group>
-          <Button variant="primary" onClick={sendText} disabled={(currentUser === null)? true: false}>Отправить</Button>{' '}
+          <Button variant="primary" onClick={sendText} disabled={(currentUser === null || isSend)? true: false}>Отправить</Button>{' '}
         </Form>
       </Col>
     </Row>

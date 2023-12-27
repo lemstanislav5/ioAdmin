@@ -27,6 +27,7 @@ export default (props) => {
       {
         messages.map(item => {
           const {chatId, messageId, type, text, time, socketId, read} = item;
+          console.log(chatId, messageId, type, text, time, socketId, read);
           if (currentUser === chatId) {
             return (
               <div chatid={chatId} socketid={socketId} key={messageId} className={style[type]}>
@@ -44,26 +45,26 @@ export default (props) => {
 }
 
 // chatId
-// : 
+// :
 // "518gH6rfRX"
 // id
-// : 
+// :
 // 13
 // messageId
-// : 
+// :
 // "IREpK3PMFK"
 // read
-// : 
+// :
 // 0
 // socketId
-// : 
+// :
 // "XZ_CIf7BjVhrN_VuAAAB"
 // text
-// : 
+// :
 // "1"
 // time
-// : 
+// :
 // 1694894246699
 // type
-// : 
+// :
 // "from"

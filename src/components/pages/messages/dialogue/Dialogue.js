@@ -4,9 +4,8 @@ import style from './Dialogue.module.css'
 // import style from './Dialogue.module.css'
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (props) => {
+export default ({ messages, currentUser }) => {
   const messegesBox = useRef(null);
-  const { messages, currentUser } = props;
   useEffect(() => {
     setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 1)
   });
@@ -27,7 +26,6 @@ export default (props) => {
       {
         messages.map(item => {
           const {chatId, messageId, type, text, time, socketId, read} = item;
-          console.log(chatId, messageId, type, text, time, socketId, read);
           if (currentUser === chatId) {
             return (
               <div chatid={chatId} socketid={socketId} key={messageId} className={style[type]}>

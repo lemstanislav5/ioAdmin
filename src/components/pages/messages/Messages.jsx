@@ -9,11 +9,11 @@ import Users from './users/Users';
 import {dateMessage} from '../../../services/dataMeseges';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
-import {nanoid} from 'nanoid';
-import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline, readMessages} from '../../../redux/actions'
+import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline, readMessages} from '../../../redux/actions';
 
 export const Messages = () => {
-  const dispatch = useDispatch()
+  const e = new Date();
+  const dispatch = useDispatch();
   const {messages} = useSelector(store => store);
   const {usersList, currentUser} = useSelector(store => store.users);
   const [socket, setSocket] = useState(null);
@@ -76,10 +76,10 @@ export const Messages = () => {
   const sendText = () => {
     setIsSend(true);
     setTextMessage('');
-    const messageId = nanoid(10);
     //'Извините сервис временно недоступен!'
-    socket.emit('newMessage', {messageId, textMessage, currentUser, type: 'to'}, () => {
-      const message = {messageId, chatId: currentUser, type: 'to', text: textMessage, time: dateMessage(), get: true, send: true, read: true};
+    console.log(e.getTime())
+    socket.emit('newMessage', {toId: currentUser, text: textMessage, time:e.getTime(), type: 'text'}, message => {
+      console.log(message)
       setIsSend(false);
       dispatch(addMessageCreator(message));
     });

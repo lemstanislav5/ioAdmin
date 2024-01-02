@@ -1,5 +1,5 @@
-import {useEffect, useRef} from 'react';
-import {dateMessage} from '../../../../utilities/dataMeseges';
+import {useEffect, useRef, useState} from 'react';
+import {getDateTime} from '../../../../services/getDateTime';
 import style from './Dialogue.module.css'
 // import style from './Dialogue.module.css'
 
@@ -7,8 +7,9 @@ import style from './Dialogue.module.css'
 export default ({ messages, currentUser }) => {
   const messegesBox = useRef(null);
   useEffect(() => {
-    setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 1)
+    setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 1);
   });
+
   if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
   if (currentUser === null) {
     return (
@@ -19,24 +20,23 @@ export default ({ messages, currentUser }) => {
         </div>
       </div>
     )
-  }
+  } 
 
   return (
     <div className={style.massagesBox} ref={messegesBox} >
       {
-        messages.map(item => {
-          const {chatId, messageId, type, text, time, socketId, read} = item;
-          if (currentUser === chatId) {
+        messages
+          .filter(item => currentUser !== item.fromId || currentUser !== item.toId)
+          .map(({fromId, toId, text, time, type, read}, i) => {
+            const direction = (currentUser !== fromId)? 'to': 'from', [mDate, mTime] = getDateTime(time);
             return (
-              <div chatid={chatId} socketid={socketId} key={messageId} className={style[type]}>
-                <div>{text}</div>
-                <div>{dateMessage(time)}</div>
-                <div>{read}</div>
+              <div className={style.msgbox} key={'msg' + i}>
+                <div className={style[direction]} key={i}>
+                  {type === 'text' && <div className={style.message}>{text}</div>}
+                </div>
               </div>
-            )
-          }
-          return null;
-        })
+            ) 
+          })
       }
     </div>
   )

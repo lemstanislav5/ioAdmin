@@ -38,26 +38,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <PrivateRoute Component={Messages} />,
-    },
-    {
-      path: "/messages",
-      element: <PrivateRoute Component={Messages} />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/logout",
-      element: <LogoutPage />,
-    },
-    {
-      path: "*",
-      element: <Error404 />,
-    },
+    {path: "/", element: <PrivateRoute Component={Messages} />},
+    {path: "/messages", element: <PrivateRoute Component={Messages} />},
+    {path: "/login", element: <LoginPage />},
+    {path: "/logout", element: <LogoutPage />},
+    {path: "*", element: <Error404 />},
   ]);
 
   return (

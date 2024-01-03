@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {getDateTime} from '../../../../services/getDateTime';
 import style from './Dialogue.module.css'
+import { SvgImages } from '../../../images/SvgImages';
 // import style from './Dialogue.module.css'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -33,6 +34,20 @@ export default ({ messages, currentUser }) => {
               <div className={style.msgbox} key={'msg' + i}>
                 <div className={style[direction]} key={i}>
                   {type === 'text' && <div className={style.message}>{text}</div>}
+                  <div className={type === 'notification'? style.bottomNotification : style.bottomMessage}>
+                    {
+                      (direction === 'to') &&
+                        <>
+                          <div className={style.send}>
+                            <SvgImages svg='daw' fill={'#0cec0c'}/>
+                          </div>
+                          <div className={style.read}>
+                            <SvgImages svg='line' fill={read ? '#0cec0c' : ' #e82554'}/>
+                          </div>
+                        </>
+                    }
+                    <div className={style.time}>{mTime}</div>
+                  </div>
                 </div>
               </div>
             ) 

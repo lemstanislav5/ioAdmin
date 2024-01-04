@@ -18,26 +18,28 @@
   float: left;
   padding: 5px;
   margin: 0 2px 2px 5px;
-  color: #333;
+  color: #ffffff;
   border-radius: 0px 8px 8px 8px;
   text-align: left;
   font-size: 14px;
   display: grid;
   word-wrap: break-word;
   border: 1px #333 solid;
+  background-color: rgb(110, 90, 59);
 }
 .to{
   width: 89%;
   float: right;
   padding: 5px;
   margin: 0px 2px 2px 22px;
-  color: #333;
+  color: #ffffff;
   border-radius: 8px 8px 0px 8px;
   text-align: left;
   font-size: 14px;
   display: grid;
   word-wrap: break-word;
-  border: 1px #333 solid
+  border: 1px #333 solid;
+  background-color: rgb(17, 100, 24);
 }
 .serverAccepted{
   height: 1px;
@@ -191,7 +193,7 @@
 }
 .massagesBox{
   height: 400px;
-  background-color: #f8f9fa;
+  background-color: #000;
   padding: 10px;
   overflow-y: scroll;
 }

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import {getDateTime} from '../../../../services/getDateTime';
 import style from './Dialogue.module.css'
 import { SvgImages } from '../../../images/SvgImages';
@@ -10,6 +10,20 @@ export default ({ messages, currentUser }) => {
   useEffect(() => {
     setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 1);
   });
+  let date = useRef(null);
+
+  const dateChangeCheck = (mDate) => {
+    console.log(mDate, date.current, mDate === date.current)
+    if (date.current === null) {
+      date.current = mDate;
+      return true; 
+    } else {
+      if (date.current !== mDate) {
+        date.current = mDate;
+        return true; 
+      }
+    }
+  }
 
   if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
   if (currentUser === null) {
@@ -32,6 +46,7 @@ export default ({ messages, currentUser }) => {
             const direction = (currentUser !== fromId)? 'to': 'from', [mDate, mTime] = getDateTime(time);
             return (
               <div className={style.msgbox} key={'msg' + i}>
+                {dateChangeCheck(mDate) &&  <div className={style.newDate}>{mDate}</div>}
                 <div className={style[direction]} key={i}>
                   {type === 'text' && <div className={style.message}>{text}</div>}
                   <div className={type === 'notification'? style.bottomNotification : style.bottomMessage}>

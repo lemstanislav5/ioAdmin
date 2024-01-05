@@ -1,0 +1,12 @@
+.send{
+  position: absolute;
+  right: 5px;
+  bottom: 30px;
+  border: 1px solid;
+  padding: 10px 11px 6px 9px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.tools{
+  display: inline-flex;
+}

@@ -1,0 +1,10 @@
+.attachment{
+  cursor: pointer;
+  margin-left: 5px;
+}
+.error{
+  color: red;
+}
+.inputFile{
+  display: none;
+}

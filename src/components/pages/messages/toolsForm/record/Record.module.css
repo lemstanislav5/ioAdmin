@@ -1,0 +1,12 @@
+.record{
+  display: block;
+  cursor: pointer;
+  margin-top: 3px;
+}
+.stopwatch{
+  position: absolute;
+  left: 55px;
+  bottom: 3px;
+  font-size: 17px;
+  font-weight: 500;
+}

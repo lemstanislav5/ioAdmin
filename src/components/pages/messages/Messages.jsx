@@ -4,12 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {io} from 'socket.io-client';
-import Dialogue from './dialogue/Dialogue';
+import MessegesBox from './messegesBox/MessegesBox';
 import Users from './users/Users';
-import {dateMessage} from '../../../services/dataMeseges';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
 import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline, readMessages} from '../../../redux/actions';
+import {SvgImages} from '../../images/SvgImages';
+import style from './Messages.module.css';
+import {Textarea} from './textarea/Textarea';
+import {Attachment} from './toolsForm/attachment/Attachment';
+import {Record} from './toolsForm/record/Record';
 
 export const Messages = () => {
   const e = new Date();
@@ -31,11 +35,7 @@ export const Messages = () => {
 
     socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
-    socketInstance.on('newMessage', (message) => {
-      //! id: 32, chatId: 'GPZgbscoEc', socketId: 'OjM9YiZBCtApF_bYAAAL', messageId: 'rCsN54k4EO', text: 'qweqwe', time: 1703670181996 type: "from"
-      console.log(message)
-      dispatch(addMessageCreator(message))
-    });
+    socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
     socketInstance.on('online', (chatId) => {
       dispatch(addUserOnline(chatId));
       console.log('online: ', chatId);
@@ -44,8 +44,8 @@ export const Messages = () => {
       dispatch(addUserOffline(chatId));
       console.log('offline: ', chatId);
     });
-    socketInstance.on('upload', ({type, pathFile}) => {
-      console.log('upload: ', type, pathFile);
+    socketInstance.on('upload', ({type, url}) => {
+      console.log('upload: ', type, url);
     });
 
     return () => {
@@ -69,22 +69,38 @@ export const Messages = () => {
     if (socket !== null) {
       socket.emit('getUsers', users => dispatch(usersActionCreator(users)));
       socket.emit('getMesseges', messages => dispatch(massagesActionCreator(messages)));
-      //!ОСТАНОВИЛСЯ ЗДЕСЬ
     }
   }, [socket, dispatch])
 
   const sendText = () => {
     setIsSend(true);
     setTextMessage('');
-    //'Извините сервис временно недоступен!'
-    console.log(e.getTime())
     socket.emit('newMessage', {toId: currentUser, text: textMessage, time:e.getTime(), type: 'text'}, message => {
-      console.log(message)
+      if (!message) return dispatch(addMessageCreator({fromId: 'admin', type: 'notification', text: 'Ошибка отправки!', date: e.getTime()}));
       setIsSend(false);
       dispatch(addMessageCreator(message));
     });
   }
+  const keyDown = (e) => (e.key === "Enter") && sendText();
 
+  const handlerUpload = (file, type) => {
+    socket.emit("upload", file, {toId: currentUser, time: e.getTime(), type}, message => {
+      if (!message) return dispatch(addMessageCreator({fromId: 'admin', type: 'notification', text: 'Ошибка отправки!', date: e.getTime()}));
+      dispatch(addMessageCreator(message));
+    });
+  };
+  const handlerFileСheck = file => {
+    let mb = 1048576;
+    let type = file.type.replace('image/', '').replace('application/', '').replace('audio/', '').replace('video/', '');
+    type = (type === 'mpeg') ? 'mp3' : type;
+    if (file.size > mb * 10) {
+      dispatch(addMessageCreator({fromId: 'admin', type: 'notification', text: 'Лимит файла 10 МБ превышен', date: e.getTime()}));
+    } else if (['jpeg', 'jpg', 'png', 'pdf', 'doc', 'docx', 'txt', 'mp3', 'mp4'].indexOf(type) === -1) {
+      dispatch(addMessageCreator({fromId: 'admin', type: 'notification', text: 'Допустимы орматы: jpeg, jpg, png, pdf, doc, docx, txt, mp3, mp4', date: e.getTime()}));
+    } else {
+      handlerUpload(file, type);
+    }
+  }
   return (
     <Row>
       <Col xs={4}>
@@ -94,13 +110,18 @@ export const Messages = () => {
 
       <Col xs={8}>
         <div className='text-center'>Диалог</div>
-        <Dialogue messages={messages} currentUser={currentUser} />
+        <MessegesBox messages={messages} currentUser={currentUser} />
         <Form>
           <br />
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea" disabled={(currentUser === null)? true: false} placeholder="Введите Ваше сообщение" value={textMessage} onChange={e => {setTextMessage(e.target.value)}}/>
+            <Form.Control as="textarea" 
+            disabled={(currentUser === null)? true: false} onKeyDown={keyDown} placeholder="Введите Ваше сообщение" value={textMessage} onChange={e => {setTextMessage(e.target.value)}}/>
           </Form.Group>
           <Button variant="primary" onClick={sendText} disabled={(currentUser === null || isSend)? true: false}>Отправить</Button>{' '}
+          <div className={style.tools}>
+              <Attachment color={'#000'} handlerFileСheck={handlerFileСheck}/>
+              <Record handlerFileСheck={handlerFileСheck}/>
+          </div>
         </Form>
       </Col>
     </Row>

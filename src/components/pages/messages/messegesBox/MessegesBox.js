@@ -1,19 +1,21 @@
 import {useEffect, useRef} from 'react';
 import {getDateTime} from '../../../../services/getDateTime';
-import style from './Dialogue.module.css'
+import FileAvailabilityCheck from '../../../../hoc/FileAvailabilityCheck';
+import AudioPlayer from './audio/AudioPlayer';
+import VideoPlayer from './video/VideoPlayer';
+import MyImage from './image/MyImage';
+import style from './MessegesBox.module.css'
 import { SvgImages } from '../../../images/SvgImages';
-// import style from './Dialogue.module.css'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ messages, currentUser }) => {
   const messegesBox = useRef(null);
   useEffect(() => {
-    setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 1);
-  });
+    setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 100);
+  }, [messages]);
   let date = useRef(null);
 
   const dateChangeCheck = (mDate) => {
-    console.log(mDate, date.current, mDate === date.current)
     if (date.current === null) {
       date.current = mDate;
       return true; 
@@ -49,6 +51,11 @@ export default ({ messages, currentUser }) => {
                 {dateChangeCheck(mDate) &&  <div className={style.newDate}>{mDate}</div>}
                 <div className={style[direction]} key={i}>
                   {type === 'text' && <div className={style.message}>{text}</div>}
+                  {type === 'notification' && <div className={style.notificationText}>{text}</div>}
+                  {(type === 'jpeg' || type === 'jpg' || type === 'png') && <FileAvailabilityCheck className={style.image} url={text} SvgImages={SvgImages} Component={MyImage}/>}
+                  {(type === 'pdf' || type === 'doc' || type === 'docx' || type === 'txt') && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={Document}/>}
+                  {type === 'mp3' && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={AudioPlayer}/>}
+                  {type === 'mp4' && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={VideoPlayer}/>}
                   <div className={type === 'notification'? style.bottomNotification : style.bottomMessage}>
                     {
                       (direction === 'to') &&
@@ -71,28 +78,3 @@ export default ({ messages, currentUser }) => {
     </div>
   )
 }
-
-// chatId
-// :
-// "518gH6rfRX"
-// id
-// :
-// 13
-// messageId
-// :
-// "IREpK3PMFK"
-// read
-// :
-// 0
-// socketId
-// :
-// "XZ_CIf7BjVhrN_VuAAAB"
-// text
-// :
-// "1"
-// time
-// :
-// 1694894246699
-// type
-// :
-// "from"

@@ -39,7 +39,12 @@
   display: grid;
   word-wrap: break-word;
   border: 1px #333 solid;
-  background-color: rgb(17, 100, 24);
+  background-color: rgb(94, 120, 94);
+}
+img{
+  max-width: 100%;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
 }
 .serverAccepted{
   height: 1px;

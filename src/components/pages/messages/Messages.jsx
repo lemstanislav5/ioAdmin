@@ -33,6 +33,7 @@ export const Messages = () => {
 
     socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
+    socketInstance.on('getUsers', (users) => dispatch(usersActionCreator(users)));
     socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
     socketInstance.on('online', (chatId) => dispatch(addUserOnline(chatId)));
     socketInstance.on('offline', (chatId) => dispatch(addUserOffline(chatId)));
@@ -40,6 +41,7 @@ export const Messages = () => {
     return () => {
       socketInstance.off('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
+      socketInstance.on('getUsers', (users) => dispatch(usersActionCreator(users)));
       socketInstance.off('newMessage', message => dispatch(addMessageCreator(message)));
       socketInstance.off('online', (chatId) => dispatch(addUserOnline(chatId)));
       socketInstance.off('offline', (chatId) => dispatch(addUserOffline(chatId)));

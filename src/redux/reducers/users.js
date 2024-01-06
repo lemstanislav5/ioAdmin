@@ -1,4 +1,4 @@
-import { GET_USERS, SET_CURRENT_UESR, USER_ONLINE, USER_OFFLINE } from "../actions";
+import {GET_USERS, SET_CURRENT_UESR, USER_ONLINE, USER_OFFLINE} from "../actions";
 
 const initialState = {
   usersList: [],

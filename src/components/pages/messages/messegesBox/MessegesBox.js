@@ -11,18 +11,18 @@ import { SvgImages } from '../../../images/SvgImages';
 export default ({ messages, currentUser }) => {
   const messegesBox = useRef(null);
   useEffect(() => {
-    setTimeout(() => messegesBox.current?.scrollTo(0, 999000), 100);
+    setTimeout(() => messegesBox.current?.scrollTo(0, messegesBox.current.scrollHeight), 300);
   }, [messages]);
   let date = useRef(null);
 
   const dateChangeCheck = (mDate) => {
     if (date.current === null) {
       date.current = mDate;
-      return true; 
+      return true;
     } else {
       if (date.current !== mDate) {
         date.current = mDate;
-        return true; 
+        return true;
       }
     }
   }
@@ -30,14 +30,14 @@ export default ({ messages, currentUser }) => {
   if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
   if (currentUser === null) {
     return (
-      <div className={style.massagesBox} ref={messegesBox} >
+      <div className={style.massagesBox}>
         <div className='alert alert-warning text-center'>
           <h4>Выберете пользователя!</h4>
           <p>Для отображения сообщений.</p>
         </div>
       </div>
     )
-  } 
+  }
 
   return (
     <div className={style.massagesBox} ref={messegesBox} >
@@ -72,7 +72,7 @@ export default ({ messages, currentUser }) => {
                   </div>
                 </div>
               </div>
-            ) 
+            )
           })
       }
     </div>

@@ -9,9 +9,7 @@ import Users from './users/Users';
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
 import {usersActionCreator, massagesActionCreator, currentUserCreator, addMessageCreator, addUserOnline, addUserOffline, readMessages} from '../../../redux/actions';
-import {SvgImages} from '../../images/SvgImages';
 import style from './Messages.module.css';
-import {Textarea} from './textarea/Textarea';
 import {Attachment} from './toolsForm/attachment/Attachment';
 import {Record} from './toolsForm/record/Record';
 
@@ -89,7 +87,7 @@ export const Messages = () => {
       dispatch(addMessageCreator(message));
     });
   };
-  const handlerFileСheck = file => {
+  const handlerFileСheck = (file) => {
     let mb = 1048576;
     let type = file.type.replace('image/', '').replace('application/', '').replace('audio/', '').replace('video/', '');
     type = (type === 'mpeg') ? 'mp3' : type;
@@ -114,7 +112,7 @@ export const Messages = () => {
         <Form>
           <br />
           <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea" 
+            <Form.Control as="textarea"
             disabled={(currentUser === null)? true: false} onKeyDown={keyDown} placeholder="Введите Ваше сообщение" value={textMessage} onChange={e => {setTextMessage(e.target.value)}}/>
           </Form.Group>
           <Button variant="primary" onClick={sendText} disabled={(currentUser === null || isSend)? true: false}>Отправить</Button>{' '}

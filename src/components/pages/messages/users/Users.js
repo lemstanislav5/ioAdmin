@@ -11,7 +11,7 @@ export default (props) => {
         usersList.map((item, i) => {
           const {id, name, online, socketId, chatId} = item;
           const count = messages.reduce((acc, el) => {
-            if (el.chatId === chatId && el.read === 0) return acc + 1;
+            if (el.fromId !== currentUser && el.fromId === chatId && el.read === 0) return acc + 1;
             return acc;
           }, 0);
           let currentName = name === null ? 'гость ' : name + ' ';

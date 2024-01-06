@@ -34,25 +34,15 @@ export const Messages = () => {
     socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));
-    socketInstance.on('online', (chatId) => {
-      dispatch(addUserOnline(chatId));
-      console.log('online: ', chatId);
-    });
-    socketInstance.on('offline', (chatId) => {
-      dispatch(addUserOffline(chatId));
-      console.log('offline: ', chatId);
-    });
-    socketInstance.on('upload', ({type, url}) => {
-      console.log('upload: ', type, url);
-    });
+    socketInstance.on('online', (chatId) => dispatch(addUserOnline(chatId)));
+    socketInstance.on('offline', (chatId) => dispatch(addUserOffline(chatId)));
 
     return () => {
       socketInstance.off('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
       socketInstance.off('newMessage', message => dispatch(addMessageCreator(message)));
-      socketInstance.off('online', (chatId) => {});
-      socketInstance.off('offline', (chatId) => {});
-      socketInstance.off('upload', () => {});
+      socketInstance.off('online', (chatId) => dispatch(addUserOnline(chatId)));
+      socketInstance.off('offline', (chatId) => dispatch(addUserOffline(chatId)));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);

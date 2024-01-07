@@ -23,6 +23,7 @@ function Menu() {
           <Navbar.Brand href="/">Messenger</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/messages">Сообщения</Nav.Link>
+            <Nav.Link href="/setings">Настройки</Nav.Link>
           </Nav>
           <Nav className="justify-content-end">
             <Navbar.Toggle />

@@ -1,36 +1,16 @@
-/*
-Первое, что проверяет приложение - это иницилизация, которая заключается в создании менеждера.
-Если менеджер не существует, приложение отображает форму для его создания.
-Если менеджер существует приложение предлагает проводит аутентификацию по токену, после чего либо предлагает авторизоваться, либо пропускает к сообщениям.
-
-
-Логика: каждый энд поинт имеет свой соответствует своему компаненту, имеющему собственный локальный стейт,
-HOC "PrivateRoute" служит для проверки валидного токена, в случае успеха запскает компонент подключающися к сервису
-через сокет
-
-
-return instance.get("/api/refresh");
-нет ответа с сервера
-  1. отсылать логин и пароль на сервер для получения jwt
-  2. Сохранение jwt в store mobx
-  3. Приватные страницы ХОК
-  4. При авторизации подключать socket.io с jwt
-  5. Загрузка данных
-  6. Структура данных (сообщения, прочтитано, статус)
-*/
-
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import store from "./redux/store";
 
 import LoginPage from "./components/pages/login/LoginPage";
 import LogoutPage from "./components/pages/logout/LogoutPage";
-import { Messages } from "./components/pages/messages/Messages";
+import {Messages} from "./components/pages/messages/Messages";
+import {Setings} from "./components/pages/setings/Setings";
 import Container from "react-bootstrap/Container";
 import Menu from "./components/menu/Menu";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import PrivateRoute from "./hoc/withPrivateRoute";
 import Error404 from "./components/pages/error404/Error404";
 import "./index.css";
@@ -40,6 +20,7 @@ const App = () => {
   const router = createBrowserRouter([
     {path: "/", element: <PrivateRoute Component={Messages} />},
     {path: "/messages", element: <PrivateRoute Component={Messages} />},
+    {path: "/setings", element: <PrivateRoute Component={Setings} />},
     {path: "/login", element: <LoginPage />},
     {path: "/logout", element: <LogoutPage />},
     {path: "*", element: <Error404 />},

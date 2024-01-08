@@ -22,11 +22,8 @@ export const Setings = () => {
   useEffect(() => {
     if (socket !== null) {
       socket.emit('getSetings', data => {
-        const arr = [];
-        for (var key in data[0]) {
-          if (data[0].hasOwnProperty(key) && key !== 'id') arr.push([key, data[0][key]]);
-        }
-        setStings(arr)
+        setStings(data)
+        console.log(data)
       });
     }
   }, [socket]);
@@ -35,39 +32,29 @@ export const Setings = () => {
     <Row className="justify-content-md-center" >
       <Button variant="primary" >Отправить</Button>
       <br />
-      <Col xs={6}>
-        <h5>Настройки сокета пользователя</h5>
-       {
-          stings.map((item, i) => {
-            return (
-              <InputGroup key={'setings_' + i} className="mb-3">
-                <InputGroup.Text id="basic-addon1">{item[0]}</InputGroup.Text>
-                <Form.Control
-                  placeholder={item[1]}
-                  aria-label={item[1]}
-                  aria-describedby="basic-addon1"
-                />
-              </InputGroup>             
-            )
-          })
-       }
-      </Col>
-      <Col xs={6}>
-       {
-          stings.map((item, i) => {
-            return (
-              <InputGroup key={'setings_' + i} className="mb-3">
-                <InputGroup.Text id="basic-addon1">{item[0]}</InputGroup.Text>
-                <Form.Control
-                  placeholder={item[1]}
-                  aria-label={item[1]}
-                  aria-describedby="basic-addon1"
-                />
-              </InputGroup>             
-            )
-          })
-       }
-      </Col>
+      {
+        stings.map((item, i) => {
+          return (
+            <Col xs={6}>
+              <h5>{item[0]}</h5>
+              {
+                item[1].map((el, i) => {
+                  return ( 
+                    <InputGroup key={'setings_' + i} className="mb-3">
+                      <InputGroup.Text id="basic-addon1">{el[0]}</InputGroup.Text>
+                      <Form.Control
+                        value={el[1]}
+                        aria-label={el[1]}
+                        aria-describedby="basic-addon1"
+                      />
+                    </InputGroup>
+                  ) 
+                })
+              }
+            </Col>
+          )
+        })
+      }
     </Row>
   );
 }

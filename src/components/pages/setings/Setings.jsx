@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import {io} from 'socket.io-client';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import {ColorsSection} from './colors/ColorsSection';
-import {SocketSection} from './socket/SocketSection';
+import {ColorsSection} from './sections/ColorsSection';
+import {SocketSection} from './sections/SocketSection';
+import {ConsenSection} from './sections/ConsentSetings';
 
 export const Setings = () => {
   const [socket, setSocket] = useState(null);
   const [colorsSetings, setColorsSetings] = useState(null);
   const [socketSetings, setSocketSetings] = useState(null);
+  const [consentSetings, setConsentSetings] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000', {
@@ -24,38 +26,20 @@ export const Setings = () => {
         setColorsSetings({conteiner, top, messeges, fromId, text, notification, toId})
         const {url, ws, port} = data.socket[0];
         setSocketSetings({url, ws, port});
+        const {consentLink, policyLink} = data.consent[0];
+        setConsentSetings({consentLink, policyLink});
+        console.log(data)
       });
     }
   }, [socket]);
 
   return (
     <Row className="justify-content-md-center" >
-      <Button variant="primary" >Отправить</Button>
+      <Button variant="primary" className='mb-3'>Сохранить</Button>
       <br />
       {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}
-      {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>
-        // stings.map((item, i) => {
-        //   return (
-        //     <Col xs={6}>
-        //       <h5>{item[0]}</h5>
-        //       {
-        //         item[1].map((el, i) => {
-        //           return ( 
-        //             <InputGroup key={'setings_' + i} className="mb-3">
-        //               <InputGroup.Text id="basic-addon1">{el[0]}</InputGroup.Text>
-        //               <Form.Control
-        //                 value={el[1]}
-        //                 aria-label={el[1]}
-        //                 aria-describedby="basic-addon1"
-        //               />
-        //             </InputGroup>
-        //           ) 
-        //         })
-        //       }
-        //     </Col>
-        //   )
-        // })
-      }
+      {consentSetings &&  <ConsenSection consentSetings={consentSetings} setConsentSetings={setConsentSetings}/>}
+      {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
     </Row>
   );
 }

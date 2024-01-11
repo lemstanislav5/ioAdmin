@@ -5,12 +5,14 @@ import Row from 'react-bootstrap/Row';
 import {ColorsSection} from './sections/ColorsSection';
 import {SocketSection} from './sections/SocketSection';
 import {ConsenSection} from './sections/ConsentSetings';
+import {QuestionsSection} from './sections/QuestionsSection'
 
 export const Setings = () => {
   const [socket, setSocket] = useState(null);
   const [colorsSetings, setColorsSetings] = useState(null);
   const [socketSetings, setSocketSetings] = useState(null);
   const [consentSetings, setConsentSetings] = useState(null);
+  const [questionsSetings, setQuestionsSetings] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000', {
@@ -28,6 +30,7 @@ export const Setings = () => {
         setSocketSetings({url, ws, port});
         const {consentLink, policyLink} = data.consent[0];
         setConsentSetings({consentLink, policyLink});
+        setQuestionsSetings(data.questions);
         console.log(data)
       });
     }
@@ -40,6 +43,7 @@ export const Setings = () => {
       {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}
       {consentSetings &&  <ConsenSection consentSetings={consentSetings} setConsentSetings={setConsentSetings}/>}
       {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
+      {questionsSetings && <QuestionsSection questionsSetings={questionsSetings} setQuestionsSetings={setQuestionsSetings}/>}
     </Row>
   );
 }

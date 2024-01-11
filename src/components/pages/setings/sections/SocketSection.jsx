@@ -8,7 +8,7 @@ const handleChange = (event, name) => {
 }
 
   return (
-    <Col xs={4}>
+    <Col xs={4} lg={6} sm={12}>
       <h5>Параметры сокета пользователя</h5>
       {
         Object.keys(socketSetings).map(name => (

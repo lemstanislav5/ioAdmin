@@ -3,13 +3,12 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 export const ConsenSection = ({consentSetings, setConsentSetings}) => {
-  console.log(consentSetings)
   const handleChange = (event, name) => {
     setConsentSetings({...consentSetings, [name]: event.target.value});
   }
-  
+
     return (
-      <Col xs={4}>
+      <Col xs={4} lg={6} sm={12}>
         <h5>Политика обработки перснальных данных</h5>
         {
           Object.keys(consentSetings).map(name => (

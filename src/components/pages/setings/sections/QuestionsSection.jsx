@@ -13,12 +13,10 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
     console.log(event.target)
     // setConsentSetings({...questionsSetings, [name]: event.target.value});
   }
-  const handleChangeActivation = (event, id) => {
+  const handleChangeActivation = (event, OffOn, id) => {
     const value = event.target.value;
     setQuestionsSetings([...questionsSetings.map(item => {
-      let res = (value === 'on')? 0: 1;
-      console.log(res, event.target.value)
-      if(item.id === id) return {...item, OffOn: res}
+      if(item.id === id) return {...item, OffOn: (OffOn === 1)? 0: 1}
       return item;
     })]);
   }
@@ -50,11 +48,9 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
                   <Form.Check
                     type="switch"
                     id="custom-switch"
-                    label={item.OffOn}
                     className="mb-3"
-                    check={item.OffOn === 1}
-                    checked={item.OffOn === 1}
-                    onChange={e => handleChangeActivation(e, item.id)}
+                    defaultChecked={item.OffOn === 1}
+                    onChange={e => handleChangeActivation(e, item.OffOn, item.id)}
                   />
                 </Col>
               </Row>

@@ -9,7 +9,7 @@ export const ConsenSection = ({consentSetings, setConsentSetings}) => {
 
     return (
       <Col xs={4} lg={6} sm={12}>
-        <h5>Политика обработки перснальных данных</h5>
+        <h5 className="border-bottom">Политика обработки перснальных данных</h5>
         {
           Object.keys(consentSetings).map(name => (
             <InputGroup key={name} className="mb-3">

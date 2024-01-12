@@ -1,4 +1,4 @@
-import { SketchPicker } from 'react-color';
+import {SketchPicker} from 'react-color';
 import {useState} from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +9,8 @@ export const ColorsSection = ({colors, setColors}) => {
   const handleChangeComplete = (color) => setColors({...colors, [currentColor]: color.hex});
 
   return (
-    <Col xs={4} lg={6} sm={12}><h5>Цветовая настройка клиента</h5>
+    <Col xs={4} lg={6} sm={12}>
+      <h5 className="border-bottom">Цветовая настройка клиента</h5>
       <Row className="justify-content-md-center" >
       <Col xs={6}>
         {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {io} from 'socket.io-client';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import {ColorsSection} from './sections/ColorsSection';
 import {SocketSection} from './sections/SocketSection';
 import {ConsenSection} from './sections/ConsentSetings';
@@ -37,13 +38,18 @@ export const Setings = () => {
   }, [socket]);
 
   return (
-    <Row className="justify-content-md-center" >
-      <Button variant="primary" className='mb-3'>Сохранить</Button>
-      <br />
-      {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}
-      {consentSetings &&  <ConsenSection consentSetings={consentSetings} setConsentSetings={setConsentSetings}/>}
-      {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
-      {questionsSetings && <QuestionsSection questionsSetings={questionsSetings} setQuestionsSetings={setQuestionsSetings}/>}
-    </Row>
+    <>
+      <Row>
+        <Col xs={4}>
+          <Button variant="primary" className='mb-3'>Сохранить</Button>
+        </Col>
+      </Row>
+      <Row className="justify-content-md-center" >
+        {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}
+        {consentSetings &&  <ConsenSection consentSetings={consentSetings} setConsentSetings={setConsentSetings}/>}
+        {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
+        {questionsSetings && <QuestionsSection questionsSetings={questionsSetings} setQuestionsSetings={setQuestionsSetings}/>}
+      </Row>
+    </>
   );
 }

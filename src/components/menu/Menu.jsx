@@ -20,7 +20,7 @@ function Menu() {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/">Messenger</Navbar.Brand>
+          <Navbar.Brand href="/">Админпанель</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/messages">Сообщения</Nav.Link>
             <Nav.Link href="/setings">Настройки</Nav.Link>
@@ -28,22 +28,12 @@ function Menu() {
           <Nav className="justify-content-end">
             <Navbar.Toggle />
             <Navbar.Collapse>
-            <Nav.Link href="/logout">logout</Nav.Link>
+            <Nav.Link href="/logout">Выход</Nav.Link>
               {
                 login
-                  ? <Navbar.Text> Login: <a href="#login">{login}</a></Navbar.Text>
-                  : <Nav.Link href="/login">login</Nav.Link>
+                  ? <Navbar.Text> Логин: <a href="#login">{login}</a></Navbar.Text>
+                  : <Nav.Link href="/login">Вход</Nav.Link>
               }
-              <NavDropdown title={<BsGear size={26} />} id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
             </Navbar.Collapse>
           </Nav>
         </Container>

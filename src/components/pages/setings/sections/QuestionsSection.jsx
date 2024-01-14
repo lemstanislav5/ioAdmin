@@ -3,22 +3,34 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 
 export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
-  console.log(questionsSetings)
+  const [newQuestion, setNewQuestion] = useState('')
 
-  const handleChangeQuestions = (event) => {
-    console.log(event.target)
-    // setConsentSetings({...questionsSetings, [name]: event.target.value});
+  const handleChangeQuestions = (event, id) => {
+    setQuestionsSetings([...questionsSetings.map(item => {
+      if(item.id === id) return {...item, question: event.target.value}
+      return item;
+    })]);
   }
-  const handleChangeActivation = (event, OffOn, id) => {
-    const value = event.target.value;
+  const handleChangeActivation = (OffOn, id) => {
     setQuestionsSetings([...questionsSetings.map(item => {
       if(item.id === id) return {...item, OffOn: (OffOn === 1)? 0: 1}
       return item;
     })]);
+  }
+  const addQuestion = (e) => {
+    const id = questionsSetings.length + 1;
+    setQuestionsSetings([...questionsSetings, {id, question: newQuestion, OffOn: 1}])
+    setNewQuestion('');
+  }
+  const delQuestion = id => {
+    setQuestionsSetings([...questionsSetings.reduce((acc, item) => {
+      if(item.id !== id) return [...acc, item];
+      return acc;
+    }, [])]);
   }
 
     return (
@@ -27,7 +39,8 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
         <Row  className="mb-3">
           <Col xs={1}>№</Col>
           <Col xs={9}>Вопросы</Col>
-          <Col xs={1}></Col>
+          <Col xs={1}>On</Col>
+          <Col xs={1}>Del</Col>
         </Row>
         {
           questionsSetings.map((item, i) => (
@@ -40,8 +53,8 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
                   <Form.Control
                     className="mb-3"
                     value={item.question}
-                    placeholder={'Задайте пример вопроса'}
-                    onChange={handleChangeQuestions}
+                    placeholder={'Задайте вопрос'}
+                    onChange={e => handleChangeQuestions(e, item.id)}
                   />
                 </Col>
                 <Col xs={1}>
@@ -50,8 +63,11 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
                     id="custom-switch"
                     className="mb-3"
                     defaultChecked={item.OffOn === 1}
-                    onChange={e => handleChangeActivation(e, item.OffOn, item.id)}
+                    onChange={() => handleChangeActivation(item.OffOn, item.id)}
                   />
+                </Col>
+                <Col xs={1}>
+                  <Button onClick={() => delQuestion(item.id)} variant="outline-light">X</Button>
                 </Col>
               </Row>
             </Form>
@@ -59,9 +75,11 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
         }
         <InputGroup className="mb-3">
           <Form.Control
-            placeholder="Новый вопрос!"
+            value={newQuestion}
+            placeholder="Новый вопрос"
+            onChange={e => {setNewQuestion(e.target.value)}}
           />
-          <Button className="btn-primary">
+          <Button onClick={addQuestion} className="btn-primary">
             Добавить
           </Button>
         </InputGroup>

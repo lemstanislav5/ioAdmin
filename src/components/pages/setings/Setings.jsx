@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {io} from 'socket.io-client';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -17,6 +17,12 @@ export const Setings = () => {
   const [consentSetings, setConsentSetings] = useState(null);
   const [questionsSetings, setQuestionsSetings] = useState(null);
   const [contactsSetings, setContactsSetings] = useState(null);
+
+  const colorsSetingsRef = useRef(null);
+  const socketSetingsRef = useRef(null);
+  const consentSetingsRef = useRef(null);
+  const questionsSetingsRef = useRef(null);
+  const contactsSetingsRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,13 +43,35 @@ export const Setings = () => {
         setConsentSetings({consentLink, policyLink});
         setQuestionsSetings(data.questions);
         setContactsSetings(data.contacts)
-        console.log(data.contacts)
+
+        colorsSetingsRef.current = {conteiner, top, messeges, fromId, text, notification, toId};
+        socketSetingsRef.current = {url, ws, port};
+        consentSetingsRef.current = {consentLink, policyLink};
+        questionsSetingsRef.current = data.questions;
+        contactsSetingsRef.current = data.contacts;
       });
     }
   }, [socket]);
 
+  // colorsSetings, setColorsSetings] = useState(null);
+  // const [socketSetings, setSocketSetings] = useState(null);
+  // const [consentSetings, setConsentSetings] = useState(null);
+  // const [questionsSetings, setQuestionsSetings] = useState(null);
+  // const [contactsSetings
+
+
   const handlerSend = () => {
-    console.log([colorsSetings, socketSetings, consentSetings, questionsSetings, contactsSetings]);
+    const colorsVal = (JSON.stringify(colorsSetingsRef.current) === JSON.stringify(colorsSetings))? false: colorsSetings;
+    const socketVal = (JSON.stringify(socketSetingsRef.current) === JSON.stringify(socketSetings))? false: socketSetings;
+    const consentVal = (JSON.stringify(consentSetingsRef.current) === JSON.stringify(consentSetings))? false: consentSetings;
+    const questionsVal = (JSON.stringify(questionsSetingsRef.current) === JSON.stringify(questionsSetings))? false: questionsSetings;
+    const contactsVal = (JSON.stringify(contactsSetingsRef.current) === JSON.stringify(contactsSetings))? false: contactsSetings;
+    const data = {colors: colorsVal, socket: socketVal, consent: consentVal, questions: questionsVal, contacts: contactsVal};
+    // socket.emit('setSetings', {data}, answer => {
+    //   console.log(answer);
+    // })
+    console.log(data);
+    // console.log(data);
   }
 
   return (

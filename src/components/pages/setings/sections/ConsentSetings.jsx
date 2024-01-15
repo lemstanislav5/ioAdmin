@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 export const ConsenSection = ({consentSetings, setConsentSetings}) => {
-  const handleChange = (event, name) => {
+  const handlerChange = (event, name) => {
     setConsentSetings({...consentSetings, [name]: event.target.value});
   }
 
@@ -18,7 +18,7 @@ export const ConsenSection = ({consentSetings, setConsentSetings}) => {
                 value={consentSetings[name]}
                 aria-describedby="basic-addon1"
                 placeholder={'https://yoursite.com/' + name}
-                onChange={(event) => handleChange(event, name)}
+                onChange={(event) => handlerChange(event, name)}
               />
             </InputGroup>
           ))

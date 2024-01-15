@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 export const SocketSection = ({socketSetings, setSocketSetings}) => {
-const handleChange = (event, name) => {
+const handlerChange = (event, name) => {
   setSocketSetings({...socketSetings, [name]: event.target.value});
 }
 
@@ -17,7 +17,7 @@ const handleChange = (event, name) => {
             <Form.Control
               value={socketSetings[name]}
               aria-describedby="basic-addon1"
-              onChange={(event) => handleChange(event, name)}
+              onChange={(event) => handlerChange(event, name)}
             />
           </InputGroup>
         ))

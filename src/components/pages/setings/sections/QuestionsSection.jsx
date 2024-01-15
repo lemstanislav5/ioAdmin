@@ -9,21 +9,21 @@ import React, { useState } from 'react';
 export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
   const [newQuestion, setNewQuestion] = useState('')
 
-  const handleChangeQuestions = (event, id) => {
+  const handlerChangeQuestions = (event, id) => {
     setQuestionsSetings([...questionsSetings.map(item => {
       if(item.id === id) return {...item, question: event.target.value}
       return item;
-    })]);
+    })])
   }
-  const handleChangeActivation = (OffOn, id) => {
+  const handlerChangeActivation = (offOn, id) => {
     setQuestionsSetings([...questionsSetings.map(item => {
-      if(item.id === id) return {...item, OffOn: (OffOn === 1)? 0: 1}
+      if(item.id === id) return {...item, offOn: (offOn === 1)? 0: 1}
       return item;
     })]);
   }
   const addQuestion = (e) => {
     const id = questionsSetings.length + 1;
-    setQuestionsSetings([...questionsSetings, {id, question: newQuestion, OffOn: 1}])
+    setQuestionsSetings([...questionsSetings, {id, question: newQuestion, offOn: 1}])
     setNewQuestion('');
   }
   const delQuestion = id => {
@@ -54,7 +54,7 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
                     className="mb-3"
                     value={item.question}
                     placeholder={'Задайте вопрос'}
-                    onChange={e => handleChangeQuestions(e, item.id)}
+                    onChange={e => handlerChangeQuestions(e, item.id)}
                   />
                 </Col>
                 <Col xs={1}>
@@ -62,8 +62,8 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
                     type="switch"
                     id="custom-switch"
                     className="mb-3"
-                    defaultChecked={item.OffOn === 1}
-                    onChange={() => handleChangeActivation(item.OffOn, item.id)}
+                    defaultChecked={item.offOn === 1}
+                    onChange={() => handlerChangeActivation(item.offOn, item.id)}
                   />
                 </Col>
                 <Col xs={1}>

@@ -6,26 +6,28 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import React, { useState } from 'react';
 
 export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
-  const [newQuestion, setNewQuestion] = useState('')
+  const [newSocialNetwork, setNewSocialNetwork] = useState('');
+  const [newLink, setNewLink] = useState('');
 
-  const handleChangeQuestions = (event, id) => {
+  const handlerChangeContacts = (event, id) => {
     setContactsSetings([...contactsSetings.map(item => {
       if(item.id === id) return {...item, question: event.target.value}
       return item;
     })]);
   }
-  const handleChangeActivation = (OffOn, id) => {
+  const handlerChangeActivation = (offOn, id) => {
     setContactsSetings([...contactsSetings.map(item => {
-      if(item.id === id) return {...item, OffOn: (OffOn === 1)? 0: 1}
+      if(item.id === id) return {...item, offOn: (offOn === 1)? 0: 1}
       return item;
     })]);
   }
   const addQuestion = (e) => {
     const id = contactsSetings.length + 1;
-    setContactsSetings([...contactsSetings, {id, question: newQuestion, OffOn: 1}])
-    setNewQuestion('');
+    setContactsSetings([...contactsSetings, {id, socialNetwork: newSocialNetwork, link: newLink, offOn: 1}])
+    setNewSocialNetwork('');
+    setNewLink('');
   }
-  const delQuestion = id => {
+  const delContacts = id => {
     setContactsSetings([...contactsSetings.reduce((acc, item) => {
       if(item.id !== id) return [...acc, item];
       return acc;
@@ -50,14 +52,14 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
                   <Form.Label className="mb-3">{item.id}</Form.Label>
                 </Col>
                 <Col xs={2}>
-                  <Form.Label className="mb-3">{item.SocialNetwork}</Form.Label>
+                  <Form.Label className="mb-3">{item.socialNetwork}</Form.Label>
                 </Col>
                 <Col xs={7}>
                   <Form.Control
                     className="mb-3"
-                    value={item.Link}
+                    value={item.link}
                     placeholder={'Ссылка'}
-                    onChange={e => handleChangeQuestions(e, item.id)}
+                    onChange={e => handlerChangeContacts(e, item.id)}
                   />
                 </Col>
                 <Col xs={1}>
@@ -65,12 +67,12 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
                     type="switch"
                     id="custom-switch"
                     className="mb-3"
-                    defaultChecked={item.OffOn === 1}
-                    onChange={() => handleChangeActivation(item.OffOn, item.id)}
+                    defaultChecked={item.offOn === 1}
+                    onChange={() => handlerChangeActivation(item.offOn, item.id)}
                   />
                 </Col>
                 <Col xs={1}>
-                  <Button onClick={() => delQuestion(item.id)} variant="outline-light">X</Button>
+                  <Button onClick={() => delContacts(item.id)} variant="outline-light">X</Button>
                 </Col>
               </Row>
             </Form>
@@ -78,14 +80,14 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
         }
         <InputGroup className="mb-3">
           <Form.Control
-            value={newQuestion}
+            value={newSocialNetwork}
             placeholder="Название"
-            onChange={e => {setNewQuestion(e.target.value)}}
+            onChange={e => {setNewSocialNetwork(e.target.value)}}
           />
           <Form.Control
-            value={newQuestion}
+            value={newLink}
             placeholder="Ссылка"
-            onChange={e => {setNewQuestion(e.target.value)}}
+            onChange={e => {setNewLink(e.target.value)}}
           />
           <Button onClick={addQuestion} className="btn-primary">
             Добавить

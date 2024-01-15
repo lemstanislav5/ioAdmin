@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 export const ColorsSection = ({colors, setColors}) => {
   const [currentColor, setCurrentColor] = useState('conteiner');
-  const handleChangeComplete = (color) => setColors({...colors, [currentColor]: color.hex});
+  const handlerChangeComplete = (color) => setColors({...colors, [currentColor]: color.hex});
 
   return (
     <Col xs={4} lg={6} sm={12}>
@@ -25,7 +25,7 @@ export const ColorsSection = ({colors, setColors}) => {
         }
       </Col>
       <Col xs={6}>
-        <SketchPicker color={colors[currentColor]} onChangeComplete={handleChangeComplete}/>
+        <SketchPicker color={colors[currentColor]} onChangeComplete={handlerChangeComplete}/>
       </Col>
       </Row>
     </Col>

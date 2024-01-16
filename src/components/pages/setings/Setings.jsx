@@ -35,6 +35,7 @@ export const Setings = () => {
   useEffect(() => {
     if (socket !== null) {
       socket.emit('getSetings', data => {
+        console.log(data)
         const {conteiner, top, messeges, fromId, text, notification, toId} = data.colors[0];
         setColorsSetings({conteiner, top, messeges, fromId, text, notification, toId})
         const {url, ws, port} = data.socket[0];
@@ -53,13 +54,6 @@ export const Setings = () => {
     }
   }, [socket]);
 
-  // colorsSetings, setColorsSetings] = useState(null);
-  // const [socketSetings, setSocketSetings] = useState(null);
-  // const [consentSetings, setConsentSetings] = useState(null);
-  // const [questionsSetings, setQuestionsSetings] = useState(null);
-  // const [contactsSetings
-
-
   const handlerSend = () => {
     const colorsVal = (JSON.stringify(colorsSetingsRef.current) === JSON.stringify(colorsSetings))? false: colorsSetings;
     const socketVal = (JSON.stringify(socketSetingsRef.current) === JSON.stringify(socketSetings))? false: socketSetings;
@@ -67,11 +61,10 @@ export const Setings = () => {
     const questionsVal = (JSON.stringify(questionsSetingsRef.current) === JSON.stringify(questionsSetings))? false: questionsSetings;
     const contactsVal = (JSON.stringify(contactsSetingsRef.current) === JSON.stringify(contactsSetings))? false: contactsSetings;
     const data = {colors: colorsVal, socket: socketVal, consent: consentVal, questions: questionsVal, contacts: contactsVal};
-    // socket.emit('setSetings', {data}, answer => {
-    //   console.log(answer);
-    // })
+    socket.emit('setSetings', {data}, answer => {
+      if (answer) console.log('Новые настройки сохранены!');
+    });
     console.log(data);
-    // console.log(data);
   }
 
   return (

@@ -11,19 +11,19 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
 
   const handlerChangeQuestions = (event, id) => {
     setQuestionsSetings([...questionsSetings.map(item => {
-      if(item.id === id) return {...item, question: event.target.value}
+      if(item.id === id) return {...item, question: event.target.value};
       return item;
     })])
   }
   const handlerChangeActivation = (offOn, id) => {
     setQuestionsSetings([...questionsSetings.map(item => {
-      if(item.id === id) return {...item, offOn: (offOn === 1)? 0: 1}
+      if(item.id === id) return {...item, offOn: (offOn === 1)? 0: 1};
       return item;
     })]);
   }
   const addQuestion = (e) => {
     const id = questionsSetings.length + 1;
-    setQuestionsSetings([...questionsSetings, {id, question: newQuestion, offOn: 1}])
+    setQuestionsSetings([...questionsSetings, {id, question: newQuestion, offOn: 1}]);
     setNewQuestion('');
   }
   const delQuestion = id => {

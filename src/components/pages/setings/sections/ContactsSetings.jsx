@@ -11,19 +11,19 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
 
   const handlerChangeContacts = (event, id) => {
     setContactsSetings([...contactsSetings.map(item => {
-      if(item.id === id) return {...item, question: event.target.value}
+      if(item.id === id) return {...item, link: event.target.value};
       return item;
     })]);
   }
   const handlerChangeActivation = (offOn, id) => {
     setContactsSetings([...contactsSetings.map(item => {
-      if(item.id === id) return {...item, offOn: (offOn === 1)? 0: 1}
+      if(item.id === id) return {...item, offOn: (offOn === 1)? 0: 1};
       return item;
     })]);
   }
   const addQuestion = (e) => {
     const id = contactsSetings.length + 1;
-    setContactsSetings([...contactsSetings, {id, socialNetwork: newSocialNetwork, link: newLink, offOn: 1}])
+    setContactsSetings([...contactsSetings, {id, socialNetwork: newSocialNetwork, link: newLink, offOn: 1}]);
     setNewSocialNetwork('');
     setNewLink('');
   }

@@ -36,11 +36,11 @@ export const Setings = () => {
     if (socket !== null) {
       socket.emit('getSetings', data => {
         console.log(data)
-        const {conteiner, top, messeges, fromId, text, notification, toId} = data.colors[0];
+        const {conteiner, top, messeges, fromId, text, notification, toId} = data.colors;
         setColorsSetings({conteiner, top, messeges, fromId, text, notification, toId})
-        const {url, ws, port} = data.socket[0];
+        const {url, ws, port} = data.socket;
         setSocketSetings({url, ws, port});
-        const {consentLink, policyLink} = data.consent[0];
+        const {consentLink, policyLink} = data.consent;
         setConsentSetings({consentLink, policyLink});
         setQuestionsSetings(data.questions);
         setContactsSetings(data.contacts)

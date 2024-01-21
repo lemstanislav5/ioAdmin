@@ -1,0 +1,159 @@
+.message{
+  width: 98%;
+  word-wrap: break-word;
+  display: inline-block;
+}
+.msgbox{
+  display: inline-block;
+  width: 100%;
+}
+.time{
+  font-size: 10px;
+  color: #fff;
+  padding-top: 7px;
+  text-align: right;
+}
+.fromId{
+  width: 89%;
+  float: left;
+  padding: 5px;
+  margin: 0 2px 2px 5px;
+  color: #fff;
+  border-radius: 0px 8px 8px 8px;
+  text-align: left;
+  font-size: 14px;
+  display: grid;
+  word-wrap: break-word;
+}
+.toId{
+  width: 89%;
+  float: right;
+  padding: 5px;
+  margin: 0px 2px 2px 22px;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
+  text-align: left;
+  font-size: 14px;
+  display: grid;
+  word-wrap: break-word;
+}
+.send{
+  height: 1px;
+  text-align: right;
+  margin-left: -10px;
+}
+.read{
+  height: 1px;
+  text-align: right;
+  margin-left: -10px;
+}
+.false{
+  color: red;
+}
+.true{
+  color: green;
+}
+.notification{
+  text-align: center;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 9px;
+  border: 1px #706d6d solid;
+  max-width: 250px;
+  margin: 0px auto;
+  word-wrap: break-word;
+  margin-bottom: 5px;
+}
+img{
+  max-width: 100%;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
+}
+.toDocuments{
+  max-width: 50px;
+  float: right;
+  padding: 5px;
+  margin: 0px 2px 5px 261px;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
+  text-align: left;
+  font-size: 15px;
+  display: grid;
+}
+.fromDocuments{
+  max-width: 50px;
+  float: left;
+  padding: 5px;
+  margin: 0px 2px 5px 5px;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
+  text-align: left;
+  font-size: 15px;
+  display: grid;
+}
+.toAudio{
+  max-width: 89%;
+  float: right;
+  padding: 5px;
+  color: #fff;
+  margin: 0 2px 2px 5px;
+  text-align: left;
+  font-size: 15px;
+  display: grid;
+  margin-bottom: 2px;
+  border-radius: 8px 8px 0px 8px;
+}
+.toVideo{
+  max-width: 89%;
+  float: right;
+  padding: 5px;
+  margin: 0px 2px 2px 22px;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
+  text-align: left;
+  font-size: 15px;
+  display: grid;
+}
+.toVideo video{
+  border-radius: 5px;
+}
+.fromAudio{
+  max-width: 89%;
+  float: left;
+  padding: 5px;
+  color: #fff;
+  margin: 0px 0px 0px 5px;
+  text-align: left;
+  font-size: 15px;
+  display: grid;
+  margin-bottom: 2px;
+  border-radius: 8px 8px 0px 8px;
+}
+.fromVideo{
+  max-width: 89%;
+  float: left;
+  padding: 5px;
+  margin: 0px 0px 0px 5px;
+  color: #fff;
+  border-radius: 8px 8px 0px 8px;
+  text-align: left;
+  font-size: 15px;
+  display: grid;
+}
+.fromVideo video{
+  border-radius: 5px;
+}
+.bottomMessage{
+  display: flex;
+  justify-content: right;
+  align-items: flex-start;
+}
+.notificationText{
+  color: #ca7e7e;
+}
+.newDate{
+  text-align: center;
+  font-size: 12px;
+  padding: 4px;
+  color: #fff;
+}

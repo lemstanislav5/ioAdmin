@@ -9,6 +9,7 @@ import {ConsenSection} from './sections/ConsentSetings';
 import {QuestionsSection} from './sections/QuestionsSection';
 import {ContactsSetings} from './sections/ContactsSetings';
 import {BsSave} from "react-icons/bs";
+import { Model } from './model/Model';
 
 export const Setings = () => {
   const [socket, setSocket] = useState(null);
@@ -72,6 +73,9 @@ export const Setings = () => {
       <Row>
         <Col xs={4}>
           <Button onClick={handlerSend} variant="primary" className='mb-3'><BsSave /> Сохранить</Button>
+        </Col>
+        <Col xs={8}>
+        <Model colors={colorsSetings} contacts={contactsSetings}/>
         </Col>
       </Row>
       <Row className="justify-content-md-center" >

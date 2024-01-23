@@ -9,7 +9,7 @@ export const ColorsSection = ({colors, setColors}) => {
   const handlerChangeComplete = (color) => setColors({...colors, [currentColor]: color.hex});
 
   return (
-    <Col xs={4} lg={6} sm={12}>
+    <>
       <h5 className="border-bottom">Цветовая настройка клиента</h5>
       <Row className="justify-content-md-center" >
       <Col xs={6}>
@@ -28,6 +28,6 @@ export const ColorsSection = ({colors, setColors}) => {
         <SketchPicker color={colors[currentColor]} onChangeComplete={handlerChangeComplete}/>
       </Col>
       </Row>
-    </Col>
+    </>
   )
 }

@@ -2,12 +2,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import React, { useState } from 'react';
 
 export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
-  const [newSocialNetwork, setNewSocialNetwork] = useState('');
-  const [newLink, setNewLink] = useState('');
 
   const handlerChangeContacts = (event, id) => {
     setContactsSetings([...contactsSetings.map(item => {
@@ -21,12 +17,7 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
       return item;
     })]);
   }
-  const addQuestion = (e) => {
-    const id = contactsSetings.length + 1;
-    setContactsSetings([...contactsSetings, {id, socialNetwork: newSocialNetwork, link: newLink, offOn: 1}]);
-    setNewSocialNetwork('');
-    setNewLink('');
-  }
+
   const delContacts = id => {
     setContactsSetings([...contactsSetings.reduce((acc, item) => {
       if(item.id !== id) return [...acc, item];
@@ -35,7 +26,7 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
   }
 
     return (
-      <Col xs={4} lg={6} sm={12}>
+      <Col>
         <h5 className="border-bottom">Ссылки на другие ресурсы</h5>
         <Row  className="mb-3">
           <Col xs={1}>№</Col>
@@ -78,21 +69,6 @@ export const ContactsSetings = ({contactsSetings, setContactsSetings}) => {
             </Form>
           ))
         }
-        <InputGroup className="mb-3">
-          <Form.Control
-            value={newSocialNetwork}
-            placeholder="Название"
-            onChange={e => {setNewSocialNetwork(e.target.value)}}
-          />
-          <Form.Control
-            value={newLink}
-            placeholder="Ссылка"
-            onChange={e => {setNewLink(e.target.value)}}
-          />
-          <Button onClick={addQuestion} className="btn-primary">
-            Добавить
-          </Button>
-        </InputGroup>
       </Col>
     )
   }

@@ -73,17 +73,15 @@ export const Setings = () => {
       <Row>
         <Col xs={4}>
           <Button onClick={handlerSend} variant="primary" className='mb-3'><BsSave /> Сохранить</Button>
+          <Model colors={colorsSetings} contacts={contactsSetings}/>
         </Col>
         <Col xs={8}>
-        <Model colors={colorsSetings} contacts={contactsSetings}/>
+          {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
+          {contactsSetings && <ContactsSetings contactsSetings={contactsSetings} setContactsSetings={setContactsSetings}/>}
+          {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}
+          {consentSetings &&  <ConsenSection consentSetings={consentSetings} setConsentSetings={setConsentSetings}/>}
+          {questionsSetings && <QuestionsSection questionsSetings={questionsSetings} setQuestionsSetings={setQuestionsSetings}/>}
         </Col>
-      </Row>
-      <Row className="justify-content-md-center" >
-        {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}
-        {consentSetings &&  <ConsenSection consentSetings={consentSetings} setConsentSetings={setConsentSetings}/>}
-        {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
-        {questionsSetings && <QuestionsSection questionsSetings={questionsSetings} setQuestionsSetings={setQuestionsSetings}/>}
-        {contactsSetings && <ContactsSetings contactsSetings={contactsSetings} setContactsSetings={setContactsSetings}/>}
       </Row>
     </>
   );

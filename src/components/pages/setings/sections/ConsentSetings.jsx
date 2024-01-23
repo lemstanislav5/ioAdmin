@@ -8,7 +8,7 @@ export const ConsenSection = ({consentSetings, setConsentSetings}) => {
   }
 
     return (
-      <Col xs={4} lg={6} sm={12}>
+      <Col>
         <h5 className="border-bottom">Политика обработки перснальных данных</h5>
         {
           Object.keys(consentSetings).map(name => (

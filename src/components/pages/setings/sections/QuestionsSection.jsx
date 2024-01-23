@@ -34,7 +34,7 @@ export const QuestionsSection = ({questionsSetings, setQuestionsSetings}) => {
   }
 
     return (
-      <Col xs={4} lg={6} sm={12}>
+      <Col>
         <h5 className="border-bottom">Вопросы для пользователя</h5>
         <Row  className="mb-3">
           <Col xs={1}>№</Col>

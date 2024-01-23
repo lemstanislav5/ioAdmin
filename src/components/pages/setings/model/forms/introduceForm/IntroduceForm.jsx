@@ -5,15 +5,13 @@ export const IntroduceForm = ({ SvgImages, handlerIntroduce }) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [visual, setVisual] = useState(true);
 
   const send = () => {
     if(name !== '' && email !== '' ) handlerIntroduce(name, email);
   }
-  if(!visual) return <></>;
   return(
     <div className={style.containerForm}>
-      <div className={style.closeForm} onClick={() => setVisual(false)}><SvgImages svg={'close'}/></div>
+      <div className={style.closeForm} ><SvgImages svg={'close'}/></div>
     <div className={style.headForm}>Представьтесь в чате</div>
       <div className={style.myForm}>
         <label className={style.labelForm}> Ваше имя: </label>

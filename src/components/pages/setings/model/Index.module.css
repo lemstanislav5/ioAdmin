@@ -1,0 +1,114 @@
+body{
+  background-color: #22232f!important;
+}
+.conteiner{
+  width: 330px!important;
+  height: 450px!important;
+  display: block;
+  position: relative;
+  font-size: 14px!important;
+  border-radius: 10px 30px 0 0;
+  box-shadow: -3px 4px 20px #333;
+  transition-duration: 500ms;
+  font-family: sans-serif;
+  font-weight: 100;
+  padding: 0!important;
+}
+.box_top{
+  height: 50px;
+  width: 100%;
+  display: block;
+  text-align: left;
+  border-radius: 10px 30px 0 0;
+}
+.box_top span{
+  padding: 16px 0 0 20px;
+  font-size: 16px;
+  font-weight: normal;
+  display: block;
+  top: 0;
+  position: absolute;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.box_messeges{
+  height: calc(450px - 125px);
+  width: 100%;
+  border-bottom: 1px #00000096 solid;
+  font-family: inherit;
+  font-size: 15px!important;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+.box_messeges::-webkit-scrollbar {
+  width: 5px;
+}
+
+.box_messeges::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.box_messeges::-webkit-scrollbar-thumb {
+  background-color: #6a688e;
+  outline: 1px solid slategrey;
+}
+.send{
+  position: absolute;
+  right: 5px;
+  bottom: 30px;
+  border: 1px solid;
+  padding: 10px 11px 6px 9px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.close{
+  position: absolute;
+  left: -20px;
+  top: 8px;
+  zoom: 1.5;
+  cursor: pointer;
+  transition-duration: 500ms;
+}
+.open{
+  position: absolute;
+  right: 9px;
+  top: 9px;
+  zoom: 1.5;
+  cursor: pointer;
+}
+.is_close{
+  bottom: 5px;
+  width: 330px;
+}
+.hideClose{
+  opacity: 1;
+}
+.move{
+  cursor: move;
+  position: inherit;
+  width: 88%;
+  height: 100%;
+}
+.backСall{
+  position: absolute;
+  right: 44px;
+  top: 9px;
+  zoom: 1.5;
+  cursor: pointer;
+}
+.phoneBox{
+  position: absolute;
+  top: 50px;
+  display: block;
+  left: 50%;
+  margin-left: -80px;
+  font-size: 16px;
+  padding: 3px;
+  background: #f9b729;
+}
+.tools{
+  display: inline-block;
+  display: flex;
+}

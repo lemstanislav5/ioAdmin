@@ -1,13 +1,10 @@
 import style from './Textarea.module.css';
 
-export const Textarea = ({ keyDown, placeholder, setTextMessage, message, backgroundColor }) => {
+export const Textarea = ({placeholder, backgroundColor}) => {
   return(
-    <textarea
-      onKeyDown={keyDown}
+    <textarea 
       className={style.textarea}
-      placeholder={placeholder}
-      onChange={(event) => setTextMessage(event.target.value)}
-      value={message}
+      placeholder={placeholder}  
       style={{'backgroundColor': backgroundColor}}
     />
   )

@@ -1,9 +1,8 @@
-.greetings {
-  margin: 2px 0px;
-  display: inline-block;
-  width: 100%;
+.container {
+  display: flex;
+  flex-direction: column;
 }
-.greetings div{
+.question{
   color: #fff;
   border: 1px #fff solid;
   padding: 4px 5px;
@@ -14,6 +13,6 @@
   cursor: pointer;
   float: right;
 }
-.greetings div:hover{
+.question:hover{
   background-color: darkgreen;
 }

@@ -73,7 +73,7 @@ export const Setings = () => {
       <Row>
         <Col xs={4}>
           <Button onClick={handlerSend} variant="primary" className='mb-3'><BsSave /> Сохранить</Button>
-          <Model colors={colorsSetings} contacts={contactsSetings}/>
+          <Model colors={colorsSetings} contacts={contactsSetings} questionsSetings={questionsSetings}/>
         </Col>
         <Col xs={8}>
           {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}

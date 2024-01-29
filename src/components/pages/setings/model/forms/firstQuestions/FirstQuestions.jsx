@@ -1,15 +1,20 @@
 import style from './FirstQuestions.module.css'
 
 
-export const FirstQuestions = ({handlerSend, initialFirstQuestions }) => {
-  if(initialFirstQuestions.length === 0) return false;
-
+export const FirstQuestions = ({questionsSetings }) => {
+  if(questionsSetings.length === 0) return false;
+  console.log(questionsSetings)
   return(
-    <div className={style.greetings}>
-      {
-        initialFirstQuestions.map((item, i) =>
-          ( <div key={'q' + i} onClick={(e) => { handlerSend(e.target.innerText) }}>{item}</div> ) )
-      }
+    <div className={style.container}>
+      { questionsSetings.map((item, i) => {
+        if(item.offOn === 1) return (
+        <div className={style.wrapper}> 
+          <div className={style.question} key={'q' + i}>
+            {item.question}
+          </div>
+        </div>)
+        return null;
+      } )}
     </div>
   )
 }

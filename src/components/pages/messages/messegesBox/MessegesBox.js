@@ -43,7 +43,7 @@ export default ({ messages, currentUser }) => {
     <div className={style.massagesBox} ref={messegesBox} >
       {
         messages
-          .filter(item => currentUser !== item.fromId || currentUser !== item.toId)
+          .filter(item => (currentUser === item.fromId || currentUser === item.toId))
           .map(({fromId, toId, text, time, type, read}, i) => {
             const direction = (currentUser !== fromId)? 'to': 'from', [mDate, mTime] = getDateTime(time);
             return (

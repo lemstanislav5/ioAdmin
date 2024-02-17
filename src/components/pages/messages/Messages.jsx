@@ -52,7 +52,7 @@ export const Messages = () => {
     if (currentUser !== null) {
       socket.emit('read', { currentUser }, () => dispatch(readMessages(currentUser)));
     }
-  }, [currentUser, socket, dispatch])
+  }, [currentUser, socket, dispatch, messages])
 
   useEffect(() => {
     if (socket !== null) {

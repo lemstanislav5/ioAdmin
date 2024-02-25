@@ -7,6 +7,7 @@ import { Textarea } from './textarea/Textarea';
 // import { Attachment } from './toolsForm/attachment/Attachment';
 // import { Record } from './toolsForm/record/Record';
 import { ContactsServise } from './contacts/ContactsServise';
+import {Top} from './top/Top';
 // import { ConsentPersonalData } from './consent/ConsentPersonalData';
 
-export {OpenChat, ContactsServise, Textarea, IntroduceForm, PhoneForm, FirstQuestions };
+export {OpenChat, ContactsServise, Textarea, IntroduceForm, PhoneForm, FirstQuestions, Top};

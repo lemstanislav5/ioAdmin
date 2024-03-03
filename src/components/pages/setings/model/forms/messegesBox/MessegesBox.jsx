@@ -4,9 +4,9 @@ import AudioPlayer from './audio/AudioPlayer';
 import VideoPlayer from './video/VideoPlayer';
 import style from './MessegesBox.module.css';
 import MyImage from './image/MyImage';
-import FileAvailabilityCheck from '../../hocs/FileAvailabilityCheck';
+import FileAvailabilityCheck from '../hocs/FileAvailabilityCheck';
 import Document from './document/Document';
-import {getDateTime} from '../../../services/getDateTime'
+import {getDateTime} from '../services/getDateTime'
 
 export const MessegesBox = memo(({ chatId, messeges, colors, SvgImages }) => {
   let date = useRef(null);

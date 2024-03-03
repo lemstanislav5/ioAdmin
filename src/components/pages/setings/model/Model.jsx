@@ -1,10 +1,15 @@
-import {ContactsServise, OpenChat, IntroduceForm, Textarea, PhoneForm, FirstQuestions, Top} from './forms/Forms';
+import {ContactsServise, OpenChat, IntroduceForm, Textarea, PhoneForm, FirstQuestions, Top, MessegesBox} from './forms/Forms';
 import {SvgImages} from './images/SvgImages';
 import Row from 'react-bootstrap/Row';
 import style from './Index.module.css';
 
 
 export const Model = ({colors, contacts, questionsSetings}) => {
+  const messeges = [{fromId: "nqyMtBt1my",toId: "admin", text: "Вы не скажете, сколько сейчас градусов ниже нуля?", time: 1709490687924, type:"text", read: 0},
+                    {fromId: "admin",toId: "nqyMtBt1my", text: "Ближе к вечеру и направо!", time: 1709494712504, type: "text", read:0},
+                    {fromId: "admin",toId: "nqyMtBt1my", text: "Возьмите зонт, ожидается завтрак...", time: 1709494712504, type: "text", read:0}],
+        chatId = "nqyMtBt1my";
+
   if (colors !== null &&  contacts !== null)
   return(
     <>
@@ -20,8 +25,6 @@ export const Model = ({colors, contacts, questionsSetings}) => {
             <div style={{'backgroundColor': colors.messeges}}>
               <div className={style.box_messeges}>
                 <IntroduceForm SvgImages={SvgImages}/>
-                {/* <FirstQuestions handlerSend={handlerSend} initialFirstQuestions={initialFirstQuestions}/> */}
-                {/* <MessegesBox chatId={chatId} messeges={messeges} colors={colors} SvgImages={SvgImages} /> */}
               </div>
             </div>
             <Textarea placeholder="Введите сообщение" backgroundColor={colors.conteiner}/>
@@ -44,7 +47,6 @@ export const Model = ({colors, contacts, questionsSetings}) => {
               <div className={style.box_messeges}>
                 <PhoneForm/>
                 <FirstQuestions questionsSetings={questionsSetings}/>
-                {/* <MessegesBox chatId={chatId} messeges={messeges} colors={colors} SvgImages={SvgImages} /> */}
               </div>
             </div>
             <Textarea placeholder="Введите сообщение" backgroundColor={colors.conteiner}/>
@@ -66,7 +68,7 @@ export const Model = ({colors, contacts, questionsSetings}) => {
             <div style={{'backgroundColor': colors.messeges}}>
               <div className={style.box_messeges}>
                 <FirstQuestions questionsSetings={questionsSetings}/>
-                {/* <MessegesBox chatId={chatId} messeges={messeges} colors={colors} SvgImages={SvgImages} /> */}
+                <MessegesBox chatId={chatId} messeges={messeges} colors={colors} SvgImages={SvgImages} />
               </div>
             </div>
             <Textarea placeholder="Введите сообщение" backgroundColor={colors.conteiner}/>

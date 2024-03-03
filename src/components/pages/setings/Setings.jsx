@@ -9,7 +9,8 @@ import {ConsenSection} from './sections/ConsentSetings';
 import {QuestionsSection} from './sections/QuestionsSection';
 import {ContactsSetings} from './sections/ContactsSetings';
 import {BsSave} from "react-icons/bs";
-import { Model } from './model/Model';
+import {Model} from './model/Model';
+import style from './Setings.module.css';
 
 export const Setings = () => {
   const [socket, setSocket] = useState(null);
@@ -71,11 +72,13 @@ export const Setings = () => {
   return (
     <>
       <Row>
-        <Col xs={4}>
-          <Button onClick={handlerSend} variant="primary" className='mb-3'><BsSave /> Сохранить</Button>
+        <Button onClick={handlerSend} variant="primary" className='mb-3'><BsSave />Сохранить</Button>
+      </Row>
+      <Row>
+        <Col xs={4} className={style.scrollBox}>
           <Model colors={colorsSetings} contacts={contactsSetings} questionsSetings={questionsSetings}/>
         </Col>
-        <Col xs={8}>
+        <Col xs={8} className={style.scrollBox}>
           {colorsSetings && <ColorsSection colors={colorsSetings} setColors={setColorsSetings}/>}
           {contactsSetings && <ContactsSetings contactsSetings={contactsSetings} setContactsSetings={setContactsSetings}/>}
           {socketSetings &&  <SocketSection socketSetings={socketSetings} setSocketSetings={setSocketSetings}/>}

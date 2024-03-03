@@ -1,6 +1,6 @@
 import { FirstQuestions } from './firstQuestions/FirstQuestions';
 import { IntroduceForm } from './introduceForm/IntroduceForm';
-// import { MessegesBox } from './messegesBox/MessegesBox';
+import { MessegesBox } from './messegesBox/MessegesBox';
 import { OpenChat } from './openChat/OpenChat';
 import { PhoneForm } from './phoneForm/PhoneForm';
 import { Textarea } from './textarea/Textarea';
@@ -10,4 +10,4 @@ import { ContactsServise } from './contacts/ContactsServise';
 import { Top } from './top/Top';
 // import { ConsentPersonalData } from './consent/ConsentPersonalData';
 
-export {OpenChat, ContactsServise, Textarea, IntroduceForm, PhoneForm, FirstQuestions, Top};
+export {OpenChat, ContactsServise, Textarea, IntroduceForm, PhoneForm, FirstQuestions, Top, MessegesBox};

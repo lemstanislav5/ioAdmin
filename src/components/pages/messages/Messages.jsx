@@ -92,12 +92,12 @@ export const Messages = () => {
   }
   return (
     <Row>
-      <Col xs={4}>
+      <Col xs={3}>
         <div className='text-center'>Пользователи</div>
         <Users messages={messages} usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </Col>
 
-      <Col xs={8}>
+      <Col xs={9}>
         <div className='text-center'>Диалог</div>
         <MessegesBox messages={messages} currentUser={currentUser} />
         <Form>

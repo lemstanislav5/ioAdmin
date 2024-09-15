@@ -103,8 +103,7 @@ export const Messages = () => {
           currentUser === null
           ? <div className={style.massagesBox}>
             <div className='alert alert-warning text-center'>
-              <h4>Выберете пользователя!</h4>
-              <p>Для отображения сообщений.</p>
+              <h5>Для отображения сообщений выберете пользователя!</h5>
             </div>
           </div>
           : <>

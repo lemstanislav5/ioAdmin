@@ -6,6 +6,7 @@ import VideoPlayer from './video/VideoPlayer';
 import MyImage from './image/MyImage';
 import style from './MessegesBox.module.css'
 import { SvgImages } from '../../../images/SvgImages';
+import newDocument from './newDocument/NewDocument'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ messages, currentUser }) => {
@@ -28,17 +29,6 @@ export default ({ messages, currentUser }) => {
   }
 
   if (messages.length === 0) return <h3>Сообщений пока нет!</h3>
-  if (currentUser === null) {
-    return (
-      <div className={style.massagesBox}>
-        <div className='alert alert-warning text-center'>
-          <h4>Выберете пользователя!</h4>
-          <p>Для отображения сообщений.</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className={style.massagesBox} ref={messegesBox} >
       {
@@ -53,7 +43,7 @@ export default ({ messages, currentUser }) => {
                   {type === 'text' && <div className={style.message}>{text}</div>}
                   {type === 'notification' && <div className={style.notificationText}>{text}</div>}
                   {(type === 'jpeg' || type === 'jpg' || type === 'png') && <FileAvailabilityCheck className={style.image} url={text} SvgImages={SvgImages} Component={MyImage}/>}
-                  {(type === 'pdf' || type === 'doc' || type === 'docx' || type === 'txt') && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={Document}/>}
+                  {(type === 'pdf' || type === 'doc' || type === 'docx' || type === 'txt') && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={newDocument}/>}
                   {type === 'mp3' && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={AudioPlayer}/>}
                   {type === 'mp4' && <FileAvailabilityCheck url={text} SvgImages={SvgImages} Component={VideoPlayer}/>}
                   <div className={type === 'notification'? style.bottomNotification : style.bottomMessage}>

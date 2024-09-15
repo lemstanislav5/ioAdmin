@@ -52,7 +52,7 @@ export const Messages = () => {
     if (currentUser !== null) {
       socket.emit('read', { currentUser }, () => dispatch(readMessages(currentUser)));
     }
-  }, [currentUser, socket, dispatch, messages])
+  }, [currentUser, socket, dispatch])
 
   useEffect(() => {
     if (socket !== null) {
@@ -98,20 +98,31 @@ export const Messages = () => {
       </Col>
 
       <Col xs={9}>
-        <div className='text-center'>Диалог</div>
-        <MessegesBox messages={messages} currentUser={currentUser} />
-        <Form>
-          <br />
-          <Form.Group className="mb-3" controlId="exampleForm.Messages">
-            <Form.Control as="textarea"
-            disabled={(currentUser === null)? true: false} onKeyDown={keyDown} placeholder="Введите Ваше сообщение" value={textMessage} onChange={e => {setTextMessage(e.target.value)}}/>
-          </Form.Group>
-          <Button variant="primary" onClick={sendText} disabled={(currentUser === null || isSend)? true: false}>Отправить</Button>{' '}
-          <div className={style.tools}>
-              <Attachment color={'#000'} handlerFileСheck={handlerFileСheck}/>
-              <Record handlerFileСheck={handlerFileСheck}/>
+      <div className='text-center'>Диалог</div>
+        {
+          currentUser === null
+          ? <div className={style.massagesBox}>
+            <div className='alert alert-warning text-center'>
+              <h4>Выберете пользователя!</h4>
+              <p>Для отображения сообщений.</p>
+            </div>
           </div>
-        </Form>
+          : <>
+          <MessegesBox messages={messages} currentUser={currentUser} />
+          <Form>
+            <br />
+            <Form.Group className="mb-3" controlId="exampleForm.Messages">
+              <Form.Control as="textarea"
+              disabled={(currentUser === null)? true: false} onKeyDown={keyDown} placeholder="Введите Ваше сообщение" value={textMessage} onChange={e => {setTextMessage(e.target.value)}}/>
+            </Form.Group>
+              <Button variant="primary" onClick={sendText} disabled={(currentUser === null || isSend || textMessage === '')? true: false}>Отправить</Button>{' '}
+              <div className={style.tools}>
+                <Attachment color={'#000'} handlerFileСheck={handlerFileСheck}/>
+                <Record handlerFileСheck={handlerFileСheck}/>
+              </div>
+          </Form>
+          </>
+        }  
       </Col>
     </Row>
   );

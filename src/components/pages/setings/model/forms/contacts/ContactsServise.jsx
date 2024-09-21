@@ -2,7 +2,7 @@
 import React from 'react';
 import style from './ContactsServise.module.css';
 
-export const ContactsServise = ({ SvgImages, contacts }) => {
+export const ContactsServise = ({ SvgImages, contacts, color }) => {
   const { Telegram, VKontakte, WhatsApp } = contacts;
 
   return (
@@ -11,7 +11,7 @@ export const ContactsServise = ({ SvgImages, contacts }) => {
           Telegram !== null
           ? <a href={'https://t.me/' + Telegram} target='_blank' rel='nofollow noopener noreferrer'>
               <SvgImages svg='Telegram'/>
-              <div>Telegram</div>
+              <div style={{color: color}}>Telegram</div>
             </a>
           : null
         }
@@ -19,7 +19,7 @@ export const ContactsServise = ({ SvgImages, contacts }) => {
           VKontakte !== null
           ? <a href={'https://vk.com/im?sel=-' + VKontakte} target='_blank' rel='nofollow noopener noreferrer'>
               <SvgImages svg='VKontakte'/>
-              <div>VKontakte</div>
+              <div style={{color: color}}>VKontakte</div>
             </a>
           : null
         }
@@ -27,7 +27,7 @@ export const ContactsServise = ({ SvgImages, contacts }) => {
           WhatsApp !== null
           ? <a className={style.lastLinck} href={'https://wa.me/' + WhatsApp} target='_blank' rel='nofollow noopener noreferrer'>
               <SvgImages svg='WhatsApp'/>
-              <div>WhatsApp</div>
+              <div style={{color: color}}>WhatsApp</div>
             </a>
           : null
         }

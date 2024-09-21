@@ -17,7 +17,7 @@ export const Model = ({colors, contacts, questionsSetings}) => {
         <OpenChat colorStart={colors.text} colorEnd={colors.top}/>
       </Row>
       <Row className='mb-3'>
-        <ContactsServise SvgImages={SvgImages} contacts={contacts}/>
+        <ContactsServise SvgImages={SvgImages} contacts={contacts} color={colors.top} />
       </Row>
       <Row className='mb-3'>
         <div className={style.conteiner}>

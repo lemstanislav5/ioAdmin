@@ -1,5 +1,6 @@
 import ListGroup from 'react-bootstrap/ListGroup';
-import style from './Users.module.css'
+import style from './Users.module.css';
+import {SvgImages} from '../../../images/SvgImages'; 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
   const {messages, usersList, currentUser, setCurrentUser} = props;
@@ -19,7 +20,9 @@ export default (props) => {
           let active = currentUser !== chatId ? style.inactive : style.active;
           return (
             <ListGroup.Item className={active} key={i +'_'+socketId} onClick={() => setCurrentUser(chatId)}>
-            <span>{'id' + id +': ' + currentName}</span>
+            <span className={style.id}>{'id' + id}</span>
+            <SvgImages svg='user' fill={'#333'}/>
+            <span>{currentName}</span>
             <span className={style[status]}>{status}</span>
             <span className={style.count}>{count}</span>
             </ListGroup.Item>

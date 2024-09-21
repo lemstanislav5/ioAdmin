@@ -12,6 +12,7 @@ import style from './Messages.module.css';
 import {Attachment} from './toolsForm/attachment/Attachment';
 import {Record} from './toolsForm/record/Record';
 
+
 export const Messages = () => {
   const e = new Date();
   const dispatch = useDispatch();
@@ -93,12 +94,12 @@ export const Messages = () => {
   return (
     <Row>
       <Col xs={3}>
-        <div className='text-center'>Пользователи</div>
+        <div className={'text-center' + ' ' + style.headers}>Пользователи</div>
         <Users messages={messages} usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </Col>
 
       <Col xs={9}>
-      <div className='text-center'>Диалог</div>
+      <div className={'text-center' + ' ' + style.headers}>Диалог</div>
         {
           currentUser === null
           ? <div className={style.massagesBox}>

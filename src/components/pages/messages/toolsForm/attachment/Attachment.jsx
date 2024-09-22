@@ -14,7 +14,7 @@ export const Attachment = ({color, handlerFileСheck}) => {
       <div className={style.attachment} onClick={() => {
           inputRef.current.click()
         }}>
-        <SvgImages svg={'attachment'} fill={color} />
+        <SvgImages svg={'attachment'} fill={'#fff'} />
       </div>
       <input ref={inputRef} className={style.inputFile} type="file" onChange={event => handleFileChange(event)}/>
     </>

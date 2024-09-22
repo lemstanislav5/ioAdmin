@@ -25,7 +25,7 @@
   display: grid;
   word-wrap: break-word;
   border: 1px #333 solid;
-  background-color: rgb(110, 90, 59);
+  background-color: #3F51B5;
 }
 .to{
   width: 89%;
@@ -39,7 +39,7 @@
   display: grid;
   word-wrap: break-word;
   border: 1px #333 solid;
-  background-color: rgb(94, 120, 94);
+  background-color: #408840;
 }
 img{
   max-width: 100%;
@@ -198,7 +198,7 @@ img{
 }
 .massagesBox{
   height: 400px;
-  background-color: #000;
+  background-color: #3e3f4e;
   padding: 10px;
   overflow-y: scroll;
 }

@@ -119,7 +119,7 @@ export const SvgImages = (props) => {
         </svg>
       }
       {svg === 'user' &&
-        <svg viewBox="0 0 512 512" enable-background="new 0 0 512 512"  width="40" height="40" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" >
+        <svg viewBox="0 0 512 512" enableBackground="new 0 0 512 512"  width="40" height="40" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" >
         <g>
           <g>
             <g>

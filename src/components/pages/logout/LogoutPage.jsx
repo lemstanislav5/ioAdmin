@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AuthService from "../../../api/auth";
+import AuthService from "../../../api/api";
 import { Navigate } from "react-router-dom";
 import { Preloader } from '../../../components/preloader/Preloader';
 

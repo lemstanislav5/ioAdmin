@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
-import AuthService from "../api/auth";
+import AuthService from "../api/api";
 import { Preloader } from '../components/preloader/Preloader';
 import { useDispatch } from 'react-redux';
 import {authenticationActionCreator} from '../redux/actions';
@@ -13,6 +13,7 @@ const PrivateRoute = (props) => {
     if (auth === null) {
       AuthService.messages()
         .then(res => {
+          console.log(res)
           setTimeout(() => setAuth(true), 500);
           dispatch(authenticationActionCreator(res.data.login));
         })
@@ -23,7 +24,7 @@ const PrivateRoute = (props) => {
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(auth)
   if (auth === null) return <Preloader />
   if (auth === true) return <Component />;
   if (auth === false) return <Navigate to="/login" />;

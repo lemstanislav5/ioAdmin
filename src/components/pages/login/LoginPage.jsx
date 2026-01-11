@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import AuthService from "../../../api/auth";
+import AuthService from "../../../api/api";
 import { Navigate } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert';
 
@@ -15,7 +15,6 @@ export default function LoginPage() {
   const sendLogAndPass = (login, password) => {
     AuthService.login(login, password)
       .then(res => {
-        localStorage.setItem("token", res.data.token);
         setAccess(true);
       })
       .catch((err) => {

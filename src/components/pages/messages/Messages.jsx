@@ -26,7 +26,10 @@ export const Messages = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socketInstance = io('http://localhost:4000/admin', {
-      query: {token},
+      auth: { token },
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
     });
 
     setSocket(socketInstance);

@@ -16,7 +16,7 @@ import {Record} from './toolsForm/record/Record';
 export const Messages = () => {
   const e = new Date();
   const dispatch = useDispatch();
-  const {messages} = useSelector(store => store);
+  const {messages} = useSelector(store => store.messages);
   const {usersList, currentUser} = useSelector(store => store.users);
   const [socket, setSocket] = useState(null);
   const [textMessage, setTextMessage] = useState('');
@@ -25,13 +25,13 @@ export const Messages = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const socketInstance = io('http://localhost:4000', {
+    const socketInstance = io('http://localhost:4000/admin', {
       query: {token},
     });
 
     setSocket(socketInstance);
 
-    socketInstance.on('connect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
+    socketInstance.on('connect', () => console.log('connect'));//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('disconnect', () => {});//! ЗАПОЛНИТЬ ФУНКЦИЮ
     socketInstance.on('getUsers', (users) => dispatch(usersActionCreator(users)));
     socketInstance.on('newMessage', (message) => dispatch(addMessageCreator(message)));

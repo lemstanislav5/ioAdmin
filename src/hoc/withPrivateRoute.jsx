@@ -24,7 +24,6 @@ const PrivateRoute = (props) => {
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(auth)
   if (auth === null) return <Preloader />
   if (auth === true) return <Component />;
   if (auth === false) return <Navigate to="/login" />;
